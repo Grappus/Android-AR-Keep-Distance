@@ -195,7 +195,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_232DP"
             android:src="@drawable/ic_close"
-            app:backgroundTint="@color/colorAccent"
+            app:backgroundTint="@color/startButtonColor"
             app:elevation="@dimen/_2DP"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
