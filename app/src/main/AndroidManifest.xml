@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.grappus.covidar.android">
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-feature
-        android:name="android.hardware.camera.ar"
-        android:required="true" />
+    package="android.tesseract.jio.covid19">
 
     <application
-        android:name=".SampleApplication"
+        android:name="android.tesseract.jio.covid19.SampleApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,22 +18,8 @@
         tools:replace="android:allowBackup"
         tools:targetApi="n">
 
-        <!--<meta-data
-            android:name="com.google.ar.core"
-            android:value="required" />
-
-        <activity android:name=".ar.ARActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
-
         <activity
-            android:name=".SampleActivity"
+            android:name="android.tesseract.jio.covid19.SampleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>

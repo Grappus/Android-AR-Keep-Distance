@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.grappus.covidar.android.ar.splash.SplashFragment"
+        android:name="android.tesseract.jio.covid19.ar.splash.SplashFragment"
         android:label="SplashFragment" >
         <action
             android:id="@+id/action_splashFragment_to_permissionFragment"
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/permissionFragment"
-        android:name="com.grappus.covidar.android.ar.permission.PermissionFragment"
+        android:name="android.tesseract.jio.covid19.ar.permission.PermissionFragment"
         android:label="PermissionFragment" >
         <action
             android:id="@+id/action_permissionFragment_to_sessionStartFragment"
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/walkThroughFragment"
-        android:name="com.grappus.covidar.android.ar.walkthrough.WalkThroughFragment"
+        android:name="android.tesseract.jio.covid19.ar.walkthrough.WalkThroughFragment"
         android:label="WalkThroughFragment" >
         <action
             android:id="@+id/action_walkThroughFragment_to_permissionFragment"
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/sessionStartFragment"
-        android:name="com.grappus.covidar.android.ar.core.sessions.start.SessionStartFragment"
+        android:name="android.tesseract.jio.covid19.ar.core.sessions.start.SessionStartFragment"
         android:label="SessionStartFragment" >
         <action
             android:id="@+id/action_sessionStartFragment_to_sessionEndFragment"
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/sessionEndFragment"
-        android:name="com.grappus.covidar.android.ar.core.sessions.end.SessionEndFragment"
+        android:name="android.tesseract.jio.covid19.ar.core.sessions.end.SessionEndFragment"
         android:label="SessionEndFragment" >
         <action
             android:id="@+id/action_sessionEndFragment_to_sessionStartFragment"

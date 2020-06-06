@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.grappus.covidar.android.ar">
+    package="android.tesseract.jio.covid19.ar">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -15,7 +15,7 @@
             android:value="required" />
 
         <activity
-            android:name=".ARActivity"
+            android:name="android.tesseract.jio.covid19.ar.ARActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
     </application>

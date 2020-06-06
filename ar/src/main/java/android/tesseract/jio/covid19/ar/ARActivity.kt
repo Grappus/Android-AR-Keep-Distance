@@ -1,0 +1,12 @@
+package android.tesseract.jio.covid19.ar
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+
+class ARActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_ar)
+    }
+}

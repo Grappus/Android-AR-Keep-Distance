@@ -20,7 +20,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.grappus.covidar.android.ar.utils.GraphicOverlay
+        <android.tesseract.jio.covid19.ar.utils.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
