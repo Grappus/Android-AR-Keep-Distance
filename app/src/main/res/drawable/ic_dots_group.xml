@@ -1,0 +1,222 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="398dp"
+    android:height="132dp"
+    android:viewportWidth="398"
+    android:viewportHeight="132">
+  <path
+      android:pathData="M245,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M245,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#004CA7"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M245,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M245,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M220,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M220,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M220,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M220,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M195,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M195,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M195,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M195,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M270,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M270,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M270,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M270,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M295,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M295,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M295,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M295,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M320,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M320,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M320,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M320,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M345,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M345,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#004CA7"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M345,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M345,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M345,53m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M345,78m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M370,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#004CA7"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M370,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M370,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#004CA7"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M370,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M370,53m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M370,78m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M395,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M395,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M395,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M395,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M395,53m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M395,78m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M3,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#004CA7"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M3,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M3,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#004CA7"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M3,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M3,53m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M3,78m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M28,3m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M28,104m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#B41445"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M28,28m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#C09918"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M28,129m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M28,53m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M28,78m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
+      android:fillColor="#333EF0"
+      android:fillType="evenOdd"/>
+</vector>

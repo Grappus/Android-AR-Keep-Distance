@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Keep Distance</string>
+
+    <!-- Custom Fonts-->
+    <string name="font_bold">"Inter_bold.ttf"</string>
+    <string name="font_medium">"Inter_medium.ttf"</string>
+    <string name="font_semi_bold">"Inter_semi_bold.ttf"</string>
+    <string name="btn_start_session">Start Session</string>
+    <string name="label_safety">Safety</string>
+    <string name="label_time">Time</string>
+    <string name="label_violations">Violations</string>
+    <string name="btn_end_session">End Session</string>
+    <string name="alrt_safe_distance_violated">Safe distance violated</string>
+    <string name="alrt_move_away_to_a_safe_distance">Move away to a safe distance</string>
+    <string name="label_session_ended">Session ended</string>
+
+</resources>

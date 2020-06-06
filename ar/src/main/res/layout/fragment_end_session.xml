@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".ar.core.sessions.end.SessionEndFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvSessionEndDialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_255DP"
+            android:layout_marginStart="@dimen/_8DP"
+            android:layout_marginEnd="@dimen/_8DP"
+            app:cardBackgroundColor="@color/sessionCardBackgroundColor"
+            app:cardCornerRadius="@dimen/_12DP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_26DP"
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ic_flag" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_16DP"
+                    android:text="@string/label_session_ended"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/_17SP"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_4DP"
+                    android:lineSpacingExtra="@dimen/_5SP"
+                    android:text="You’re now at the 205th position\non the leaderboard!"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorGray"
+                    android:textSize="@dimen/_10SP"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/endSessionWatchLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_17DP"
+                    android:layout_marginTop="@dimen/_20DP"
+                    android:layout_marginEnd="@dimen/_17DP"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/endSessionSafetyPercentLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_happy"
+                            android:drawablePadding="@dimen/_3DP"
+                            android:text="@string/label_safety"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="@dimen/_9SP"
+                            app:customFont="@{@string/font_semi_bold}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="84%"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="@dimen/_14SP"
+                            android:textStyle="bold"
+                            app:customFont="@{@string/font_bold}" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/endSessionSafetyDivider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10DP"
+                        android:contentDescription="@null"
+                        app:layout_constraintStart_toEndOf="@id/endSessionSafetyPercentLayout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_path_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/endSessionTimeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12DP"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/endSessionSafetyDivider"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_time"
+                            android:drawablePadding="@dimen/_3DP"
+                            android:text="@string/label_time"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="@dimen/_9SP"
+                            app:customFont="@{@string/font_semi_bold}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1 hr 30 m"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="@dimen/_14SP"
+                            android:textStyle="bold"
+                            app:customFont="@{@string/font_bold}" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/endSessionTimeDivider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10DP"
+                        android:contentDescription="@null"
+                        app:layout_constraintStart_toEndOf="@id/endSessionTimeLayout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_path_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/endSessionSafetyViolationsLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12DP"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/endSessionTimeDivider"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_warning"
+                            android:drawablePadding="@dimen/_3DP"
+                            android:text="@string/label_violations"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="@dimen/_9SP"
+                            app:customFont="@{@string/font_semi_bold}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1 violation"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="@dimen/_14SP"
+                            android:textStyle="bold"
+                            app:customFont="@{@string/font_bold}" />
+
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabCloseSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_232DP"
+            android:src="@drawable/ic_close"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="@dimen/_2DP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cvSessionEndDialog"
+            app:tint="@color/white"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

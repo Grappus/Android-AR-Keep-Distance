@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/_16DP">
+
+        <ImageView
+            android:id="@+id/ivJioLogo"
+            android:layout_width="@dimen/_44DP"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20DP"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_jio_logo" />
+
+        <TextView
+            android:id="@+id/tvPermissionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_18DP"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="@dimen/_5SP"
+            android:text="You need to enable the\nfollowing to use the app"
+            android:textColor="@color/textColorBlack"
+            android:textSize="@dimen/_18SP"
+            android:textStyle="bold"
+            app:customFont="@{@string/font_bold}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivJioLogo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGetStarted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16DP"
+            android:padding="@dimen/_14DP"
+            android:text="Get Started"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12SP"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/startButtonColor"
+            app:cornerRadius="@dimen/_26DP"
+            app:customFont="@{@string/font_semi_bold}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/_12DP"
+            app:layout_constraintBottom_toTopOf="@+id/btnGetStarted"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvPermissionHeader"
+            app:layout_constraintTop_toBottomOf="@+id/tvPermissionHeader">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/ic_camera_permission" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10DP"
+                    android:orientation="vertical" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_13SP"
+                        android:textColor="@color/textColorBlack"
+                        android:textStyle="bold"
+                        android:text="Camera"
+                        app:customFont="@{@string/font_bold}"
+                        tools:text="Camera" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/textColorGray"
+                        android:textStyle="bold"
+                        android:text="Enable to use the AR feature\nto detect your social distance"
+                        app:customFont="@{@string/font_medium}"
+                        tools:text="Enable to use the AR feature\nto detect your social distance" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_24DP">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/ic_location_permission" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10DP"
+                    android:orientation="vertical" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_13SP"
+                        android:textColor="@color/textColorBlack"
+                        android:textStyle="bold"
+                        android:text="Location"
+                        app:customFont="@{@string/font_bold}"
+                        tools:text="Location" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/textColorGray"
+                        android:textStyle="bold"
+                        android:text="We use your location for\nscoring on the leaderboard"
+                        app:customFont="@{@string/font_medium}"
+                        tools:text="We use your location for\nscoring on the leaderboard" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

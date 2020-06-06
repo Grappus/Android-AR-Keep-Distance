@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/topIcon"
+            android:layout_width="@dimen/_190DP"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginStart="@dimen/_16DP"
+            android:layout_marginEnd="@dimen/_16DP"
+            android:layout_marginTop="@dimen/_68DP"
+            android:src="@drawable/group_3_group_17_mask"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16DP"
+            android:layout_marginEnd="@dimen/_16DP"
+            android:layout_marginTop="@dimen/_44DP"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="@dimen/_5SP"
+            android:text="Use the app to practice\nsafe social distancing"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18SP"
+            android:textStyle="bold"
+            app:customFont="@{@string/font_bold}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
