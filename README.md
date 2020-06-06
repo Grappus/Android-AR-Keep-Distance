@@ -1,9 +1,30 @@
 # android-ar-keep-distance
 AR library to detect pedestrian proximity walking near by
 
-## How to integrate
-1. Enable data binding in `app` module
+## How to add the gradle dependency
+1. Add the `JitPack` repository to your root `build.gradle` at the end of repositories
    ```
+   allprojects {
+   		repositories {
+   			...
+   			maven { url 'https://jitpack.io' }
+   		}
+   	}
+   ```
+2. Add the gradle dependency to you app `build.gradle` inside `dependencies`
+   ```
+   dependencies {
+   	    implementation 'com.github.Grappus:android-ar-keep-distance:<version>'
+   }
+   ```
+
+## How to integrate
+1. In your app `build.gradle`, add `java` compatibility & enable `data binding`
+   ```
+   compileOptions {
+           sourceCompatibility JavaVersion.VERSION_1_8
+           targetCompatibility JavaVersion.VERSION_1_8
+   }
    viewBinding {
         enabled = true
    }
