@@ -29,7 +29,7 @@
             android:name="com.google.ar.core"
             android:value="required" />
 
-        <activity android:name=".ui.MainActivity"
+        <activity android:name=".ui.ARActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>

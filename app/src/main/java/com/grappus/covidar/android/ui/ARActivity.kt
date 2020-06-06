@@ -1,10 +1,10 @@
 package com.grappus.covidar.android.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.grappus.covidar.android.R
 
-class MainActivity : AppCompatActivity() {
+class ARActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
