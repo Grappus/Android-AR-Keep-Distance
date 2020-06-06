@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.grappus.covidar.android.ar.R
 import com.grappus.covidar.android.ar.databinding.FragmentEndSessionBinding
 
 /**
@@ -29,9 +31,8 @@ class SessionEndFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO Handle back navigation
-        /*binding.fabCloseSession.setOnClickListener {
+        binding.fabCloseSession.setOnClickListener {
             findNavController().navigate(R.id.action_sessionEndFragment_to_sessionStartFragment)
-        }*/
+        }
     }
 }

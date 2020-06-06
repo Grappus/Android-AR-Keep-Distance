@@ -2,7 +2,6 @@ package com.grappus.covidar.android.ar.utils
 
 import android.graphics.*
 import android.media.Image
-import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder

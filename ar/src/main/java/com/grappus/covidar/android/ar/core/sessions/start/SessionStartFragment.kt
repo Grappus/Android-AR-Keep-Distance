@@ -9,11 +9,13 @@ import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.ar.core.*
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.ArSceneView
@@ -32,7 +34,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.io.IOException
 import java.util.*
 
@@ -40,6 +41,8 @@ import java.util.*
  * Created by Dipanshu Harbola on 6/6/20.
  */
 class SessionStartFragment : Fragment() {
+
+    private val TAG = SessionStartFragment::class.java.simpleName
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentStartSessionBinding.inflate(
@@ -101,7 +104,7 @@ class SessionStartFragment : Fragment() {
 
     private fun initComponents() {
         if (checkIsSupportedDeviceOrFinish(requireActivity())) {
-            Timber.i("ARCore is ready to use")
+            Log.i(TAG, "ARCore is ready to use")
         } else return
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
@@ -245,7 +248,7 @@ class SessionStartFragment : Fragment() {
                 onPreviewSizeSelect()
                 executeKernelTask()
             } catch (e: Exception) {
-                Timber.e("Exception copying image: $e")
+                e.printStackTrace()
             }
             image?.close()
         } catch (e: java.lang.Exception) {
@@ -267,10 +270,6 @@ class SessionStartFragment : Fragment() {
             )
         } catch (e: IOException) {
             e.printStackTrace()
-            Timber.e(
-                e,
-                "Exception initializing classifier!"
-            )
             val toast = Toast.makeText(
                 requireContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT
             )
@@ -320,9 +319,7 @@ class SessionStartFragment : Fragment() {
             return
         }
         computingDetection = true
-        Timber.i("Preparing image $currTimestamp for detection in bg thread.")
         bgScope.launch {
-            Timber.i("Running detection on image $currTimestamp")
             val results: List<Classifier.Recognition> =
                 detector!!.recognizeImage(newBitmap)
             val mappedRecognitions: MutableList<Classifier.Recognition> =
@@ -416,7 +413,7 @@ class SessionStartFragment : Fragment() {
             session = null
         }
         readyToProcessFrame = false
-        //TODO findNavController().navigate(R.id.action_sessionStartFragment_to_sessionEndFragment)
+        findNavController().navigate(R.id.action_sessionStartFragment_to_sessionEndFragment)
     }
 
     companion object {

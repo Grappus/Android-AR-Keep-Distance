@@ -51,6 +51,11 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    //Tests
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -67,16 +72,18 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
-    //Tests
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    //Runtime permission
+    implementation 'com.karumi:dexter:6.1.2'
+
+    //Location service
+    implementation "com.google.android.gms:play-services-location:$location_service_version"
 
     //Tensor flow lite
     implementation "org.tensorflow:tensorflow-lite:$tf_lite_version"
-
-    //Timber
-    implementation "com.jakewharton.timber:timber:$timber_version"
 
     //Ar core
     implementation "com.google.ar:core:$ar_sceneform_version"
