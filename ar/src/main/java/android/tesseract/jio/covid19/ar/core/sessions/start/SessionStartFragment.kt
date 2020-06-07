@@ -103,9 +103,6 @@ class SessionStartFragment : Fragment() {
     }
 
     private fun initComponents() {
-        if (checkIsSupportedDeviceOrFinish(requireActivity())) {
-            Log.i(TAG, "ARCore is ready to use")
-        } else return
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
 
@@ -133,23 +130,6 @@ class SessionStartFragment : Fragment() {
         binding.layoutSessionInfo.btnEndSession.setOnClickListener {
             clearAnchor()
         }
-    }
-
-    // check if device is support the ARCore's basic requirements.
-    private fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
-        val openGlVersionString =
-            (activity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-                .deviceConfigurationInfo
-                .glEsVersion
-        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.N) || openGlVersionString.toDouble() < 3.0) {
-            Toast.makeText(
-                requireContext(),
-                "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG
-            ).show()
-            activity.finish()
-            return false
-        }
-        return true
     }
 
     // Simply returns the center of the screen
@@ -277,7 +257,7 @@ class SessionStartFragment : Fragment() {
             requireActivity().finish()
         }
         // width = 300, height = 300 cause SSD model support 300 x300 image to detect object
-        binding.graphicOverlay.setConfiguration(300, 300)
+        binding.graphicOverlay.setConfiguration(TF_OD_API_INPUT_SIZE, TF_OD_API_INPUT_SIZE)
     }
 
     /**
@@ -313,7 +293,6 @@ class SessionStartFragment : Fragment() {
      */
     private fun processImage(newBitmap: Bitmap) {
         ++timestamp
-        val currTimestamp = timestamp
         binding.graphicOverlay.postInvalidate()
         if (computingDetection) {
             return
@@ -362,7 +341,6 @@ class SessionStartFragment : Fragment() {
                             mappedRecognitions.add(result)
                         }
                     }
-                    // Handle the case if no person detected now but conflicted before. Should have to normalize the ui.
                 }
             }
             updateUi(mappedRecognitions)
@@ -393,14 +371,14 @@ class SessionStartFragment : Fragment() {
                 sessionViolatedLayout.visibility = View.VISIBLE
                 sessionWatchLayout.visibility = View.GONE
                 btnEndSession.strokeWidth = 0
-                cvSessionInfo.strokeWidth = 3
+                cvSessionInfo.strokeWidth = 4
                 cvSessionInfo.strokeColor = Color.parseColor("#ee1d1d")
             }
         } else {
             binding.layoutSessionInfo.run {
                 sessionViolatedLayout.visibility = View.GONE
                 sessionWatchLayout.visibility = View.VISIBLE
-                btnEndSession.strokeWidth = 3
+                btnEndSession.strokeWidth = 4
                 cvSessionInfo.strokeWidth = 0
                 val colorInt = requireContext().getColor(R.color.white)
                 btnEndSession.strokeColor = ColorStateList.valueOf(colorInt)
@@ -408,8 +386,11 @@ class SessionStartFragment : Fragment() {
         }
     }
 
+    // Remove the existing scene and anchor
     private fun clearAnchor() {
         if (sceneView != null) {
+            oldAnchorNode?.renderable = null
+            oldAnchor?.detach()
             session = null
         }
         readyToProcessFrame = false

@@ -1,5 +1,6 @@
 package android.tesseract.jio.covid19.ar
 
+import android.graphics.Color
 import android.os.Bundle
 import android.tesseract.jio.covid19.ar.core.sessions.end.SessionEndFragment
 import android.tesseract.jio.covid19.ar.core.sessions.start.SessionStartFragment
@@ -10,6 +11,8 @@ import androidx.navigation.fragment.NavHostFragment
 class ARActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.statusBarColor = getColor(R.color.baseBgColor)
+        window.navigationBarColor = getColor(R.color.baseBgColor)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ar)
     }
