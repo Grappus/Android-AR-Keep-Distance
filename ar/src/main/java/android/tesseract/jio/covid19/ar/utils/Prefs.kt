@@ -4,18 +4,18 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.PREF_NAME
-import androidx.annotation.Keep
 
 /**
  * Created by Dipanshu Harbola on 4/6/20.
  */
-@Keep object Prefs {
+object Prefs {
 
     private var prefs: SharedPreferences? = null
 
     fun init(context: Context) {
         prefs = context.getSharedPreferences(
-            PREF_NAME, Activity.MODE_PRIVATE)
+            PREF_NAME, Activity.MODE_PRIVATE
+        )
     }
 
     fun clear() {
