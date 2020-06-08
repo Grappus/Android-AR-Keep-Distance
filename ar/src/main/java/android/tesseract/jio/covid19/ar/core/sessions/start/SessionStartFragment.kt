@@ -1,15 +1,17 @@
 package android.tesseract.jio.covid19.ar.core.sessions.start
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.*
 import android.graphics.Point
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
+import android.tesseract.jio.covid19.ar.tflite.Classifier
+import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
+import android.tesseract.jio.covid19.ar.utils.ImageUtils
+import android.tesseract.jio.covid19.ar.utils.rotate
+import android.tesseract.jio.covid19.ar.utils.scaleBitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +25,6 @@ import com.google.ar.sceneform.SceneView
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
-import android.tesseract.jio.covid19.ar.R
-import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
-import android.tesseract.jio.covid19.ar.tflite.Classifier
-import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
-import android.tesseract.jio.covid19.ar.utils.ImageUtils
-import android.tesseract.jio.covid19.ar.utils.rotate
-import android.tesseract.jio.covid19.ar.utils.scaleBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -40,7 +35,7 @@ import java.util.*
 /**
  * Created by Dipanshu Harbola on 6/6/20.
  */
-class SessionStartFragment : Fragment() {
+internal class SessionStartFragment : Fragment() {
 
     private val TAG = SessionStartFragment::class.java.simpleName
 

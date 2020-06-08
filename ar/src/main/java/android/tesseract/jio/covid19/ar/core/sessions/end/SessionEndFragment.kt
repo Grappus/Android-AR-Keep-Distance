@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
  * Created by Dipanshu Harbola on 5/6/20.
  *
  */
-class SessionEndFragment : Fragment() {
+internal class SessionEndFragment : Fragment() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentEndSessionBinding.inflate(
