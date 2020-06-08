@@ -4,17 +4,16 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
+import android.tesseract.jio.covid19.ar.utils.Prefs
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.FINISHED_WALKTHROUGH
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import android.tesseract.jio.covid19.ar.R
-import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
-import android.tesseract.jio.covid19.ar.utils.Prefs
-import android.tesseract.jio.covid19.ar. utils.PrefsConstants.FINISHED_WALKTHROUGH
-import androidx.annotation.Keep
 
 
 /**
@@ -22,7 +21,11 @@ import androidx.annotation.Keep
  */
 class SplashFragment : Fragment() {
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        FragmentSplashBinding.inflate(
+            layoutInflater
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +44,7 @@ class SplashFragment : Fragment() {
         Handler().postDelayed({
             if (!Prefs.getPrefsBoolean(FINISHED_WALKTHROUGH)) {
                 findNavController().navigate(R.id.action_splashFragment_to_walkThroughFragment)
-            }
-            else if (!arePermissionsGranted())
+            } else if (!arePermissionsGranted())
                 findNavController().navigate(R.id.action_splashFragment_to_permissionFragment)
             else {
                 findNavController().navigate(R.id.action_splashFragment_to_sessionStartFragment)
@@ -54,7 +56,10 @@ class SplashFragment : Fragment() {
         val permissionCamera =
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
         val permissionLocation =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
         return (permissionCamera == PackageManager.PERMISSION_GRANTED) && (permissionLocation == PackageManager.PERMISSION_GRANTED)
     }
 }
