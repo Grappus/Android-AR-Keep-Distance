@@ -2,6 +2,8 @@
 # traces later on. Keep a fixed source file attribute and all line number
 # tables to get line numbers in the stack traces.
 
--keepclassmembers class com.google.ar.core.** { *; }
+-keepnames class android.tesseract.jio.covid19.ar.*
 -keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
+-keep class * extends androidx.fragment.app.Fragment{}
+-keepclassmembers class com.google.ar.core.** { *; }
 -keep class org.tensorflow.** { *; }
