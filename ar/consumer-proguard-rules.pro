@@ -3,9 +3,11 @@
 # tables to get line numbers in the stack traces.
 
 -keepnames class android.tesseract.jio.covid19.ar.*
+-keep class android.tesseract.jio.covid19.ar.*
 -keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
 -keep class * extends androidx.fragment.app.Fragment{}
 -keep class * extends androidx.databinding.DataBinderMapper { *; }
+-keep class android.tesseract.jio.covid19.ar.databinding.** { *; }
 -keepclassmembers class com.google.ar.core.** { *; }
 -keep class org.tensorflow.** { *; }
 -keep class androidx.navigation.fragment.NavHostFragment
