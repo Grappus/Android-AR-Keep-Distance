@@ -5,7 +5,7 @@
 #-keepnames class android.tesseract.jio.covid19.ar.*
 #-keep class android.tesseract.jio.covid19.ar.*
 
--keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
+#-keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
 
 #-keep class * extends androidx.databinding.ViewDataBinding { *; }
 #-keep class * extends androidx.databinding.DataBinderMapper { *; }
