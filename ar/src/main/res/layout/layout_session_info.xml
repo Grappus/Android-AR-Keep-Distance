@@ -7,218 +7,208 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvSessionInfo"
+        <LinearLayout
+            android:id="@+id/llSessionInfo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_92DP"
             android:layout_marginStart="@dimen/_7DP"
             android:layout_marginTop="@dimen/_30DP"
             android:layout_marginEnd="@dimen/_7DP"
             android:visibility="gone"
-            app:cardBackgroundColor="@color/sessionCardBackgroundColor"
-            app:cardCornerRadius="@dimen/_12DP"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card_session_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sessionWatchLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_18DP"
+                android:layout_marginTop="@dimen/_20DP"
+                android:layout_marginEnd="@dimen/_18DP"
+                tools:visibility="gone"
                 android:orientation="horizontal">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/sessionWatchLayout"
+                <LinearLayout
+                    android:id="@+id/safetyPercentLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_happy"
+                        android:drawablePadding="@dimen/_3DP"
+                        android:text="@string/label_safety"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_9SP"
+                        app:customFont="@{@string/font_semi_bold}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="84%"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_14SP"
+                        android:textStyle="bold"
+                        app:customFont="@{@string/font_bold}" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/safetyDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10DP"
+                    app:layout_constraintStart_toEndOf="@id/safetyPercentLayout"
+                    android:contentDescription="@null"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_path_divider" />
+
+                <LinearLayout
+                    android:id="@+id/SessionTimeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12DP"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/safetyDivider"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_time"
+                        android:drawablePadding="@dimen/_3DP"
+                        android:text="@string/label_time"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_9SP"
+                        app:customFont="@{@string/font_semi_bold}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 hr 30 m"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_14SP"
+                        android:textStyle="bold"
+                        app:customFont="@{@string/font_bold}" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/timeDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10DP"
+                    app:layout_constraintStart_toEndOf="@id/SessionTimeLayout"
+                    android:contentDescription="@null"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_path_divider" />
+
+                <LinearLayout
+                    android:id="@+id/SafetyViolationsLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12DP"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/timeDivider"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_warning"
+                        android:drawablePadding="@dimen/_3DP"
+                        android:text="@string/label_violations"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_9SP"
+                        app:customFont="@{@string/font_semi_bold}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 violation"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_14SP"
+                        android:textStyle="bold"
+                        app:customFont="@{@string/font_bold}" />
+
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sessionViolatedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/safetyViolateLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_18DP"
-                    android:layout_marginTop="@dimen/_20DP"
-                    android:layout_marginEnd="@dimen/_18DP"
-                    tools:visibility="gone"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/_12DP"
+                    android:layout_marginTop="@dimen/_15DP"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:id="@+id/safetyPercentLayout"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_happy"
-                            android:drawablePadding="@dimen/_3DP"
-                            android:text="@string/label_safety"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_9SP"
-                            app:customFont="@{@string/font_semi_bold}" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="84%"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_14SP"
-                            android:textStyle="bold"
-                            app:customFont="@{@string/font_bold}" />
-
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/safetyDivider"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10DP"
-                        app:layout_constraintStart_toEndOf="@id/safetyPercentLayout"
-                        android:contentDescription="@null"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_path_divider" />
-
-                    <LinearLayout
-                        android:id="@+id/SessionTimeLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12DP"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/safetyDivider"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_time"
-                            android:drawablePadding="@dimen/_3DP"
-                            android:text="@string/label_time"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_9SP"
-                            app:customFont="@{@string/font_semi_bold}" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1 hr 30 m"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_14SP"
-                            android:textStyle="bold"
-                            app:customFont="@{@string/font_bold}" />
-
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/timeDivider"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10DP"
-                        app:layout_constraintStart_toEndOf="@id/SessionTimeLayout"
-                        android:contentDescription="@null"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_path_divider" />
-
-                    <LinearLayout
-                        android:id="@+id/SafetyViolationsLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12DP"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/timeDivider"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_warning"
-                            android:drawablePadding="@dimen/_3DP"
-                            android:text="@string/label_violations"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_9SP"
-                            app:customFont="@{@string/font_semi_bold}" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1 violation"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_14SP"
-                            android:textStyle="bold"
-                            app:customFont="@{@string/font_bold}" />
-
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/sessionViolatedLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:id="@+id/safetyViolateLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12DP"
-                        android:layout_marginTop="@dimen/_15DP"
+                        android:drawableStart="@drawable/ic_warning"
+                        android:drawablePadding="@dimen/_3DP"
                         android:layout_gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:text="@string/alrt_safe_distance_violated"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_9SP"
+                        app:customFont="@{@string/font_semi_bold}" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_warning"
-                            android:drawablePadding="@dimen/_3DP"
-                            android:layout_gravity="center"
-                            android:text="@string/alrt_safe_distance_violated"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_9SP"
-                            app:customFont="@{@string/font_semi_bold}" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/alrt_move_away_to_a_safe_distance"
-                            android:layout_gravity="center"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="@dimen/_14SP"
-                            android:textStyle="bold"
-                            app:customFont="@{@string/font_bold}" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/alrt_move_away_to_a_safe_distance"
+                        android:layout_gravity="center"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="@dimen/_14SP"
+                        android:textStyle="bold"
+                        app:customFont="@{@string/font_bold}" />
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+        </LinearLayout>
 
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEndSession"
             android:layout_width="@dimen/_125DP"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_66DP"
+            android:layout_marginTop="@dimen/_70DP"
             android:padding="@dimen/_12DP"
             android:text="@string/btn_end_session"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/_10SP"
+            android:gravity="center"
             android:visibility="gone"
-            app:backgroundTint="@color/endSessionButtonColor"
-            app:cornerRadius="@dimen/_20DP"
+            android:background="@drawable/bg_btn_end_session"
             app:customFont="@{@string/font_semi_bold}"
             app:layout_anchorGravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cvSessionInfo"
-            app:strokeColor="@color/sessionCardBackgroundColor"
-            app:strokeWidth="@dimen/_2DP"
+            app:layout_constraintTop_toTopOf="@id/llSessionInfo"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
