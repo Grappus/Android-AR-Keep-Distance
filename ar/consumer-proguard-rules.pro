@@ -10,3 +10,5 @@
 -keep class org.tensorflow.** { *; }
 -keep class androidx.navigation.fragment.NavHostFragment
 -keep class androidx.fragment.app.FragmentContainerView
+-dontwarn androidx.databinding.**
+-keep class androidx.databinding.** { *; }
