@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Keep Distance</string>
-
     <!-- Custom Fonts-->
     <string name="font_bold">"Inter_bold.ttf"</string>
     <string name="font_medium">"Inter_medium.ttf"</string>
