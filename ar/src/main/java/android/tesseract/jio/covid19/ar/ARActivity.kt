@@ -1,6 +1,5 @@
 package android.tesseract.jio.covid19.ar
 
-import android.graphics.Color
 import android.os.Bundle
 import android.tesseract.jio.covid19.ar.core.sessions.end.SessionEndFragment
 import android.tesseract.jio.covid19.ar.core.sessions.start.SessionStartFragment

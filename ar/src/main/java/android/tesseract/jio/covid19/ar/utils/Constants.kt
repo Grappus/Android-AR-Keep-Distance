@@ -5,5 +5,6 @@ package android.tesseract.jio.covid19.ar.utils
  */
 
 object PrefsConstants {
+    const val PREF_NAME = "covid_ar"
     const val FINISHED_WALKTHROUGH = "finish_walkthrough"
 }
