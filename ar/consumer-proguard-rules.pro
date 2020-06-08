@@ -6,7 +6,9 @@
 -keep class android.tesseract.jio.covid19.ar.*
 -keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
 -keep class * extends androidx.fragment.app.Fragment{}
+-keep class * extends androidx.databinding.ViewDataBinding { *; }
 -keep class * extends androidx.databinding.DataBinderMapper { *; }
+-keep class android.tesseract.jio.covid19.ar.DataBinderMapperImpl { *; }
 -keep class android.tesseract.jio.covid19.ar.databinding.** { *; }
 -keepclassmembers class com.google.ar.core.** { *; }
 -keep class org.tensorflow.** { *; }
