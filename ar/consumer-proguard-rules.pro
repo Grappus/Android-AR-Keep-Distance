@@ -7,10 +7,10 @@
 
 -keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
 
--keep class * extends androidx.databinding.ViewDataBinding { *; }
--keep class * extends androidx.databinding.DataBinderMapper { *; }
--keep class android.tesseract.jio.covid19.ar.DataBinderMapperImpl { *; }
--keep class android.tesseract.jio.covid19.ar.databinding.** { *; }
+#-keep class * extends androidx.databinding.ViewDataBinding { *; }
+#-keep class * extends androidx.databinding.DataBinderMapper { *; }
+#-keep class android.tesseract.jio.covid19.ar.DataBinderMapperImpl { *; }
+#-keep class android.tesseract.jio.covid19.ar.databinding.** { *; }
 -dontwarn androidx.databinding.**
 -keep class androidx.databinding.** { *; }
 
@@ -19,4 +19,4 @@
 
 -keep class androidx.navigation.fragment.NavHostFragment
 -keep class androidx.fragment.app.FragmentContainerView
--keep class * extends androidx.fragment.app.Fragment{}
+#-keep class * extends androidx.fragment.app.Fragment{}
