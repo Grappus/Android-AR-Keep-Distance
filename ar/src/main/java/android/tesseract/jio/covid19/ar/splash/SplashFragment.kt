@@ -14,11 +14,13 @@ import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar. utils.PrefsConstants.FINISHED_WALKTHROUGH
+import androidx.annotation.Keep
 
 
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
+@Keep
 class SplashFragment : Fragment() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
