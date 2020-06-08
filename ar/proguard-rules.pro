@@ -19,4 +19,4 @@
 
 -keep class androidx.navigation.fragment.NavHostFragment
 -keep class androidx.fragment.app.FragmentContainerView
-#-keep class * extends androidx.fragment.app.Fragment{}
+-keep class * extends androidx.fragment.app.Fragment{}
