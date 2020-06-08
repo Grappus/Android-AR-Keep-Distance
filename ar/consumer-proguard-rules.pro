@@ -5,6 +5,7 @@
 -keepnames class android.tesseract.jio.covid19.ar.*
 -keepclassmembers class android.tesseract.jio.covid19.ar.** { *; }
 -keep class * extends androidx.fragment.app.Fragment{}
+-keep class {}
 -keepclassmembers class com.google.ar.core.** { *; }
 -keep class org.tensorflow.** { *; }
 -keep class androidx.navigation.fragment.NavHostFragment
