@@ -11,5 +11,8 @@
     <string name="alrt_safe_distance_violated">Safe distance violated</string>
     <string name="alrt_move_away_to_a_safe_distance">Move away to a safe distance</string>
     <string name="label_session_ended">Session ended</string>
+    <string name="head_ar_safety_detection">AR SAFETY\nDETECTION</string>
+    <string name="head_you_need_to_enable_the_following_to_use_the_app">You need to enable the\nfollowing to use the app</string>
+    <string name="btn_get_started">Get Started</string>
 
 </resources>

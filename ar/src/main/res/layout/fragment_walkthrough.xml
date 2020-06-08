@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40DP"
             android:adjustViewBounds="true"
+            android:contentDescription="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,19 +44,21 @@
                 android:id="@+id/ivDot1"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_wlk_oval" />
 
             <ImageView
                 android:id="@+id/ivDot2"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:layout_marginLeft="@dimen/_8DP"
+                android:layout_marginStart="@dimen/_8DP"
                 android:alpha=".3"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_wlk_oval" />
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnGetStarted"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,12 +66,12 @@
             android:layout_marginEnd="@dimen/_16DP"
             android:layout_marginBottom="@dimen/_20DP"
             android:padding="@dimen/_14DP"
-            android:text="Get Started"
+            android:text="@string/btn_get_started"
             android:textColor="@color/white"
             android:textSize="@dimen/_12SP"
             android:textAllCaps="false"
-            app:backgroundTint="@color/startButtonColor"
-            app:cornerRadius="@dimen/_20DP"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_get_start"
             app:customFont="@{@string/font_semi_bold}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

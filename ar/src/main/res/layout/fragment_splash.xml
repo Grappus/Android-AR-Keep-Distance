@@ -63,7 +63,7 @@
             android:lineSpacingExtra="@dimen/_1SP"
             android:textColor="@color/white"
             android:textSize="@dimen/_15SP"
-            android:text="AR SAFETY\nDETECTION"
+            android:text="@string/head_ar_safety_detection"
             android:textStyle="bold"
             app:customFont="@{@string/font_bold}"
             app:layout_constraintBottom_toBottomOf="@+id/ivDotsGroup"
