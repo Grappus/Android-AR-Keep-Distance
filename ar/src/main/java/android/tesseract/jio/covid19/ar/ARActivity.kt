@@ -10,6 +10,8 @@ import androidx.navigation.fragment.NavHostFragment
 class ARActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.statusBarColor = getColor(R.color.baseBgColor)
+        window.navigationBarColor = getColor(R.color.baseBgColor)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ar)
     }

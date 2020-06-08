@@ -1,15 +1,16 @@
 package android.tesseract.jio.covid19.ar.core.sessions.start
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.*
 import android.graphics.Point
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
+import android.tesseract.jio.covid19.ar.tflite.Classifier
+import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
+import android.tesseract.jio.covid19.ar.utils.ImageUtils
+import android.tesseract.jio.covid19.ar.utils.rotate
+import android.tesseract.jio.covid19.ar.utils.scaleBitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +24,6 @@ import com.google.ar.sceneform.SceneView
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
-import android.tesseract.jio.covid19.ar.R
-import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
-import android.tesseract.jio.covid19.ar.tflite.Classifier
-import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
-import android.tesseract.jio.covid19.ar.utils.ImageUtils
-import android.tesseract.jio.covid19.ar.utils.rotate
-import android.tesseract.jio.covid19.ar.utils.scaleBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -41,8 +35,6 @@ import java.util.*
  * Created by Dipanshu Harbola on 6/6/20.
  */
 class SessionStartFragment : Fragment() {
-
-    private val TAG = SessionStartFragment::class.java.simpleName
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentStartSessionBinding.inflate(
@@ -85,6 +77,7 @@ class SessionStartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.baseBgColor)
         return binding.root
     }
 
@@ -103,9 +96,6 @@ class SessionStartFragment : Fragment() {
     }
 
     private fun initComponents() {
-        if (checkIsSupportedDeviceOrFinish(requireActivity())) {
-            Log.i(TAG, "ARCore is ready to use")
-        } else return
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
 
@@ -133,23 +123,6 @@ class SessionStartFragment : Fragment() {
         binding.layoutSessionInfo.btnEndSession.setOnClickListener {
             clearAnchor()
         }
-    }
-
-    // check if device is support the ARCore's basic requirements.
-    private fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
-        val openGlVersionString =
-            (activity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-                .deviceConfigurationInfo
-                .glEsVersion
-        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.N) || openGlVersionString.toDouble() < 3.0) {
-            Toast.makeText(
-                requireContext(),
-                "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG
-            ).show()
-            activity.finish()
-            return false
-        }
-        return true
     }
 
     // Simply returns the center of the screen
@@ -218,9 +191,9 @@ class SessionStartFragment : Fragment() {
     // Simple function to show/hide our start-session
     private fun showStartSessionView() {
         binding.run {
-            layoutBottomView.cvBottomView.visibility = View.GONE
+            layoutBottomView.clBottomView.visibility = View.GONE
             layoutBottomView.btnStartSession.visibility = View.GONE
-            layoutSessionInfo.cvSessionInfo.visibility = View.VISIBLE
+            layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
         }
     }
@@ -277,7 +250,7 @@ class SessionStartFragment : Fragment() {
             requireActivity().finish()
         }
         // width = 300, height = 300 cause SSD model support 300 x300 image to detect object
-        binding.graphicOverlay.setConfiguration(300, 300)
+        binding.graphicOverlay.setConfiguration(TF_OD_API_INPUT_SIZE, TF_OD_API_INPUT_SIZE)
     }
 
     /**
@@ -313,7 +286,6 @@ class SessionStartFragment : Fragment() {
      */
     private fun processImage(newBitmap: Bitmap) {
         ++timestamp
-        val currTimestamp = timestamp
         binding.graphicOverlay.postInvalidate()
         if (computingDetection) {
             return
@@ -362,7 +334,6 @@ class SessionStartFragment : Fragment() {
                             mappedRecognitions.add(result)
                         }
                     }
-                    // Handle the case if no person detected now but conflicted before. Should have to normalize the ui.
                 }
             }
             updateUi(mappedRecognitions)
@@ -392,24 +363,24 @@ class SessionStartFragment : Fragment() {
             binding.layoutSessionInfo.run {
                 sessionViolatedLayout.visibility = View.VISIBLE
                 sessionWatchLayout.visibility = View.GONE
-                btnEndSession.strokeWidth = 0
-                cvSessionInfo.strokeWidth = 3
-                cvSessionInfo.strokeColor = Color.parseColor("#ee1d1d")
+                btnEndSession.setBackgroundResource(R.drawable.bg_btn_alrt_end_session)
+                llSessionInfo.setBackgroundResource(R.drawable.bg_card_alrt_session_info)
             }
         } else {
             binding.layoutSessionInfo.run {
                 sessionViolatedLayout.visibility = View.GONE
                 sessionWatchLayout.visibility = View.VISIBLE
-                btnEndSession.strokeWidth = 3
-                cvSessionInfo.strokeWidth = 0
-                val colorInt = requireContext().getColor(R.color.white)
-                btnEndSession.strokeColor = ColorStateList.valueOf(colorInt)
+                btnEndSession.setBackgroundResource(R.drawable.bg_btn_end_session)
+                llSessionInfo.setBackgroundResource(R.drawable.bg_card_session_info)
             }
         }
     }
 
+    // Remove the existing scene and anchor
     private fun clearAnchor() {
         if (sceneView != null) {
+            oldAnchorNode?.renderable = null
+            oldAnchor?.detach()
             session = null
         }
         readyToProcessFrame = false

@@ -15,7 +15,6 @@ import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar. utils.PrefsConstants.FINISHED_WALKTHROUGH
 
-
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
@@ -49,6 +48,7 @@ class SplashFragment : Fragment() {
         }, 2000L)
     }
 
+    // check if all the required permissions are granted by user.
     private fun arePermissionsGranted(): Boolean {
         val permissionCamera =
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)

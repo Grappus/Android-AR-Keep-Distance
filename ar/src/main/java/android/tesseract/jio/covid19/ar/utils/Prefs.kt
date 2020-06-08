@@ -3,13 +3,13 @@ package android.tesseract.jio.covid19.ar.utils
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.PREF_NAME
+import androidx.annotation.Keep
 
 /**
  * Created by Dipanshu Harbola on 4/6/20.
  */
-object Prefs {
-
-    val PREF_NAME = "covid_ar"
+@Keep object Prefs {
 
     private var prefs: SharedPreferences? = null
 

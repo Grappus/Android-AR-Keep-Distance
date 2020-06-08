@@ -118,6 +118,7 @@ class WalkThroughFragment : Fragment() {
         }
     }
 
+    // check if all the required permissions are granted by user.
     private fun arePermissionsGranted(): Boolean {
         val permissionCamera =
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
