@@ -25,9 +25,15 @@ AR library to detect pedestrian proximity walking near by
            sourceCompatibility JavaVersion.VERSION_1_8
            targetCompatibility JavaVersion.VERSION_1_8
    }
+
+   aaptOptions {
+           noCompress "tflite"
+       }
+
    viewBinding {
         enabled = true
    }
+
    dataBinding {
         enabled = true
    }
