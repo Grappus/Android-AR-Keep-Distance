@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
 
+
 /**
  * Created by Dipanshu Harbola on 6/6/20.
  */
@@ -77,7 +78,8 @@ class SessionStartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        requireActivity().window.navigationBarColor = requireActivity().getColor(R.color.baseBgColor)
+        requireActivity().window.navigationBarColor =
+            requireActivity().getColor(R.color.baseBgColor)
         return binding.root
     }
 
@@ -115,6 +117,7 @@ class SessionStartFragment : Fragment() {
             addObject()
             sceneView = arFragment.arSceneView as ArSceneView
             session = arFragment.arSceneView.session
+            setupCamConfig(session)
             placeObject(R.raw.colored)
             showStartSessionView()
             readyToProcessFrame = true
@@ -123,6 +126,28 @@ class SessionStartFragment : Fragment() {
         binding.layoutSessionInfo.btnEndSession.setOnClickListener {
             clearAnchor()
         }
+    }
+
+    // SetUp camera configurations
+    private fun setupCamConfig(session: Session?) {
+        // Create a camera config filter for the session.
+        val filter = CameraConfigFilter(session)
+
+        // Return only camera configs that target 30 fps camera capture frame rate.
+        filter.setTargetFps(EnumSet.of(CameraConfig.TargetFps.TARGET_FPS_30))
+
+        // Return only camera configs that will not use the depth sensor.
+        filter.setDepthSensorUsage(EnumSet.of(CameraConfig.DepthSensorUsage.DO_NOT_USE))
+
+        // Get list of configs that match filter settings.
+        // In this case, this list is guaranteed to contain at least one element,
+        // because both TargetFps.TARGET_FPS_30 and DepthSensorUsage.DO_NOT_USE
+        // are supported on all ARCore supported devices.
+        val cameraConfigList = session!!.getSupportedCameraConfigs(filter)
+
+        // Use element 0 from the list of returned camera configs. This is because
+        // it contains the camera config that best matches the specified filter settings.
+        session.cameraConfig = cameraConfigList[0]
     }
 
     // Simply returns the center of the screen
@@ -149,6 +174,9 @@ class SessionStartFragment : Fragment() {
         }
     }
 
+    /**
+     * @placeObject() is responsible to render the initial 3D object.
+     */
     private fun placeObject(srcId: Int) {
         ModelRenderable.builder()
             .setSource(arFragment.context, srcId)
@@ -162,6 +190,9 @@ class SessionStartFragment : Fragment() {
             }
     }
 
+    /**
+     * @addNodeToScene() as name suggest added the rendered 3D object node to the plane
+     */
     private fun addNodeToScene() {
         val frame = arFragment.arSceneView.arFrame ?: return
         val pose =
@@ -169,6 +200,8 @@ class SessionStartFragment : Fragment() {
         if (frame.camera?.trackingState == TrackingState.TRACKING) {
             val anchor = arFragment.arSceneView.session?.createAnchor(pose?.extractTranslation())
             anchor?.pose?.toMatrix(FloatArray(16), 0)
+            // checking and removing the old anchor so that we always have the latest anchor
+            // point and anchor node, to render the object.
             if (oldAnchor != null) {
                 oldAnchor?.detach()
             }
@@ -181,7 +214,7 @@ class SessionStartFragment : Fragment() {
             transformableNode.renderable = renderable?.apply {
                 isShadowReceiver = false
                 isShadowCaster = false
-            }  // have to add position and angel here
+            }
             transformableNode.setParent(anchorNode)
             transformableNode.select()
             currentTransformableNode = transformableNode
@@ -300,6 +333,10 @@ class SessionStartFragment : Fragment() {
                 val location: RectF = result.location
                 val location2 = RectF()
                 if (result.confidence >= MINIMUM_CONFIDENCE_TF_OD_API) {
+                    /**
+                     * COCO SSD MobileNet-v1 classified 80 objects labeled in @labelmap.txt file.
+                     * Here we are taking only the @Person object to classified by the model.
+                     */
                     if (result.title.equals("person", ignoreCase = true)) {
                         val worldPosition = currentTransformableNode?.worldPosition
                         val sceneScreenPoint =
