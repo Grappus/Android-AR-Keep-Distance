@@ -1,15 +1,19 @@
 package android.tesseract.jio.covid19.ar.permission
 
 import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.databinding.FragmentPermissionBinding
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import android.tesseract.jio.covid19.ar.R
-import android.tesseract.jio.covid19.ar.databinding.FragmentPermissionBinding
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -57,6 +61,10 @@ class PermissionFragment : Fragment() {
                             if (report.areAllPermissionsGranted()) {
                                 findNavController().navigate(R.id.action_permissionFragment_to_sessionStartFragment)
                             }
+
+                            if (report.isAnyPermissionPermanentlyDenied) {
+                                showSettingsDialog()
+                            }
                         }
                     }
 
@@ -64,8 +72,7 @@ class PermissionFragment : Fragment() {
                         permissions: MutableList<PermissionRequest>?,
                         token: PermissionToken?
                     ) {
-                        // Remember to invoke this method when the custom rationale is closed
-                        // or just by default if you don't want to use any custom rationale.
+                        // default rationale invoke.
                         token?.continuePermissionRequest()
                     }
                 })
@@ -74,5 +81,29 @@ class PermissionFragment : Fragment() {
                 }
                 .check()
         }
+    }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     */
+    private fun showSettingsDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(requireContext().getString(R.string.title_required_permission))
+        builder.setMessage(requireContext().getString(R.string.msg_required_permission))
+        builder.setPositiveButton(requireContext().getString(R.string.btn_goto_settings)) { dialog, which ->
+            dialog.cancel()
+            openSettings()
+        }
+        builder.setNegativeButton(requireContext().getString(R.string.btn_cancel)) { dialog, which -> dialog.cancel() }
+        builder.show()
+    }
+
+    // navigating user to app settings
+    private fun openSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri: Uri = Uri.parse("package:${requireContext().packageName}")
+        intent.data = uri
+        startActivity(intent)
     }
 }

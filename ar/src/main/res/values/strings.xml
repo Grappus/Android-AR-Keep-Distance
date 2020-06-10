@@ -14,5 +14,9 @@
     <string name="head_ar_safety_detection">AR SAFETY\nDETECTION</string>
     <string name="head_you_need_to_enable_the_following_to_use_the_app">You need to enable the\nfollowing to use the app</string>
     <string name="btn_get_started">Get Started</string>
+    <string name="title_required_permission">Required Permissions</string>
+    <string name="msg_required_permission">This app needs both the permissions to use the features of the app. You can grant them in app settings.</string>
+    <string name="btn_goto_settings">GOTO SETTINGS</string>
+    <string name="btn_cancel">Cancel</string>
 
 </resources>
