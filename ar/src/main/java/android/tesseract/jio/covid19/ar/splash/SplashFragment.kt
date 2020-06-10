@@ -19,7 +19,6 @@ import androidx.annotation.Keep
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
-@Keep
 class SplashFragment : Fragment() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
