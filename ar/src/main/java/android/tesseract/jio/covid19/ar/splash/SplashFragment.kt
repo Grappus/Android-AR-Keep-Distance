@@ -21,6 +21,7 @@ import android.tesseract.jio.covid19.ar. utils.PrefsConstants.FINISHED_WALKTHROU
 class SplashFragment : Fragment() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
+    var handler: Handler? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,13 +31,19 @@ class SplashFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        handler = Handler()
         initComponents()
     }
 
+    override fun onPause() {
+        super.onPause()
+        handler = null
+    }
+
     private fun initComponents() {
-        Handler().postDelayed({
+        handler?.postDelayed({
             if (!Prefs.getPrefsBoolean(FINISHED_WALKTHROUGH)) {
                 findNavController().navigate(R.id.action_splashFragment_to_walkThroughFragment)
             }
