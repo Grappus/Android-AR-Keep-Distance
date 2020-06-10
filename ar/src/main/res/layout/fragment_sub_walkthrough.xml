@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/baseBgColor">
 
         <ImageView
             android:id="@+id/topIcon"
@@ -15,6 +15,7 @@
             android:layout_marginStart="@dimen/_16DP"
             android:layout_marginEnd="@dimen/_16DP"
             android:layout_marginTop="@dimen/_68DP"
+            android:contentDescription="@null"
             android:src="@drawable/group_3_group_17_mask"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
