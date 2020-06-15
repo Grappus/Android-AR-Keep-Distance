@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10DP"
+        android:background="@color/baseBgColor">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvVibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_80DP"
+            app:cardCornerRadius="@dimen/_10DP"
+            app:cardBackgroundColor="@color/startButtonColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16DP">
+
+                <TextView
+                    android:id="@+id/tvVibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_vibration"
+                    android:drawablePadding="@dimen/_4DP"
+                    android:text="@string/label_vibration"
+                    android:textSize="@dimen/_13SP"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvVibInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4DP"
+                    android:text="@string/label_vin_info"
+                    android:textSize="@dimen/_9SP"
+                    android:textColor="@color/white"
+                    app:customFont="@{@string/font_bold}"
+                    android:lineSpacingExtra="@dimen/_4SP"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvVibration" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:theme="@style/BrandedSwitch"
+                    android:id="@+id/swVibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14DP"
+            app:cardCornerRadius="@dimen/_10DP"
+            app:cardBackgroundColor="@color/startButtonColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvVibration"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16DP">
+
+                <TextView
+                    android:id="@+id/tvNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_bell"
+                    android:drawablePadding="@dimen/_4DP"
+                    android:text="@string/label_notifications"
+                    android:textSize="@dimen/_13SP"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNotifInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4DP"
+                    android:text="@string/label_notif_info"
+                    android:textSize="@dimen/_9SP"
+                    android:textColor="@color/white"
+                    app:customFont="@{@string/font_bold}"
+                    android:lineSpacingExtra="@dimen/_4SP"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNotifications" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:theme="@style/BrandedSwitch"
+                    android:id="@+id/swNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvSound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14DP"
+            app:cardCornerRadius="@dimen/_10DP"
+            app:cardBackgroundColor="@color/startButtonColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvNotification"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16DP">
+
+                <TextView
+                    android:id="@+id/tvSounds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_playlist"
+                    android:drawablePadding="@dimen/_4DP"
+                    android:text="@string/label_sounds"
+                    android:textSize="@dimen/_13SP"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSoundInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4DP"
+                    android:text="@string/label_sound_indo"
+                    android:textSize="@dimen/_9SP"
+                    android:textColor="@color/white"
+                    app:customFont="@{@string/font_bold}"
+                    android:lineSpacingExtra="@dimen/_4SP"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSounds" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:theme="@style/BrandedSwitch"
+                    android:id="@+id/swSound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4DP"
+                    app:layout_constraintBottom_toTopOf="@id/llSound"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                
+                <LinearLayout
+                    android:id="@+id/llSound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16DP"
+                    android:background="@drawable/bg_sound_layout"
+                    app:layout_constraintTop_toBottomOf="@id/tvSoundInfo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <TextView
+                        android:id="@+id/tvScreech"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".3"
+                        android:paddingStart="@dimen/_18DP"
+                        android:paddingTop="@dimen/_12DP"
+                        android:paddingEnd="@dimen/_18DP"
+                        android:paddingBottom="@dimen/_12DP"
+                        android:text="Screech"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/white"
+                        app:customFont="@{@string/font_bold}"
+                        android:gravity="center" />
+                    <TextView
+                        android:id="@+id/tvWhistle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".3"
+                        android:paddingStart="@dimen/_18DP"
+                        android:paddingTop="@dimen/_12DP"
+                        android:paddingEnd="@dimen/_18DP"
+                        android:paddingBottom="@dimen/_12DP"
+                        android:text="Whistle"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/white"
+                        app:customFont="@{@string/font_bold}"
+                        android:gravity="center"
+                        android:background="@drawable/bg_selected_sound"/>
+                    <TextView
+                        android:id="@+id/tvChirp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".3"
+                        android:paddingStart="@dimen/_18DP"
+                        android:paddingTop="@dimen/_12DP"
+                        android:paddingEnd="@dimen/_18DP"
+                        android:paddingBottom="@dimen/_12DP"
+                        android:text="Chirp"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/white"
+                        app:customFont="@{@string/font_bold}"
+                        android:gravity="center" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

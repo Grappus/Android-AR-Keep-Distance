@@ -1,6 +1,7 @@
 package android.tesseract.jio.covid19.ar.core.sessions.end
 
 import android.os.Bundle
+import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentEndSessionBinding
 import android.view.LayoutInflater
@@ -31,6 +32,7 @@ class SessionEndFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireContext() as ARActivity).setupActionButtons()
         binding.fabCloseSession.setOnClickListener { navigateBack() }
     }
 

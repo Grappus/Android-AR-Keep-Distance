@@ -9,7 +9,7 @@
         tools:context=".ar.ARActivity">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/splash_nav_fragment"
+            android:id="@+id/splashNavFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -19,6 +19,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_main" />
+
+        <include
+            android:id="@+id/layoutActionButtons"
+            layout="@layout/layout_bottom_action_buttons"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

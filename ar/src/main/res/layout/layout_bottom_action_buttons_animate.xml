@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBottomActionButtonView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabJourneyStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14DP"
+            android:layout_marginEnd="@dimen/_10DP"
+            android:layout_marginBottom="@dimen/_14DP"
+            android:contentDescription="@null"
+            app:elevation="@dimen/_3DP"
+            app:tint="@color/buttonGrayColor"
+            app:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fabStartSession"
+            app:srcCompat="@drawable/ic_journey_stats" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabStartSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14DP"
+            android:layout_marginBottom="@dimen/_14DP"
+            android:contentDescription="@null"
+            app:elevation="@dimen/_3DP"
+            app:tint="@color/white"
+            app:backgroundTint="@color/baseBgColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_start_walking" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10DP"
+            android:layout_marginTop="@dimen/_14DP"
+            android:layout_marginBottom="@dimen/_14DP"
+            android:contentDescription="@null"
+            app:elevation="@dimen/_3DP"
+            app:tint="@color/buttonGrayColor"
+            app:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fabStartSession"
+            app:srcCompat="@drawable/ic_settings" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

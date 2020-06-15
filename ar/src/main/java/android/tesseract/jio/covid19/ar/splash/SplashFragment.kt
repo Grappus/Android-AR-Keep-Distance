@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.tesseract.jio.covid19.ar.ARActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class SplashFragment : Fragment() {
     }
 
     private fun initComponents() {
+        (requireContext() as ARActivity).setupActionButtons()
         handler?.postDelayed({
             if (!Prefs.getPrefsBoolean(FINISHED_WALKTHROUGH)) {
                 findNavController().navigate(R.id.action_splashFragment_to_walkThroughFragment)
