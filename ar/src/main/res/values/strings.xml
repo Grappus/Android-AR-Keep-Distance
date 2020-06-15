@@ -18,5 +18,11 @@
     <string name="msg_required_permission">This app needs both the permissions to use the features of the app. You can grant them in app settings.</string>
     <string name="btn_goto_settings">GOTO SETTINGS</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="label_vibration">Vibration</string>
+    <string name="label_vin_info">For when the social distance\nspace is violated</string>
+    <string name="label_notifications">Notifications</string>
+    <string name="label_notif_info">Get notified when there’s an update\nin your leaderboard</string>
+    <string name="label_sounds">Sounds</string>
+    <string name="label_sound_indo">Played when the social distance\nspace is violated</string>
 
 </resources>

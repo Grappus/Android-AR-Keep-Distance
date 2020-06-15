@@ -5,5 +5,4 @@
 
     <!-- Duration (in milliseconds) for slide transition animation -->
     <integer name="duration_slide">300</integer>
-    <integer name="duration_fade">500</integer>
 </resources>

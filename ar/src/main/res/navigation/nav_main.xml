@@ -88,6 +88,20 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/walkThroughFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_sessionStartFragment_to_myPreferencesFragment"
+            app:destination="@id/myPreferencesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_sessionStartFragment_to_myJournalFragment"
+            app:destination="@id/myJournalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/sessionEndFragment"
@@ -102,6 +116,44 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/sessionEndFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPreferencesFragment"
+        android:name="android.tesseract.jio.covid19.ar.preferences.MyPreferencesFragment"
+        android:label="MyPreferencesFragment" >
+        <action
+            android:id="@+id/action_myPreferencesFragment_to_sessionStartFragment"
+            app:destination="@id/sessionStartFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_myPreferencesFragment_to_myJournalFragment"
+            app:destination="@id/myJournalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/myJournalFragment"
+        android:name="android.tesseract.jio.covid19.ar.journal.MyJournalFragment"
+        android:label="MyJournalFragment" >
+        <action
+            android:id="@+id/action_myJournalFragment_to_sessionStartFragment"
+            app:destination="@id/sessionStartFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_myJournalFragment_to_myPreferencesFragment"
+            app:destination="@id/myPreferencesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 </navigation>

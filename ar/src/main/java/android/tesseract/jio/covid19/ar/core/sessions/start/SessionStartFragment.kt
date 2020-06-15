@@ -4,6 +4,7 @@ import android.graphics.*
 import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
+import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
 import android.tesseract.jio.covid19.ar.tflite.Classifier
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.ar.core.*
@@ -24,6 +26,8 @@ import com.google.ar.sceneform.SceneView
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
+import kotlinx.android.synthetic.main.activity_ar.*
+import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -101,6 +105,8 @@ class SessionStartFragment : Fragment() {
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
 
+        handleActionButtons()
+
         // used to remove the plan detection view
         arFragment.planeDiscoveryController.hide()
         arFragment.arSceneView.planeRenderer.isVisible = false
@@ -113,7 +119,7 @@ class SessionStartFragment : Fragment() {
             addNodeToScene()
         }
 
-        binding.layoutBottomView.btnStartSession.setOnClickListener {
+        binding.btnStartSession.setOnClickListener {
             addObject()
             sceneView = arFragment.arSceneView as ArSceneView
             session = arFragment.arSceneView.session
@@ -125,6 +131,22 @@ class SessionStartFragment : Fragment() {
 
         binding.layoutSessionInfo.btnEndSession.setOnClickListener {
             clearAnchor()
+        }
+    }
+
+    private fun handleActionButtons() {
+        (requireContext() as ARActivity).setupActionButtons()
+
+        (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
+            findNavController().navigate(R.id.action_sessionStartFragment_to_myJournalFragment)
+        }
+
+        (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_sessionStartFragment_to_myPreferencesFragment)
+        }
+
+        (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
+            return@setOnClickListener
         }
     }
 
@@ -224,8 +246,9 @@ class SessionStartFragment : Fragment() {
     // Simple function to show/hide our start-session
     private fun showStartSessionView() {
         binding.run {
-            layoutBottomView.clBottomView.visibility = View.GONE
-            layoutBottomView.btnStartSession.visibility = View.GONE
+            bottomView.visibility = View.GONE
+            btnStartSession.visibility = View.GONE
+            (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
         }
