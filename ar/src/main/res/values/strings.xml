@@ -24,5 +24,6 @@
     <string name="label_notif_info">Get notified when there’s an update\nin your leaderboard</string>
     <string name="label_sounds">Sounds</string>
     <string name="label_sound_indo">Played when the social distance\nspace is violated</string>
+    <string name="label_my_journal">My Journal</string>
 
 </resources>

@@ -248,6 +248,7 @@ class SessionStartFragment : Fragment() {
         binding.run {
             bottomView.visibility = View.GONE
             btnStartSession.visibility = View.GONE
+            layoutLeaderBoard.clLeaderBoard.visibility = View.GONE
             (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE

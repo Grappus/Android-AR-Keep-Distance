@@ -9,6 +9,7 @@
     <color name="baseBgColor">#22297a</color>
     <color name="startButtonColor">#4352fe</color>
     <color name="cutButtonColor">#4352fe</color>
+    <color name="appBlueColor">#4352fe</color>
     <color name="buttonGrayColor">#C8C8C8</color>
     <color name="textColorBlack">#131415</color>
     <color name="textColorGray">#575757</color>

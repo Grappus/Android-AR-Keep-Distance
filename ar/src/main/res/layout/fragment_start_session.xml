@@ -54,6 +54,10 @@
             tools:visibility="visible" />
 
         <include
+            android:id="@+id/layoutLeaderBoard"
+            layout="@layout/layout_leaderboard" />
+
+        <include
             android:id="@+id/layoutSessionInfo"
             layout="@layout/layout_session_info" />
 

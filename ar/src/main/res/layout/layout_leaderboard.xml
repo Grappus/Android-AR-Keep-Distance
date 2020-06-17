@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clLeaderBoard"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_85DP"
+            android:layout_marginStart="@dimen/_8DP"
+            android:layout_marginTop="@dimen/_32DP"
+            android:layout_marginEnd="@dimen/_8DP"
+            android:background="@drawable/bg_card_session_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvLeadboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12DP"
+                android:layout_marginTop="@dimen/_14DP"
+                android:text="Leaderboard"
+                android:textColor="@color/textColorBlack"
+                android:textSize="@dimen/_17SP"
+                android:textStyle="bold"
+                app:customFont="@{@string/font_bold}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNearYou"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_21DP"
+                android:layout_marginTop="@dimen/_14DP"
+                android:layout_marginEnd="@dimen/_12DP"
+                android:background="@drawable/bg_btn_get_start"
+                android:drawableEnd="@drawable/ic_down_arrow_small"
+                android:drawablePadding="@dimen/_2DP"
+                android:paddingStart="@dimen/_6DP"
+                android:paddingEnd="@dimen/_5DP"
+                android:text="Near You"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8SP"
+                app:customFont="@{@string/font_semi_bold}"
+                app:layout_anchorGravity="center_horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLeadboard"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_4DP"
+                android:layout_marginTop="@dimen/_8DP"
+                android:layout_marginEnd="@dimen/_4DP"
+                android:layout_marginBottom="@dimen/_8DP"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLeadboard"
+                tools:listitem="@layout/item_leaderboard"
+                tools:itemCount="4"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabLeadBoardDownSlide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/clLeaderBoard"
+            app:layout_anchorGravity="bottom|center"
+            android:src="@drawable/ic_down_arrow_small"
+            android:visibility="visible"
+            android:backgroundTint="@color/baseBgColor"
+            app:backgroundTint="@color/white"
+            app:elevation="@dimen/_2DP"
+            app:tint="@color/white"
+            app:borderWidth="@dimen/_2DP"
+            tools:visibility="visible" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

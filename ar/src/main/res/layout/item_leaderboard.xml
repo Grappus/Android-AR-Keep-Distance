@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50DP"
+            app:cardCornerRadius="@dimen/_6DP"
+            android:elevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6DP"
+                android:layout_marginEnd="@dimen/_10DP"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_7SP"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}"
+                    tools:text="123" />
+
+                <TextView
+                    android:id="@+id/tvNameImg"
+                    android:layout_width="@dimen/_20DP"
+                    android:layout_height="@dimen/_20DP"
+                    android:layout_marginStart="@dimen/_9DP"
+                    android:textSize="@dimen/_7SP"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:customFont="@{@string/font_bold}"
+                    android:gravity="center"
+                    android:background="@drawable/bg_name_img"
+                    tools:text="D" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".7"
+                    android:layout_marginStart="@dimen/_8DP"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/textColorBlack"
+                        android:textStyle="bold"
+                        app:customFont="@{@string/font_semi_bold}"
+                        tools:text="Dipanshu Harbola" />
+
+                    <TextView
+                        android:id="@+id/tvJourneyDays"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_8SP"
+                        app:customFont="@{@string/font_medium}"
+                        tools:text="32 Days" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".3"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvSafetyPercentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_9SP"
+                        android:textColor="@color/textColorBlack"
+                        android:textStyle="bold"
+                        app:customFont="@{@string/font_semi_bold}"
+                        tools:text="32%" />
+                    <ImageView
+                        android:id="@+id/ivLiveIndicator"
+                        android:layout_width="@dimen/_4DP"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4DP"
+                        android:adjustViewBounds="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@null"
+                        app:srcCompat="@drawable/ic_wlk_oval"
+                        android:tint="#18ca3e"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

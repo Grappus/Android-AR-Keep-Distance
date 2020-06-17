@@ -10,15 +10,39 @@
         android:padding="@dimen/_10DP"
         android:background="@color/baseBgColor">
 
+        <TextView
+            android:id="@+id/tvPreferences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_26DP"
+            android:text="Preferences"
+            android:textColor="#BFFFFFFF"
+            android:textSize="@dimen/_10SP"
+            app:customFont="@{@string/font_medium}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dipanshu Harbola"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18SP"
+            android:textStyle="bold"
+            app:customFont="@{@string/font_bold}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPreferences" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cvVibration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_80DP"
+            android:layout_marginTop="@dimen/_20DP"
             app:cardCornerRadius="@dimen/_10DP"
             app:cardBackgroundColor="@color/startButtonColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUserName"
             app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
