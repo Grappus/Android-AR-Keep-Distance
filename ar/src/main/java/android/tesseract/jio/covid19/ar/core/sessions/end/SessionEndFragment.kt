@@ -32,6 +32,9 @@ class SessionEndFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val args = SessionEndFragmentArgs.fromBundle(requireArguments())
+        val sessionInfo = args.sessionInfo
+        binding.sessionInfo = sessionInfo
         (requireContext() as ARActivity).setupActionButtons()
         binding.fabCloseSession.setOnClickListener { navigateBack() }
     }

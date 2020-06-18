@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="sessionTime"
+            type="String" />
+        <variable
+            name="safetyPercent"
+            type="String" />
+        <variable
+            name="violationCount"
+            type="String" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,7 +42,7 @@
                 android:layout_marginStart="@dimen/_18DP"
                 android:layout_marginTop="@dimen/_20DP"
                 android:layout_marginEnd="@dimen/_18DP"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -53,9 +66,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="84%"
+                        android:text="@{safetyPercent}"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_14SP"
+                        android:textSize="@dimen/_13SP"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_bold}" />
 
@@ -91,12 +104,13 @@
                         android:textSize="@dimen/_9SP"
                         app:customFont="@{@string/font_semi_bold}" />
 
-                    <TextView
+                    <Chronometer
+                        android:id="@+id/sessionTimer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 hr 30 m"
+                        android:text="@{sessionTime}"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_14SP"
+                        android:textSize="@dimen/_13SP"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_bold}" />
 
@@ -135,9 +149,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 violation"
+                        android:text="@{violationCount}"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_14SP"
+                        android:textSize="@dimen/_13SP"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_bold}" />
 
