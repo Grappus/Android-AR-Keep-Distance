@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentJournalBinding
+import android.tesseract.jio.covid19.ar.utils.DataPoint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.activity_ar.*
 import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
+import java.util.*
 
 /**
  * Created by Dipanshu Harbola on 11/6/20.
@@ -40,6 +42,7 @@ class MyJournalFragment : Fragment() {
 
     private fun initComponents() {
         handleActionButtons()
+        binding.gvSafety.setData(generateRandomDataPoints())
     }
 
     private fun handleActionButtons() {
@@ -55,6 +58,13 @@ class MyJournalFragment : Fragment() {
 
         (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
             return@setOnClickListener
+        }
+    }
+
+    private fun generateRandomDataPoints(): List<DataPoint> {
+        val random = Random()
+        return (0..20).map {
+            DataPoint(it, random.nextInt(50) + 1)
         }
     }
 }

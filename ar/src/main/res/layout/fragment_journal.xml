@@ -231,7 +231,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cvSafetyTips"/>
 
-        <TextView
+        <android.tesseract.jio.covid19.ar.utils.GraphView
+            android:id="@+id/gvSafety"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_15DP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSafetyAndViolation" />
+
+        <!--<TextView
             android:id="@+id/tvInfoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -243,6 +253,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSafetyAndViolation" />
+            app:layout_constraintTop_toBottomOf="@id/tvSafetyAndViolation" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
