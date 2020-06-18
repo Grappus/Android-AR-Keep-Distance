@@ -107,6 +107,9 @@
         android:id="@+id/sessionEndFragment"
         android:name="android.tesseract.jio.covid19.ar.core.sessions.end.SessionEndFragment"
         android:label="SessionEndFragment" >
+        <argument
+            android:name="sessionInfo"
+            app:argType="android.tesseract.jio.covid19.ar.core.sessions.start.SessionInfo" />
         <action
             android:id="@+id/action_sessionEndFragment_to_sessionStartFragment"
             app:destination="@id/sessionStartFragment"

@@ -4,6 +4,7 @@ import android.graphics.*
 import android.graphics.Point
 import android.os.Bundle
 import android.os.Handler
+import android.os.SystemClock
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
@@ -77,6 +78,16 @@ class SessionStartFragment : Fragment() {
     private var computingDetection = false
     private var timestamp: Long = 0
 
+    // Handler to detect violation
+    private val violationHandler: Handler = Handler()
+    private var isDetectingViolation = false
+    private var sessionViolationCount = 0
+    private var currentViolation = 0
+    private val violationThreshold = 2
+
+    // Safety
+    private var currentSafety = "100%"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -102,6 +113,8 @@ class SessionStartFragment : Fragment() {
     }
 
     private fun initComponents() {
+
+        //binding.layoutSessionInfo.sessionTime =
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
 
@@ -252,7 +265,18 @@ class SessionStartFragment : Fragment() {
             (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
+            initSessionInfo()
         }
+    }
+
+    private fun initSessionInfo() {
+        binding.layoutSessionInfo.run {
+            safetyPercent = "100%"
+            violationCount = "0 violation"
+            sessionTime = "0 m 0 s"
+        }
+        startSessionTimer()
+        calculateSafety()
     }
 
     /**
@@ -409,15 +433,64 @@ class SessionStartFragment : Fragment() {
         uiScope.launch {
             if (mappedRecognitions.any { it.paint.color == Color.RED }) {
                 placeObject(R.raw.red)
-                // other ui changes
-                showViolationAlert(true)
+                checkViolationDetection(mappedRecognitions)
             } else {
                 placeObject(R.raw.colored)
-                // other ui changes
                 showViolationAlert(false)
             }
         }
     }
+
+    private fun checkViolationDetection(mappedRecognitions: MutableList<Classifier.Recognition>) {
+        if (!isDetectingViolation) {
+            isDetectingViolation = true
+            violationHandler.postDelayed({
+                if (mappedRecognitions.any { it.paint.color == Color.RED }){
+                    sessionViolationCount ++
+                    currentViolation++
+                    showViolationAlert(true)
+                    binding.layoutSessionInfo.violationCount = "$sessionViolationCount violation"
+                }
+                showViolationAlert(false)
+                isDetectingViolation = false
+            }, 5000L)
+        }
+        else return
+    }
+
+    private fun startSessionTimer() {
+        val chronometer = binding.layoutSessionInfo.sessionTimer
+        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.setOnChronometerTickListener {
+            val time: Long = SystemClock.elapsedRealtime() - chronometer.base
+            val h = (time / 3600000).toInt()
+            val m = (time - h * 3600000).toInt() / 60000
+            val s = (time - h * 3600000 - m * 60000).toInt() / 1000
+            binding.layoutSessionInfo.sessionTime = "$m m $s s"
+        }
+        chronometer.start()
+    }
+
+    private fun calculateSafety() {
+        val handlerSafety = Handler()
+        val r: Runnable = object : Runnable {
+            override fun run() {
+                handlerSafety.postDelayed(
+                    this,
+                    30000L
+                ) //executing object detection in every 100 millisecond
+                if (currentViolation > violationThreshold) {
+                    currentSafety = "${100 - (currentViolation - violationThreshold)}%"
+                    currentViolation = 0
+                } else {
+                    currentSafety = "100%"
+                }
+                binding.layoutSessionInfo.safetyPercent = currentSafety
+            }
+        }
+        handlerSafety.postDelayed(r, 30000L)
+    }
+
 
     private fun showViolationAlert(isViolated: Boolean) {
         if (isViolated) {
@@ -445,7 +518,11 @@ class SessionStartFragment : Fragment() {
             session = null
         }
         readyToProcessFrame = false
-        findNavController().navigate(R.id.action_sessionStartFragment_to_sessionEndFragment)
+        binding.layoutSessionInfo.sessionTimer.stop()
+        val sessionInfo = SessionInfo(safetyPercent = currentSafety,
+            sessionTime = binding.layoutSessionInfo.sessionTime!!, violationCount = "$sessionViolationCount violation")
+        val action = SessionStartFragmentDirections.actionSessionStartFragmentToSessionEndFragment(sessionInfo)
+        findNavController().navigate(action)
     }
 
     companion object {
