@@ -1,5 +1,7 @@
 package android.tesseract.jio.covid19.ar.core.sessions.start
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.graphics.*
 import android.graphics.Point
 import android.os.Bundle
@@ -15,6 +17,7 @@ import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
 import android.tesseract.jio.covid19.ar.utils.ImageUtils
 import android.tesseract.jio.covid19.ar.utils.rotate
 import android.tesseract.jio.covid19.ar.utils.scaleBitmap
+import android.tesseract.jio.covid19.ar.utils.slideView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -298,17 +301,37 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     private fun setLeaderBoardExpendButtonListener() {
         binding.layoutLeaderBoard.fabLeadBoardDownSlide.setOnClickListener {
-            /*if (!isExpended) {
+            if (!isExpended) {
                 isExpended = true
-                binding.layoutLeaderBoard.clLeaderBoard.layoutParams = ViewGroup.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT, 600)
+                slideView(binding.layoutLeaderBoard.clLeaderBoard, binding.layoutLeaderBoard.clLeaderBoard.height, resources.getDimension(R.dimen._450DP).toInt())
+                slideView(binding.bottomView, binding.bottomView.height, 1)
+                binding.btnStartSession.animate()
+                    .translationYBy(0f)
+                    .translationY(resources.getDimension(R.dimen._75DP))
+                    .alpha(0.0f)
+                    .setDuration(300)
+                    .setListener(object: AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            binding.btnStartSession.visibility = View.GONE
+                        }
+                    })
+                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
+                binding.layoutLeaderBoard.fabLeadBoardDownSlide.setImageResource(R.drawable.ic_expand_less)
             }
             else {
                 isExpended = false
-                binding.layoutLeaderBoard.clLeaderBoard.layoutParams = ViewGroup.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT, 200)
-            }*/
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+                slideView(binding.layoutLeaderBoard.clLeaderBoard, binding.layoutLeaderBoard.clLeaderBoard.height, resources.getDimension(R.dimen._201DP).toInt())
+                slideView(binding.bottomView, binding.bottomView.height, resources.getDimension(R.dimen._95DP).toInt())
+                binding.btnStartSession.visibility = View.VISIBLE
+                binding.btnStartSession.animate()
+                    .translationYBy(resources.getDimension(R.dimen._75DP))
+                    .translationY(0f)
+                    .alpha(1.0f)
+                    .setDuration(400)
+                    .setListener(null)
+                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.VISIBLE
+                binding.layoutLeaderBoard.fabLeadBoardDownSlide.setImageResource(R.drawable.ic_down_arrow_small)
+            }
         }
     }
 
