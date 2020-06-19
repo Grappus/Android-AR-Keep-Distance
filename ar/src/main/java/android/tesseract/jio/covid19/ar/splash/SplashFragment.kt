@@ -5,21 +5,23 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.tesseract.jio.covid19.ar.ARActivity
+import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
+import android.tesseract.jio.covid19.ar.utils.Prefs
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.FINISHED_WALKTHROUGH
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.IS_USER_LOGIN
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import android.tesseract.jio.covid19.ar.R
-import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
-import android.tesseract.jio.covid19.ar.utils.Prefs
-import android.tesseract.jio.covid19.ar. utils.PrefsConstants.FINISHED_WALKTHROUGH
 
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
-class SplashFragment : Fragment() {
+class SplashFragment : Fragment(), SplashViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
     var handler: Handler? = null
@@ -43,17 +45,30 @@ class SplashFragment : Fragment() {
         handler = null
     }
 
+    override fun navigateToNextScreen() {
+        if (!Prefs.getPrefsBoolean(FINISHED_WALKTHROUGH)) {
+            findNavController().navigate(R.id.action_splashFragment_to_walkThroughFragment)
+        }
+        else if (!arePermissionsGranted())
+            findNavController().navigate(R.id.action_splashFragment_to_permissionFragment)
+        else {
+            findNavController().navigate(R.id.action_splashFragment_to_sessionStartFragment)
+        }
+    }
+
+    override fun showNetworkError() {
+
+    }
+
     private fun initComponents() {
+        val splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
+        splashViewModel.navigator = this
         (requireContext() as ARActivity).setupActionButtons()
         handler?.postDelayed({
-            if (!Prefs.getPrefsBoolean(FINISHED_WALKTHROUGH)) {
-                findNavController().navigate(R.id.action_splashFragment_to_walkThroughFragment)
+            if (Prefs.getPrefsBoolean(IS_USER_LOGIN)) {
+                splashViewModel.getUserInfo()
             }
-            else if (!arePermissionsGranted())
-                findNavController().navigate(R.id.action_splashFragment_to_permissionFragment)
-            else {
-                findNavController().navigate(R.id.action_splashFragment_to_sessionStartFragment)
-            }
+            else splashViewModel.authenticateUser("8882744905")
         }, 2000L)
     }
 

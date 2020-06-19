@@ -6,7 +6,7 @@
     <data>
         <variable
             name="sessionInfo"
-            type="android.tesseract.jio.covid19.ar.core.sessions.start.SessionInfo" />
+            type="android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,12 +49,12 @@
                 app:customFont="@{@string/font_bold}" />
 
             <TextView
+                android:id="@+id/tvRankInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_4DP"
                 android:lineSpacingExtra="@dimen/_5SP"
-                android:text="You’re now at the 205th position\non the leaderboard!"
                 android:textAlignment="center"
                 android:textColor="@color/textColorGray"
                 android:textSize="@dimen/_10SP"
@@ -89,6 +89,7 @@
                         app:customFont="@{@string/font_semi_bold}" />
 
                     <TextView
+                        android:id="@+id/tvSafetyPercent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{sessionInfo.safetyPercent}"
@@ -171,9 +172,9 @@
                         app:customFont="@{@string/font_semi_bold}" />
 
                     <TextView
+                        android:id="@+id/tvViolationCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{sessionInfo.violationCount}"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
                         android:textStyle="bold"

@@ -67,7 +67,6 @@
             android:drawableStart="@drawable/ic_time"
             android:drawablePadding="@dimen/_5DP"
             android:drawableTint="@color/appBlueColor"
-            android:text="74 hrs"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
@@ -142,82 +141,6 @@
             app:layout_constraintStart_toStartOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalViolation" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvSafetyTips"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100DP"
-            android:layout_marginTop="@dimen/_20DP"
-            app:cardCornerRadius="@dimen/_10DP"
-            app:cardBackgroundColor="@color/baseBgColor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSafetyPercent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/ivHandwash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_handwash" />
-
-                <TextView
-                    android:id="@+id/tvSafetyTipTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_19DP"
-                    android:layout_marginTop="@dimen/_9DP"
-                    android:text="COVID-19 tips"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12SP"
-                    android:textStyle="bold"
-                    app:customFont="@{@string/font_bold}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    android:id="@+id/tvSafetyTipInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_19DP"
-                    android:layout_marginTop="@dimen/_1DP"
-                    android:text="How to keep yourself safe during\nthe pandemic"
-                    android:lineSpacingExtra="4sp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_8SP"
-                    app:customFont="@{@string/font_medium}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvSafetyTipTitle"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnStartSession"
-                    android:layout_width="@dimen/_66DP"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8DP"
-                    android:paddingStart="@dimen/_10DP"
-                    android:paddingTop="@dimen/_7DP"
-                    android:paddingEnd="@dimen/_10DP"
-                    android:paddingBottom="@dimen/_7DP"
-                    android:text="View tips"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_8SP"
-                    android:gravity="center"
-                    android:background="@drawable/bg_btn_get_start"
-                    app:customFont="@{@string/font_semi_bold}"
-                    app:layout_anchorGravity="center_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/tvSafetyTipInfo"
-                    app:layout_constraintStart_toStartOf="@id/tvSafetyTipInfo" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
         <TextView
             android:id="@+id/tvSafetyAndViolation"
             android:layout_width="wrap_content"
@@ -229,20 +152,18 @@
             android:textStyle="bold"
             app:customFont="@{@string/font_bold}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvSafetyTips"/>
+            app:layout_constraintTop_toBottomOf="@id/tvSafetyPercent"/>
 
-        <TextView
-            android:id="@+id/tvInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20DP"
-            android:text="Space for Graph"
-            android:textSize="@dimen/_12SP"
-            android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+        <android.tesseract.jio.covid19.ar.utils.SmoothLineGraphView
+            android:id="@+id/gvSafety"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_15DP"
+            android:layout_marginBottom="@dimen/_70DP"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSafetyAndViolation" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

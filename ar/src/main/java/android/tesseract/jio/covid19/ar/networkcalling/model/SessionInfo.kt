@@ -1,4 +1,4 @@
-package android.tesseract.jio.covid19.ar.core.sessions.start
+package android.tesseract.jio.covid19.ar.networkcalling.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -10,5 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class SessionInfo(
     val safetyPercent: String,
     val sessionTime: String,
-    val violationCount: String
+    val violationCount: String,
+    val sessionStartTime: Long,
+    val sessionEndTime: Long
 ): Parcelable

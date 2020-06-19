@@ -10,7 +10,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clLeaderBoard"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_85DP"
+            android:layout_height="@dimen/_200DP"
             android:layout_marginStart="@dimen/_8DP"
             android:layout_marginTop="@dimen/_32DP"
             android:layout_marginEnd="@dimen/_8DP"
@@ -62,14 +62,16 @@
                 android:layout_marginTop="@dimen/_8DP"
                 android:layout_marginEnd="@dimen/_4DP"
                 android:layout_marginBottom="@dimen/_8DP"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLeadboard"
-                tools:listitem="@layout/item_leaderboard"
-                tools:itemCount="4"/>
+                app:layout_constraintVertical_bias="0.0"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_leaderboard" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

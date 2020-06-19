@@ -3,11 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="rankResult"
+            type="android.tesseract.jio.covid19.ar.networkcalling.model.RankResult" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvLeadBoard"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50DP"
             app:cardCornerRadius="@dimen/_6DP"
@@ -21,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_6DP"
                 android:layout_marginEnd="@dimen/_10DP"
+                android:background="@android:color/transparent"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
 
@@ -35,10 +43,10 @@
 
                 <TextView
                     android:id="@+id/tvNameImg"
-                    android:layout_width="@dimen/_20DP"
-                    android:layout_height="@dimen/_20DP"
+                    android:layout_width="@dimen/_22DP"
+                    android:layout_height="@dimen/_22DP"
                     android:layout_marginStart="@dimen/_9DP"
-                    android:textSize="@dimen/_7SP"
+                    android:textSize="@dimen/_8SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:customFont="@{@string/font_bold}"
@@ -93,7 +101,7 @@
                         android:id="@+id/ivLiveIndicator"
                         android:layout_width="@dimen/_4DP"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4DP"
+                        android:layout_marginStart="@dimen/_5DP"
                         android:adjustViewBounds="true"
                         android:layout_gravity="center_vertical"
                         android:contentDescription="@null"

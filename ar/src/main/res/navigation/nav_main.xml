@@ -109,7 +109,7 @@
         android:label="SessionEndFragment" >
         <argument
             android:name="sessionInfo"
-            app:argType="android.tesseract.jio.covid19.ar.core.sessions.start.SessionInfo" />
+            app:argType="android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo" />
         <action
             android:id="@+id/action_sessionEndFragment_to_sessionStartFragment"
             app:destination="@id/sessionStartFragment"
