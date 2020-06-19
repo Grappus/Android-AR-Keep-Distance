@@ -15,5 +15,6 @@
     <color name="textColorGray">#575757</color>
     <color name="sessionCardBackgroundColor">#e6ffffff</color>
     <color name="leadBoardCardBackgroundColor">#f3ffffff</color>
+    <color name="leadBoardCardBackgroundColor2">#99FFFFFF</color>
     <color name="endSessionButtonColor">#ee1d1d</color>
 </resources>

@@ -7,4 +7,14 @@ package android.tesseract.jio.covid19.ar.utils
 object PrefsConstants {
     const val PREF_NAME = "covid_ar"
     const val FINISHED_WALKTHROUGH = "finish_walkthrough"
+    const val IS_USER_LOGIN = "is_user_login"
+    const val USER_AUTH_TOKEN = "user_auth_token"
+    const val USER_ID = "user_id"
+    const val USER_NAME = "user_name"
+    const val USER_GLOBAL_RANK = "user_global_rank"
+    const val USER_SAFETY = "user_safety"
+    const val USER_CREATED_AT = "user_created_at"
+    const val USER_NOTIF_ON = "user_notif_on"
+    const val USER_VIB_ON = "user_vib_on"
+    const val USER_SOUND_ON = "user_sound_on"
 }

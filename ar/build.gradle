@@ -86,6 +86,15 @@ dependencies {
     //Ar core
     implementation "com.google.ar:core:$ar_sceneform_version"
     implementation "com.google.ar.sceneform.ux:sceneform-ux:$ar_sceneform_version"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    // RxJava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 }
 
 sceneform.asset('sampledata/colored.obj', 'default', 'sampledata/colored.sfa', 'src/main/res/raw/colored')

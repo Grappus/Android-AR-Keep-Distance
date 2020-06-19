@@ -8,6 +8,8 @@ import android.os.SystemClock
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
+import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
+import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
 import android.tesseract.jio.covid19.ar.tflite.Classifier
 import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
 import android.tesseract.jio.covid19.ar.utils.ImageUtils
@@ -19,6 +21,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.ar.core.*
 import com.google.ar.sceneform.AnchorNode
@@ -40,7 +43,7 @@ import java.util.*
 /**
  * Created by Dipanshu Harbola on 6/6/20.
  */
-class SessionStartFragment : Fragment() {
+class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentStartSessionBinding.inflate(
@@ -88,6 +91,13 @@ class SessionStartFragment : Fragment() {
     // Safety
     private var currentSafety = "100%"
 
+    // Session Time
+    private var sessionStartTime = 0L
+    private var sessionEndTime = 0L
+
+    // Leaderboard adapter
+    val lbAdapter = LeaderBoardAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -112,9 +122,21 @@ class SessionStartFragment : Fragment() {
         uiScope.cancel()
     }
 
+    override fun globalLeaderBoardList(result: MutableList<RankResult>) {
+        binding.layoutLeaderBoard.rvLeadboard.adapter = lbAdapter
+        lbAdapter.setData(result)
+    }
+
+    override fun showError(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
+
     private fun initComponents() {
 
-        //binding.layoutSessionInfo.sessionTime =
+        val startSessionViewModel = ViewModelProvider(this).get(SessionStartViewModel::class.java)
+        startSessionViewModel.navigator = this
+
+        startSessionViewModel.getMyGlobalRank()
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
 
@@ -140,6 +162,8 @@ class SessionStartFragment : Fragment() {
             placeObject(R.raw.colored)
             showStartSessionView()
             readyToProcessFrame = true
+
+            sessionStartTime = System.currentTimeMillis()
         }
 
         binding.layoutSessionInfo.btnEndSession.setOnClickListener {
@@ -262,6 +286,7 @@ class SessionStartFragment : Fragment() {
             bottomView.visibility = View.GONE
             btnStartSession.visibility = View.GONE
             layoutLeaderBoard.clLeaderBoard.visibility = View.GONE
+            layoutLeaderBoard.fabLeadBoardDownSlide.visibility = View.GONE
             (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
@@ -480,12 +505,12 @@ class SessionStartFragment : Fragment() {
                     30000L
                 ) //executing object detection in every 100 millisecond
                 if (currentViolation > violationThreshold) {
-                    currentSafety = "${100 - (currentViolation - violationThreshold)}%"
+                    currentSafety = "${100 - (currentViolation - violationThreshold)}"
                     currentViolation = 0
                 } else {
-                    currentSafety = "100%"
+                    currentSafety = "100"
                 }
-                binding.layoutSessionInfo.safetyPercent = currentSafety
+                binding.layoutSessionInfo.safetyPercent = "$currentSafety%"
             }
         }
         handlerSafety.postDelayed(r, 30000L)
@@ -519,8 +544,14 @@ class SessionStartFragment : Fragment() {
         }
         readyToProcessFrame = false
         binding.layoutSessionInfo.sessionTimer.stop()
-        val sessionInfo = SessionInfo(safetyPercent = currentSafety,
-            sessionTime = binding.layoutSessionInfo.sessionTime!!, violationCount = "$sessionViolationCount violation")
+        sessionEndTime = System.currentTimeMillis()
+        val sessionInfo =
+            SessionInfo(
+                safetyPercent = currentSafety,
+                sessionTime = binding.layoutSessionInfo.sessionTime!!,
+                violationCount = "$sessionViolationCount",
+                sessionStartTime = sessionStartTime, sessionEndTime = sessionEndTime
+            )
         val action = SessionStartFragmentDirections.actionSessionStartFragmentToSessionEndFragment(sessionInfo)
         findNavController().navigate(action)
     }

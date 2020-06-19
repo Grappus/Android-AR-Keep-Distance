@@ -1,10 +1,7 @@
 package android.tesseract.jio.covid19.ar.utils
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
@@ -40,6 +37,20 @@ class GraphView(context: Context, attributeSet: AttributeSet): View(context, att
         strokeWidth = 10f
     }
 
+    private val vPaint = Paint().apply {
+        color = Color.DKGRAY
+        textSize = 40f
+        pathEffect = DashPathEffect(floatArrayOf(50f, 10f), 0f)
+    }
+
+    private val tPaint = Paint().apply {
+        color = Color.DKGRAY
+        textSize = 40f
+    }
+
+    private val timeConst = intArrayOf(6, 12, 18, 24)
+    private val violationConst = intArrayOf(40, 30, 20, 10)
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -58,11 +69,6 @@ class GraphView(context: Context, attributeSet: AttributeSet): View(context, att
 
             canvas.drawCircle(realX, realY, 7f, dataPointFillPaint)
             canvas.drawCircle(realX, realY, 7f, dataPointPaint)
-        }
-
-        for (i in 2..4) {
-            canvas.drawText("$i hr", 0, 0, 0f, height.toFloat(), axisLinePaint)
-            canvas.drawText("$i hr", 0, height, width.toFloat(), height.toFloat(), axisLinePaint)
         }
         canvas.drawLine(0f, 0f, 0f, height.toFloat(), axisLinePaint)
         canvas.drawLine(0f, height.toFloat(), width.toFloat(), height.toFloat(), axisLinePaint)
