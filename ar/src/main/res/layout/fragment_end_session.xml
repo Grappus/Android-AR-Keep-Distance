@@ -76,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/endSessionSafetyDivider"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -109,6 +110,7 @@
                     android:contentDescription="@null"
                     app:layout_constraintStart_toEndOf="@id/endSessionSafetyPercentLayout"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/endSessionTimeLayout"
                     app:srcCompat="@drawable/ic_path_divider" />
 
                 <LinearLayout
@@ -118,6 +120,7 @@
                     android:layout_marginStart="@dimen/_12DP"
                     android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/endSessionSafetyDivider"
+                    app:layout_constraintEnd_toStartOf="@id/endSessionTimeDivider"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -150,6 +153,7 @@
                     android:contentDescription="@null"
                     app:layout_constraintStart_toEndOf="@id/endSessionTimeLayout"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/endSessionSafetyViolationsLayout"
                     app:srcCompat="@drawable/ic_path_divider" />
 
                 <LinearLayout
@@ -158,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12DP"
                     android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/endSessionTimeDivider"
                     app:layout_constraintTop_toTopOf="parent">
 

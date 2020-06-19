@@ -58,7 +58,7 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
         }
         binding.run {
             tvTotalTrackedTime.text = duration
-            tvTotalSafetyPercent.text = "${data.safetyRate.toInt()}%"
+            tvTotalSafetyPercent.text = if(data.safetyRate > 100f) "100%" else "${data.safetyRate.toInt()}%"
             tvTotalViolation.text = data.totalViolations.toString()
         }
     }

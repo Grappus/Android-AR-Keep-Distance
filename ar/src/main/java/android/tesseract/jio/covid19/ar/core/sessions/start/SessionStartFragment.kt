@@ -97,6 +97,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     // Leaderboard adapter
     val lbAdapter = LeaderBoardAdapter()
+    var isExpended = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -141,6 +142,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
 
         handleActionButtons()
+        setLeaderBoardExpendButtonListener()
 
         // used to remove the plan detection view
         arFragment.planeDiscoveryController.hide()
@@ -291,6 +293,22 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
             initSessionInfo()
+        }
+    }
+
+    private fun setLeaderBoardExpendButtonListener() {
+        binding.layoutLeaderBoard.fabLeadBoardDownSlide.setOnClickListener {
+            /*if (!isExpended) {
+                isExpended = true
+                binding.layoutLeaderBoard.clLeaderBoard.layoutParams = ViewGroup.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT, 600)
+            }
+            else {
+                isExpended = false
+                binding.layoutLeaderBoard.clLeaderBoard.layoutParams = ViewGroup.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT, 200)
+            }*/
+            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
         }
     }
 

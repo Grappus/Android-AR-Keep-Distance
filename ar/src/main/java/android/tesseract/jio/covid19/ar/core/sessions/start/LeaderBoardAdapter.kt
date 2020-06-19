@@ -1,6 +1,7 @@
 package android.tesseract.jio.covid19.ar.core.sessions.start
 
 import android.content.Context
+import android.graphics.Color
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.ItemLeaderboardBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
@@ -9,10 +10,8 @@ import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_GLOBAL_RANK
 import android.tesseract.jio.covid19.ar.utils.TimeUtils
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import java.text.DecimalFormat
 import java.util.*
 
 /**
@@ -56,13 +55,13 @@ class LeaderBoardAdapter :
             if (rankResult.isMe) {
                 binding.cvLeadBoard.setCardBackgroundColor(context.getColor(R.color.white))
                 binding.cvLeadBoard.radius = 18f
-                binding.ivLiveIndicator.visibility = View.VISIBLE
+                binding.cvLeadBoard.cardElevation = 10f
                 binding.tvRank.text = Prefs.getPrefsInt(USER_GLOBAL_RANK).toString()
             }
             else {
-                binding.cvLeadBoard.setCardBackgroundColor(context.getColor(R.color.leadBoardCardBackgroundColor2))
+                binding.cvLeadBoard.setCardBackgroundColor(Color.parseColor("#00FFFFFF"))
                 binding.cvLeadBoard.radius = 0f
-                binding.ivLiveIndicator.visibility = View.GONE
+                binding.cvLeadBoard.cardElevation = 0f
                 binding.tvRank.text = "$rank"
             }
 
@@ -70,9 +69,9 @@ class LeaderBoardAdapter :
             val today = Calendar.getInstance().timeInMillis
             val timeGap = today - strtDay
             val days = (timeGap / (1000*60*60*24)).toInt()
-            Log.e("TAGIT", "today: $today strtDay: $strtDay  timeGap: $timeGap  days: $days")
             binding.tvJourneyDays.text = if (days > 1) "$days day" else "$days days"
-            binding.tvSafetyPercentage.text = "${(rankResult.lastNetScore).toInt()}%"
+            binding.tvSafetyPercentage.text = if (rankResult.lastNetScore > 100f) "100%"
+            else "${(rankResult.lastNetScore).toInt()}%"
             val name = rankResult.fullName ?: "Unknown User"
             binding.tvUserName.text = name
             binding.tvNameImg.text = name[0].toString()
