@@ -25,7 +25,7 @@
     <string name="label_sounds">Sounds</string>
     <string name="label_sound_indo">Played when the social distance\nspace is violated</string>
     <string name="label_my_journal">My Journal</string>
-    <string name="label_global_rank_info">You’re now at the %sth position\non the leaderboard!</string>
+    <string name="label_global_rank_info">You’re now at the %s position\non the leaderboard!</string>
     <string name="violation">%s violation</string>
     <string name="violation_percent">%s%</string>
 

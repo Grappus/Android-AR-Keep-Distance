@@ -92,7 +92,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     private val violationThreshold = 2
 
     // Safety
-    private var currentSafety = "100%"
+    private var currentSafety = "100"
 
     // Session Time
     private var sessionStartTime = 0L
@@ -315,8 +315,17 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                             binding.btnStartSession.visibility = View.GONE
                         }
                     })
-                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
-                binding.layoutLeaderBoard.fabLeadBoardDownSlide.setImageResource(R.drawable.ic_expand_less)
+                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).animate()
+                    .translationYBy(0f)
+                    .translationY(resources.getDimension(R.dimen._75DP))
+                    .alpha(0.0f)
+                    .setDuration(200)
+                    .setListener(object: AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            binding.btnStartSession.visibility = View.GONE
+                        }
+                    })
+                binding.layoutLeaderBoard.fabLeadBoardDownSlide.setImageResource(R.drawable.ic_up_arrow_small)
             }
             else {
                 isExpended = false
@@ -329,7 +338,12 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     .alpha(1.0f)
                     .setDuration(400)
                     .setListener(null)
-                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.VISIBLE
+                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).animate()
+                    .translationYBy(resources.getDimension(R.dimen._75DP))
+                    .translationY(0f)
+                    .alpha(1.0f)
+                    .setDuration(300)
+                    .setListener(null)
                 binding.layoutLeaderBoard.fabLeadBoardDownSlide.setImageResource(R.drawable.ic_down_arrow_small)
             }
         }

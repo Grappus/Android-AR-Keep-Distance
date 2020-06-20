@@ -23,8 +23,7 @@ class SessionEndViewModel: ViewModel() {
     fun sendSessionEndInfo(sessionInfo: SessionInfo) {
         val sessionStartTime = TimeUtils.getTime(sessionInfo.sessionStartTime, TimeUtils.TIME_SERVER)
         val sessionTimeGap = sessionInfo.sessionEndTime - sessionInfo.sessionStartTime
-        val mins = ((sessionTimeGap/(1000*60)) % 60)
-        val totalDuration = mins//TimeUnit.MINUTES.toSeconds(mins)
+        val totalDuration = TimeUnit.MILLISECONDS.toSeconds(sessionTimeGap)
         val violationCount = sessionInfo.violationCount
         val safetyRate =  sessionInfo.safetyPercent
         val location = UserLocation(
@@ -32,7 +31,7 @@ class SessionEndViewModel: ViewModel() {
         )
         val sessionEndRequest = SessionEndRequest(
             startTime = sessionStartTime, totalDuration = totalDuration,
-            violationCount = violationCount.toInt(), safetyRate = safetyRate.removeSuffix("%"), location = location
+            violationCount = violationCount.toInt(), safetyRate = safetyRate, location = location
         )
         Log.d("TAG", "sessionEndRequest: $sessionEndRequest")
         NetworkUtil.useCase.sessionActivityUseCase.postSessionActivity(sessionEndRequest, object: Callback<SessionEndResponse>() {

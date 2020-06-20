@@ -69,7 +69,7 @@ class LeaderBoardAdapter :
             val today = Calendar.getInstance().timeInMillis
             val timeGap = today - strtDay
             val days = (timeGap / (1000*60*60*24)).toInt()
-            binding.tvJourneyDays.text = if (days > 1) "$days day" else "$days days"
+            binding.tvJourneyDays.text = if(days == 0) "" else if (days > 1) "$days day" else "$days days"
             binding.tvSafetyPercentage.text = if (rankResult.lastNetScore > 100f) "100%"
             else "${(rankResult.lastNetScore).toInt()}%"
             val name = rankResult.fullName ?: "Unknown User"

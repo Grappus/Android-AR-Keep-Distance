@@ -154,13 +154,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSafetyPercent"/>
 
-        <android.tesseract.jio.covid19.ar.utils.SmoothLineGraphView
+        <android.tesseract.jio.covid19.ar.journal.LineGraph
             android:id="@+id/gvSafety"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_15DP"
-            android:layout_marginBottom="@dimen/_70DP"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="@dimen/_220DP"
+            android:layout_marginStart="@dimen/_8DP"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSafetyAndViolation" />

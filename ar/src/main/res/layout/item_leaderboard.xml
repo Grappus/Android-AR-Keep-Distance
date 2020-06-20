@@ -37,7 +37,7 @@
                     android:id="@+id/tvRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_7SP"
+                    android:textSize="@dimen/_8SP"
                     android:textStyle="bold"
                     app:customFont="@{@string/font_bold}"
                     tools:text="123" />
@@ -47,7 +47,7 @@
                     android:layout_width="@dimen/_22DP"
                     android:layout_height="@dimen/_22DP"
                     android:layout_marginStart="@dimen/_9DP"
-                    android:textSize="@dimen/_8SP"
+                    android:textSize="@dimen/_9SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:customFont="@{@string/font_bold}"
@@ -66,7 +66,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_semi_bold}"
@@ -98,16 +98,6 @@
                         android:textStyle="bold"
                         app:customFont="@{@string/font_semi_bold}"
                         tools:text="32%" />
-                    <!--<ImageView
-                        android:id="@+id/ivLiveIndicator"
-                        android:layout_width="@dimen/_4DP"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5DP"
-                        android:adjustViewBounds="true"
-                        android:layout_gravity="center_vertical"
-                        android:contentDescription="@null"
-                        app:srcCompat="@drawable/ic_wlk_oval"
-                        android:tint="#18ca3e"/>-->
                 </LinearLayout>
 
             </LinearLayout>

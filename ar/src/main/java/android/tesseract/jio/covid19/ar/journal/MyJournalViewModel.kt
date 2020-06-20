@@ -50,6 +50,7 @@ class MyJournalViewModel: ViewModel() {
             override fun onSuccessCall(value: MyJournalGraphResponse) {
                 if (value.statusCode == 200) {
                     navigator?.showGraphPlots(value.data)
+                    Log.e("GraphData: ", "${value.data}")
                 }
                 else navigator?.showError("Error to get Graph Plots")
             }
