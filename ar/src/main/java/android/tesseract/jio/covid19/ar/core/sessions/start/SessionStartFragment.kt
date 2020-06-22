@@ -31,7 +31,6 @@ import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.ArSceneView
 import com.google.ar.sceneform.SceneView
 import com.google.ar.sceneform.rendering.ModelRenderable
-import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_ar.*
 import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
@@ -60,7 +59,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     private var currentTransformableNode: TransformableNode? = null
 
-    private lateinit var arFragment: ArFragment
+    private lateinit var arFragment: JioARFragment
 
     private var renderable: ModelRenderable? = null
 
@@ -92,7 +91,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     private val violationThreshold = 2
 
     // Safety
-    private var currentSafety = "100"
+    private var currentSafety = 100
 
     // Session Time
     private var sessionStartTime = 0L
@@ -142,7 +141,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
         startSessionViewModel.getMyGlobalRank()
 
-        arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as ArFragment
+        arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as JioARFragment
 
         handleActionButtons()
         setLeaderBoardExpendButtonListener()
@@ -160,7 +159,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         }
 
         binding.btnStartSession.setOnClickListener {
-            addObject()
             sceneView = arFragment.arSceneView as ArSceneView
             session = arFragment.arSceneView.session
             setupCamConfig(session)
@@ -214,30 +212,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         session.cameraConfig = cameraConfigList[0]
     }
 
-    // Simply returns the center of the screen
-    private fun getScreenCenter(): Point {
-        val view = binding.root
-        return Point(view.width / 2, view.height / 2)
-    }
-
-    /**
-     *
-     * This method takes our 3D model and performs a hit test to determine where to place it
-     */
-    private fun addObject() {
-        val frame = arFragment.arSceneView.arFrame
-        val point = getScreenCenter()
-        if (frame != null) {
-            val hits = frame.hitTest(point.x.toFloat(), point.y.toFloat())
-            for (hit in hits) {
-                val trackable = hit.trackable
-                if (trackable is Plane && trackable.isPoseInPolygon(hit.hitPose)) {
-                    break
-                }
-            }
-        }
-    }
-
     /**
      * @placeObject() is responsible to render the initial 3D object.
      */
@@ -263,7 +237,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             frame.camera?.displayOrientedPose?.compose(mCameraRelativePose) // need to change it
         if (frame.camera?.trackingState == TrackingState.TRACKING) {
             val anchor = arFragment.arSceneView.session?.createAnchor(pose?.extractTranslation())
-            anchor?.pose?.toMatrix(FloatArray(16), 0)
+            anchor?.pose?.toMatrix(FloatArray(32), 0)
             // checking and removing the old anchor so that we always have the latest anchor
             // point and anchor node, to render the object.
             if (oldAnchor != null) {
@@ -356,7 +330,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             sessionTime = "0 m 0 s"
         }
         startSessionTimer()
-        calculateSafety()
     }
 
     /**
@@ -372,20 +345,25 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
             // Copy the camera stream to a bitmap
             try {
+                if (image == null) return
+                if (image.planes  == null) return
+                if ((image.planes[0].buffer == null) || (image.planes[1].buffer == null) || (image.planes[2].buffer == null)) return
                 val bytes = ImageUtils.NV21ToByteArray(
-                    ImageUtils.YUV420_888ToNV21(image!!),
+                    ImageUtils.YUV420_888ToNV21(image),
                     image.width, image.height
                 )
-                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
-                val newBitmap = bitmap.rotate(90f)
-                currentFrameBmp = newBitmap
-                onPreviewSizeSelect()
-                executeKernelTask()
+                val bitmap = bytes?.size?.let { BitmapFactory.decodeByteArray(bytes, 0, it).rotate(90f) }
+                if (bitmap != null) {
+                    currentFrameBmp = bitmap
+                    onPreviewSizeSelect()
+                    executeKernelTask()
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
             image?.close()
         } catch (e: java.lang.Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -533,6 +511,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 }
                 showViolationAlert(false)
                 isDetectingViolation = false
+                if (currentViolation > violationThreshold)
+                    calculateSafety()
             }, 5000L)
         }
         else return
@@ -552,23 +532,9 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     }
 
     private fun calculateSafety() {
-        val handlerSafety = Handler()
-        val r: Runnable = object : Runnable {
-            override fun run() {
-                handlerSafety.postDelayed(
-                    this,
-                    30000L
-                ) //executing object detection in every 100 millisecond
-                if (currentViolation > violationThreshold) {
-                    currentSafety = "${100 - (currentViolation - violationThreshold)}"
-                    currentViolation = 0
-                } else {
-                    currentSafety = "100"
-                }
-                binding.layoutSessionInfo.safetyPercent = "$currentSafety%"
-            }
-        }
-        handlerSafety.postDelayed(r, 30000L)
+        currentSafety -= (currentViolation - violationThreshold)
+        currentViolation = 0
+        binding.layoutSessionInfo.safetyPercent = "$currentSafety%"
     }
 
 
@@ -602,7 +568,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         sessionEndTime = System.currentTimeMillis()
         val sessionInfo =
             SessionInfo(
-                safetyPercent = currentSafety,
+                safetyPercent = currentSafety.toString(),
                 sessionTime = binding.layoutSessionInfo.sessionTime!!,
                 violationCount = "$sessionViolationCount",
                 sessionStartTime = sessionStartTime, sessionEndTime = sessionEndTime

@@ -55,7 +55,7 @@ object ImageUtils {
                     bitmap.width *
                     bitmap.height *
                     dimPixelSize)
-        imgData!!.order(ByteOrder.nativeOrder())
+        imgData.order(ByteOrder.nativeOrder())
         imgData.rewind()
 
         bitmap.getPixels(
