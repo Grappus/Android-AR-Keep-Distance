@@ -154,6 +154,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         // Adds a listener to the ARSceneView
         // Called before processing each frame
         arFragment.arSceneView.scene.addOnUpdateListener {
+            arFragment.onUpdate(it)
             onSceneUpdate()
             addNodeToScene()
         }
@@ -269,8 +270,9 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
-            initSessionInfo()
         }
+        onPreviewSizeSelect()
+        initSessionInfo()
     }
 
     private fun setLeaderBoardExpendButtonListener() {
@@ -335,6 +337,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     /**
      * @onSceneUpdate() Function invoke every time when scene update
      */
+    var imgTimestamp = 0L
     private fun onSceneUpdate() {
         if (session == null) {
             return
@@ -346,8 +349,20 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             // Copy the camera stream to a bitmap
             try {
                 if (image == null) return
-                if (image.planes  == null) return
-                if ((image.planes[0].buffer == null) || (image.planes[1].buffer == null) || (image.planes[2].buffer == null)) return
+                if (image.timestamp > imgTimestamp)
+                    imgTimestamp = image.timestamp
+                else {
+                    image.close()
+                    return
+                }
+                if (image.planes  == null) {
+                    image.close()
+                    return
+                }
+                if ((image.planes[0].buffer == null) || (image.planes[1].buffer == null) || (image.planes[2].buffer == null)) {
+                    image.close()
+                    return
+                }
                 val bytes = ImageUtils.NV21ToByteArray(
                     ImageUtils.YUV420_888ToNV21(image),
                     image.width, image.height
@@ -355,11 +370,11 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 val bitmap = bytes?.size?.let { BitmapFactory.decodeByteArray(bytes, 0, it).rotate(90f) }
                 if (bitmap != null) {
                     currentFrameBmp = bitmap
-                    onPreviewSizeSelect()
                     executeKernelTask()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                image?.close()
             }
             image?.close()
         } catch (e: java.lang.Exception) {
