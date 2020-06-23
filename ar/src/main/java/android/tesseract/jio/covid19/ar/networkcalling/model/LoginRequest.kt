@@ -10,5 +10,6 @@ data class LoginRequest(
 )
 
 data class LoginCreds(
-    val phone: String
+    val phone: String,
+    val fullName: String
 )

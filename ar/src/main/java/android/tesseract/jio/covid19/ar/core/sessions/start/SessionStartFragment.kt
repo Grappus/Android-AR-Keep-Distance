@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.graphics.*
 import android.graphics.Point
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
@@ -12,12 +13,13 @@ import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
 import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
+import android.tesseract.jio.covid19.ar.preferences.MyPreferencesFragmentDirections
 import android.tesseract.jio.covid19.ar.tflite.Classifier
 import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
-import android.tesseract.jio.covid19.ar.utils.ImageUtils
-import android.tesseract.jio.covid19.ar.utils.rotate
-import android.tesseract.jio.covid19.ar.utils.scaleBitmap
-import android.tesseract.jio.covid19.ar.utils.slideView
+import android.tesseract.jio.covid19.ar.utils.*
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.VIOLATION_SOUND_EFFECT
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,6 +103,9 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     val lbAdapter = LeaderBoardAdapter()
     var isExpended = false
 
+    // Media player
+    var mdPlayer: MediaPlayer? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -113,7 +118,13 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideKeyboard(requireActivity())
         initComponents()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mdPlayer = MediaPlayer.create(requireContext(), Prefs.getPrefsInt(VIOLATION_SOUND_EFFECT))
     }
 
     override fun onDestroyView() {
@@ -159,6 +170,14 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             addNodeToScene()
         }
 
+        if (Prefs.getPrefsInt(VIOLATION_SOUND_EFFECT) == 0) {
+            Prefs.setPrefs(VIOLATION_SOUND_EFFECT, R.raw.space_drop)
+        }
+
+        mdPlayer?.setOnCompletionListener {
+            mdPlayer?.release()
+        }
+
         binding.btnStartSession.setOnClickListener {
             sceneView = arFragment.arSceneView as ArSceneView
             session = arFragment.arSceneView.session
@@ -178,16 +197,22 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     private fun handleActionButtons() {
         (requireContext() as ARActivity).setupActionButtons()
 
-        (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
-            findNavController().navigate(R.id.action_sessionStartFragment_to_myJournalFragment)
-        }
+        try {
+            (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
+                val action = SessionStartFragmentDirections.actionSessionStartFragmentToMyJournalFragment()
+                findNavController().navigate(action)
+            }
 
-        (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_sessionStartFragment_to_myPreferencesFragment)
-        }
+            (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
+                val action = SessionStartFragmentDirections.actionSessionStartFragmentToMyPreferencesFragment()
+                findNavController().navigate(action)
+            }
 
-        (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
-            return@setOnClickListener
+            (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
+                return@setOnClickListener
+            }
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
         }
     }
 
@@ -522,9 +547,10 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     sessionViolationCount ++
                     currentViolation++
                     showViolationAlert(true)
+                    if (Prefs.getPrefsBoolean(USER_SOUND_ON))
+                        mdPlayer?.start()
                     binding.layoutSessionInfo.violationCount = "$sessionViolationCount violation"
                 }
-                showViolationAlert(false)
                 isDetectingViolation = false
                 if (currentViolation > violationThreshold)
                     calculateSafety()
@@ -569,6 +595,12 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 llSessionInfo.setBackgroundResource(R.drawable.bg_card_session_info)
             }
         }
+
+        Handler().postDelayed({
+            if (isDetectingViolation) {
+                showViolationAlert(false)
+            }
+        },1500)
     }
 
     // Remove the existing scene and anchor
@@ -580,10 +612,12 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         }
         readyToProcessFrame = false
         binding.layoutSessionInfo.sessionTimer.stop()
+        arFragment.onDestroyView()
+        mdPlayer?.release()
         sessionEndTime = System.currentTimeMillis()
         val sessionInfo =
             SessionInfo(
-                safetyPercent = currentSafety.toString(),
+                safetyPercent = "$currentSafety%",
                 sessionTime = binding.layoutSessionInfo.sessionTime!!,
                 violationCount = "$sessionViolationCount",
                 sessionStartTime = sessionStartTime, sessionEndTime = sessionEndTime

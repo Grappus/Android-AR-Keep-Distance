@@ -17,4 +17,5 @@ object PrefsConstants {
     const val USER_NOTIF_ON = "user_notif_on"
     const val USER_VIB_ON = "user_vib_on"
     const val USER_SOUND_ON = "user_sound_on"
+    const val VIOLATION_SOUND_EFFECT = "violation_sound_effect"
 }

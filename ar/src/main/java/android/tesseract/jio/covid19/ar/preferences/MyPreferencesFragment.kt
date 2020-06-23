@@ -4,6 +4,11 @@ import android.os.Bundle
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentPreferencesBinding
+import android.tesseract.jio.covid19.ar.utils.Prefs
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_NOTIF_ON
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_VIB_ON
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.VIOLATION_SOUND_EFFECT
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,44 +46,97 @@ class MyPreferencesFragment : Fragment() {
     private fun initComponents() {
         handleActionButtons()
         handleSounds()
+        handleVibration()
+        handleNotification()
     }
 
     private fun handleActionButtons() {
         (requireContext() as ARActivity).setupActionButtons()
 
-        (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
-            findNavController().navigate(R.id.action_myPreferencesFragment_to_sessionStartFragment)
-        }
+        try {
+            (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
+                val action = MyPreferencesFragmentDirections.actionMyPreferencesFragmentToSessionStartFragment()
+                findNavController().navigate(action)
+            }
 
-        (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
-            findNavController().navigate(R.id.action_myPreferencesFragment_to_myJournalFragment)
-        }
+            (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
+                val action = MyPreferencesFragmentDirections.actionMyPreferencesFragmentToMyJournalFragment()
+                findNavController().navigate(action)
+            }
 
-        (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
-            return@setOnClickListener
+            (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
+                return@setOnClickListener
+            }
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
         }
     }
 
     private fun handleSounds() {
-        binding.tvScreech.setOnClickListener {
-            binding.run {
-                tvScreech.setBackgroundResource(R.drawable.bg_selected_sound)
-                tvChirp.setBackgroundResource(0)
-                tvWhistle.setBackgroundResource(0)
+        binding.swSound.isChecked = Prefs.getPrefsBoolean(USER_SOUND_ON)
+
+        binding.swSound.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                Prefs.setPrefs(USER_SOUND_ON, true)
+                // user update call
+            }
+            else {
+                Prefs.setPrefs(USER_SOUND_ON, false)
+                // user update call
             }
         }
-        binding.tvChirp.setOnClickListener {
+        binding.tvSpaceDrop.setOnClickListener {
             binding.run {
-                tvScreech.setBackgroundResource(0)
-                tvChirp.setBackgroundResource(R.drawable.bg_selected_sound)
-                tvWhistle.setBackgroundResource(0)
+                tvSpaceDrop.setBackgroundResource(R.drawable.bg_selected_sound)
+                tvAccentSound.setBackgroundResource(0)
+                tvAlarmSound.setBackgroundResource(0)
+            }
+            Prefs.setPrefs(VIOLATION_SOUND_EFFECT, R.raw.space_drop)
+        }
+        binding.tvAccentSound.setOnClickListener {
+            binding.run {
+                tvSpaceDrop.setBackgroundResource(0)
+                tvAccentSound.setBackgroundResource(R.drawable.bg_selected_sound)
+                tvAlarmSound.setBackgroundResource(0)
+            }
+            Prefs.setPrefs(VIOLATION_SOUND_EFFECT, R.raw.accent)
+        }
+        binding.tvAlarmSound.setOnClickListener {
+            binding.run {
+                tvSpaceDrop.setBackgroundResource(0)
+                tvAccentSound.setBackgroundResource(0)
+                tvAlarmSound.setBackgroundResource(R.drawable.bg_selected_sound)
+            }
+            Prefs.setPrefs(VIOLATION_SOUND_EFFECT, R.raw.alarm)
+        }
+    }
+
+    private fun handleVibration() {
+        binding.swVibration.isChecked = Prefs.getPrefsBoolean(USER_VIB_ON)
+
+        binding.swVibration.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                Prefs.setPrefs(USER_VIB_ON, true)
+                // user update call
+            }
+            else {
+                Prefs.setPrefs(USER_VIB_ON, false)
+                // user update call
             }
         }
-        binding.tvWhistle.setOnClickListener {
-            binding.run {
-                tvScreech.setBackgroundResource(0)
-                tvChirp.setBackgroundResource(0)
-                tvWhistle.setBackgroundResource(R.drawable.bg_selected_sound)
+    }
+
+    private fun handleNotification() {
+        binding.swNotification.isChecked = Prefs.getPrefsBoolean(USER_NOTIF_ON)
+
+        binding.swNotification.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                Prefs.setPrefs(USER_NOTIF_ON, true)
+                // user update call
+            }
+            else {
+                Prefs.setPrefs(USER_NOTIF_ON, false)
+                // user update call
             }
         }
     }
