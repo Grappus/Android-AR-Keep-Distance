@@ -42,7 +42,11 @@ class SessionEndFragment : Fragment() {
         val sessionInfo = args.sessionInfo
         binding.sessionInfo = sessionInfo
         sessionEndViewModel.sendSessionEndInfo(sessionInfo)
-        binding.tvRankInfo.text = String.format(getString(R.string.label_global_rank_info), Prefs.getPrefsInt(USER_GLOBAL_RANK).toString())
+        val userGlobalRank = if (Prefs.getPrefsInt(USER_GLOBAL_RANK) == 1) "1st"
+        else if (Prefs.getPrefsInt(USER_GLOBAL_RANK) == 2) "2nd"
+        else if (Prefs.getPrefsInt(USER_GLOBAL_RANK) == 3) "3rd"
+        else "${Prefs.getPrefsInt(USER_GLOBAL_RANK)}th"
+        binding.tvRankInfo.text = String.format(getString(R.string.label_global_rank_info), userGlobalRank)
         binding.tvViolationCount.text = "${sessionInfo.violationCount} violation"
         (requireContext() as ARActivity).setupActionButtons()
         binding.fabCloseSession.setOnClickListener { navigateBack() }

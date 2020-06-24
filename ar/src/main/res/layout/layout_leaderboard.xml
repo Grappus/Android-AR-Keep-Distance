@@ -33,7 +33,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <!--<androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNearYou"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_21DP"
@@ -52,7 +52,7 @@
                 app:layout_anchorGravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
+                tools:visibility="visible" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvLeadboard"

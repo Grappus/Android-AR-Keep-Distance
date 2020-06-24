@@ -1,6 +1,5 @@
 package android.tesseract.jio.covid19.ar.journal
 
-import android.graphics.PointF
 import android.os.Bundle
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
@@ -17,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.activity_ar.*
+import kotlinx.android.synthetic.main.fragment_journal.*
 import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
 import java.util.*
 
@@ -58,28 +58,25 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
         }
         binding.run {
             tvTotalTrackedTime.text = duration
-            tvTotalSafetyPercent.text = "${data.safetyRate.toInt()}%"
+            tvTotalSafetyPercent.text = if(data.safetyRate > 100f) "100%" else "${data.safetyRate.toInt()}%"
             tvTotalViolation.text = data.totalViolations.toString()
         }
     }
 
     override fun showGraphPlots(graphPlotData: MutableList<GraphPlotData>) {
-        val dataPointList = mutableListOf<PointF>()
-        for (i in graphPlotData) {
-            dataPointList.add(PointF(i.withinDuration.toFloat(), i.plotdata.sumBy { it.violationCount }.toFloat()))
-            Log.d("TAGGG", "DataPoint: $i")
-        }
-        /*dataPointList.add(DataPoint(6, 2))
-        dataPointList.add(DataPoint(12, 8))
-        dataPointList.add(DataPoint(18, 26))
-        dataPointList.add(DataPoint(24, 5))*/
-       /* binding.gvSafety.setData(arrayOf(
-            PointF(6f, 3f),  // {x, y}
-            PointF(12f, 21f),
-            PointF(18f, 9f),
-            PointF(24f, 6f)
-        ))*/
-        binding.gvSafety.setData(dataPointList)
+        val graphDataList = mutableListOf<LineGraph.GraphData>()
+        Log.e("GraphPlotData", "$graphPlotData")
+        /*for (value in 0 until graphPlotData.size) {
+            graphDataList.add(
+                LineGraph.GraphData("${graphPlotData[value].withinDuration} hrs",
+                    graphPlotData[value].plotdata.sumBy { it.violationCount }.toFloat())
+            )
+        }*/
+        graphDataList.add(LineGraph.GraphData("6 hrs", graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat()))
+        graphDataList.add(LineGraph.GraphData("12 hrs", graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat()))
+        graphDataList.add(LineGraph.GraphData("18 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
+        graphDataList.add(LineGraph.GraphData("24 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
+        gvSafety.setGraphData(graphDataList.toList())
     }
 
     override fun showError(msg: String) {

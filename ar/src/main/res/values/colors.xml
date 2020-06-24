@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#22297a</color>
     <color name="colorAccent">#4352FE</color>
     
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="white2">#F8F8F8</color>
     <color name="baseBgColor">#22297a</color>
     <color name="startButtonColor">#4352fe</color>

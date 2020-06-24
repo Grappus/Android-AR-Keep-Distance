@@ -6,5 +6,5 @@ package android.tesseract.jio.covid19.ar.networkcalling.model
 data class SessionEndResponse(
     val statusCode: Int,
     val rank: Int,
-    val score: String
+    val score: Double
 )

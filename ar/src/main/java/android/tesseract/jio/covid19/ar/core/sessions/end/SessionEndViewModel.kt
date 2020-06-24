@@ -7,6 +7,8 @@ import android.tesseract.jio.covid19.ar.networkcalling.model.SessionEndResponse
 import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
 import android.tesseract.jio.covid19.ar.networkcalling.model.UserLocation
 import android.tesseract.jio.covid19.ar.networkcalling.retrofit.NetworkUtil
+import android.tesseract.jio.covid19.ar.utils.Prefs
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants
 import android.tesseract.jio.covid19.ar.utils.TimeUtils
 import android.text.format.Time
 import android.util.Log
@@ -21,8 +23,7 @@ class SessionEndViewModel: ViewModel() {
     fun sendSessionEndInfo(sessionInfo: SessionInfo) {
         val sessionStartTime = TimeUtils.getTime(sessionInfo.sessionStartTime, TimeUtils.TIME_SERVER)
         val sessionTimeGap = sessionInfo.sessionEndTime - sessionInfo.sessionStartTime
-        val mins = ((sessionTimeGap/(1000*60)) % 60)
-        val totalDuration = TimeUnit.MINUTES.toSeconds(mins)
+        val totalDuration = TimeUnit.MILLISECONDS.toSeconds(sessionTimeGap)
         val violationCount = sessionInfo.violationCount
         val safetyRate =  sessionInfo.safetyPercent
         val location = UserLocation(
@@ -32,6 +33,7 @@ class SessionEndViewModel: ViewModel() {
             startTime = sessionStartTime, totalDuration = totalDuration,
             violationCount = violationCount.toInt(), safetyRate = safetyRate, location = location
         )
+        Log.d("TAG", "sessionEndRequest: $sessionEndRequest")
         NetworkUtil.useCase.sessionActivityUseCase.postSessionActivity(sessionEndRequest, object: Callback<SessionEndResponse>() {
             override fun loading() {
 
@@ -39,12 +41,14 @@ class SessionEndViewModel: ViewModel() {
 
             override fun onSuccessCall(value: SessionEndResponse) {
                 if (value.statusCode == 200) {
-                    Log.d("TAG", "Session Info Success")
+                    Log.d("TAG", "Session Info Success: $value")
+                    Prefs.setPrefs(PrefsConstants.USER_SAFETY, value.score.toInt())
+                    Prefs.setPrefs(PrefsConstants.USER_GLOBAL_RANK, value.rank)
                 }
             }
 
             override fun onFailureCall(message: String?) {
-                Log.e("TAG", "Error to send session Info")
+                Log.e("TAG", "Error to send session Info: $message")
             }
 
         })
