@@ -51,7 +51,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/safetyDivider">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,6 +84,7 @@
                     app:layout_constraintStart_toEndOf="@id/safetyPercentLayout"
                     android:contentDescription="@null"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/SessionTimeLayout"
                     app:srcCompat="@drawable/ic_path_divider" />
 
                 <LinearLayout
@@ -92,6 +94,7 @@
                     android:layout_marginStart="@dimen/_12DP"
                     android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/safetyDivider"
+                    app:layout_constraintEnd_toStartOf="@id/timeDivider"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -125,6 +128,7 @@
                     app:layout_constraintStart_toEndOf="@id/SessionTimeLayout"
                     android:contentDescription="@null"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/SafetyViolationsLayout"
                     app:srcCompat="@drawable/ic_path_divider" />
 
                 <LinearLayout
@@ -134,6 +138,7 @@
                     android:layout_marginStart="@dimen/_12DP"
                     android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/timeDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView

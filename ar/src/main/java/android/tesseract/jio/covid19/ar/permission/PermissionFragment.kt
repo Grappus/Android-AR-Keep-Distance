@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentPermissionBinding
+import android.tesseract.jio.covid19.ar.utils.Prefs
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -59,7 +61,10 @@ class PermissionFragment : Fragment() {
                     override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                         report?.let {
                             if (report.areAllPermissionsGranted()) {
-                                findNavController().navigate(R.id.action_permissionFragment_to_sessionStartFragment)
+                                if (!Prefs.getPrefsBoolean(PrefsConstants.IS_USER_LOGIN))
+                                    findNavController().navigate(R.id.action_permissionFragment_to_loginFragment)
+                                else
+                                    findNavController().navigate(R.id.action_permissionFragment_to_sessionStartFragment)
                             }
 
                             if (report.isAnyPermissionPermanentlyDenied) {

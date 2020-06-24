@@ -25,7 +25,7 @@ class SessionEndViewModel: ViewModel() {
         val sessionTimeGap = sessionInfo.sessionEndTime - sessionInfo.sessionStartTime
         val totalDuration = TimeUnit.MILLISECONDS.toSeconds(sessionTimeGap)
         val violationCount = sessionInfo.violationCount
-        val safetyRate =  sessionInfo.safetyPercent
+        val safetyRate =  sessionInfo.safetyPercent.removeSuffix("%")
         val location = UserLocation(
             latitude = "0.0", longitude = "0.0"
         )

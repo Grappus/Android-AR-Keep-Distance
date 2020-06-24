@@ -15,6 +15,7 @@ import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_NOTIF_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SAFETY
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_VIB_ON
+import android.util.Log
 import androidx.lifecycle.ViewModel
 
 /**
@@ -50,8 +51,8 @@ class SplashViewModel: ViewModel() {
         })
     }
 
-    fun authenticateUser(phoneNumber: String) {
-        val loginRequest = LoginRequest(credentials = LoginCreds(phoneNumber))
+    fun authenticateUser(phoneNumber: String, userName: String) {
+        val loginRequest = LoginRequest(credentials = LoginCreds(phoneNumber, userName))
         NetworkUtil.useCase.loginUseCase.userLogin(loginRequest, object: Callback<LoginResponse>() {
             override fun loading() {
 

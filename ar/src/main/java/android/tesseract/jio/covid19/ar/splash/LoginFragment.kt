@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
-import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
-import android.tesseract.jio.covid19.ar.utils.Prefs
-import android.tesseract.jio.covid19.ar.utils.PrefsConstants.FINISHED_WALKTHROUGH
-import android.tesseract.jio.covid19.ar.utils.PrefsConstants.IS_USER_LOGIN
+import android.tesseract.jio.covid19.ar.databinding.FragmentLoginBinding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +19,13 @@ import androidx.navigation.fragment.findNavController
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
-class SplashFragment : Fragment(), SplashViewModel.Navigator {
+class LoginFragment : Fragment(), SplashViewModel.Navigator {
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        FragmentLoginBinding.inflate(
+            layoutInflater
+        )
+    }
     var handler: Handler? = null
 
     override fun onCreateView(
@@ -47,32 +48,29 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
     }
 
     override fun navigateToNextScreen() {
-        if (!Prefs.getPrefsBoolean(FINISHED_WALKTHROUGH)) {
-            findNavController().navigate(R.id.action_splashFragment_to_walkThroughFragment)
-        }
-        else if (!arePermissionsGranted())
-            findNavController().navigate(R.id.action_splashFragment_to_permissionFragment)
-        else if (!Prefs.getPrefsBoolean(IS_USER_LOGIN))
-            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-        else {
-            findNavController().navigate(R.id.action_splashFragment_to_sessionStartFragment)
-        }
+        findNavController().navigate(R.id.action_loginFragment_to_sessionStartFragment)
     }
 
     override fun showNetworkError() {
-        Toast.makeText(requireContext(), "Something is wrong, please try again", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Something is wrong, please try again", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun initComponents() {
         val splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
         splashViewModel.navigator = this
         (requireContext() as ARActivity).setupActionButtons()
-        handler?.postDelayed({
-            if (Prefs.getPrefsBoolean(IS_USER_LOGIN)) {
-                splashViewModel.getUserInfo()
-            }
-            else navigateToNextScreen()
-        }, 2000L)
+        binding.btnSubmit.setOnClickListener {
+            if (binding.etUserName.text.toString()
+                    .isNotBlank() && binding.etPhoneNumber.text.toString().isNotBlank()
+            ) {
+                splashViewModel.authenticateUser(
+                    binding.etPhoneNumber.text.toString(),
+                    binding.etUserName.text.toString()
+                )
+            } else Toast.makeText(requireContext(), "All Details required", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     // check if all the required permissions are granted by user.
@@ -80,7 +78,10 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
         val permissionCamera =
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
         val permissionLocation =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
         return (permissionCamera == PackageManager.PERMISSION_GRANTED) && (permissionLocation == PackageManager.PERMISSION_GRANTED)
     }
 }

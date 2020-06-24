@@ -94,16 +94,22 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
     private fun handleActionButtons() {
         (requireContext() as ARActivity).setupActionButtons()
 
-        (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
-            findNavController().navigate(R.id.action_myJournalFragment_to_sessionStartFragment)
-        }
+        try {
+            (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
+                val action = MyJournalFragmentDirections.actionMyJournalFragmentToSessionStartFragment()
+                findNavController().navigate(action)
+            }
 
-        (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_myJournalFragment_to_myPreferencesFragment)
-        }
+            (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
+                val action = MyJournalFragmentDirections.actionMyJournalFragmentToMyPreferencesFragment()
+                findNavController().navigate(action)
+            }
 
-        (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
-            return@setOnClickListener
+            (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
+                return@setOnClickListener
+            }
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
         }
     }
 
