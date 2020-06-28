@@ -12,17 +12,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  */
 class LoginUseCase {
     fun userLogin(loginRequest: LoginRequest, callback: Callback<LoginResponse>) {
-        NetworkUtil.getApiInstance()!!
-            .userLogin(loginRequest)
+        NetworkUtil.userService.userLogin(loginRequest)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                callback.loading()
+                callback.loading(true)
             }
             .subscribe(
                 {
+                    callback.loading(false)
                     callback.onSuccessCall(it)
                 }, {
+                    callback.loading(false)
                     callback.onFailureCall(it.message)
                 })
     }

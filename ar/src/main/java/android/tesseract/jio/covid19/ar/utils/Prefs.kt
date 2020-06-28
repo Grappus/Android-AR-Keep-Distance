@@ -9,7 +9,7 @@ import androidx.annotation.Keep
 /**
  * Created by Dipanshu Harbola on 4/6/20.
  */
-@Keep object Prefs {
+object Prefs {
 
     private var prefs: SharedPreferences? = null
 

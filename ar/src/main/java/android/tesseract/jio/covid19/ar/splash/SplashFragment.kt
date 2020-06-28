@@ -10,6 +10,7 @@ import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.FINISHED_WALKTHROUGH
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.IS_USER_LOGIN
+import android.tesseract.jio.covid19.ar.utils.ProgressLoader
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +60,15 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
         }
     }
 
-    override fun showNetworkError() {
-        Toast.makeText(requireContext(), "Something is wrong, please try again", Toast.LENGTH_SHORT).show()
+    override fun showLoading(isLoading: Boolean) {
+        if (isLoading)
+            ProgressLoader.showLoader(requireContext())
+        else
+            ProgressLoader.hideLoader()
+    }
+
+    override fun showNetworkError(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun initComponents() {

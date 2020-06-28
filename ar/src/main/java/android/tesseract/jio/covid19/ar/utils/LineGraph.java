@@ -1,4 +1,4 @@
-package android.tesseract.jio.covid19.ar.journal;
+package android.tesseract.jio.covid19.ar.utils;
 
 import android.content.Context;
 import android.graphics.Canvas;

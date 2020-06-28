@@ -4,7 +4,6 @@
     package="android.tesseract.jio.covid19">
 
     <application
-        android:name="android.tesseract.jio.covid19.SampleApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

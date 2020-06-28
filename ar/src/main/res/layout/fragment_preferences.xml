@@ -34,6 +34,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPreferences" />
 
+        <TextView
+            android:id="@+id/tvNameImg"
+            android:layout_width="@dimen/_28DP"
+            android:layout_height="@dimen/_28DP"
+            android:layout_marginTop="@dimen/_4DP"
+            android:background="@drawable/bg_name_img2"
+            android:gravity="center"
+            android:textColor="@color/baseBgColor"
+            android:textSize="@dimen/_13SP"
+            android:textStyle="bold"
+            app:customFont="@{@string/font_bold}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvPreferences"
+            tools:text="D" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cvVibration"
             android:layout_width="match_parent"
@@ -90,7 +105,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+       <!-- <androidx.cardview.widget.CardView
             android:id="@+id/cvNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,7 +159,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvSound"
@@ -154,7 +169,7 @@
             app:cardCornerRadius="@dimen/_10DP"
             app:cardBackgroundColor="@color/startButtonColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvNotification"
+            app:layout_constraintTop_toBottomOf="@id/cvVibration"
             app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout

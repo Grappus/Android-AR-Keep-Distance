@@ -5,7 +5,7 @@ import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentPreferencesBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
-import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_NOTIF_ON
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_NAME
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_VIB_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.VIOLATION_SOUND_EFFECT
@@ -46,8 +46,12 @@ class MyPreferencesFragment : Fragment() {
     private fun initComponents() {
         handleActionButtons()
         handleSounds()
+        handleSelectedSounds()
         handleVibration()
-        handleNotification()
+        val name = Prefs.getPrefsString(USER_NAME)
+        binding.tvUserName.text = name
+        binding.tvNameImg.text = name[0].toString()
+        //handleNotification()
     }
 
     private fun handleActionButtons() {
@@ -69,6 +73,32 @@ class MyPreferencesFragment : Fragment() {
             }
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
+        }
+    }
+
+    private fun handleSelectedSounds() {
+        when(Prefs.getPrefsInt(VIOLATION_SOUND_EFFECT)) {
+            R.raw.space_drop -> {
+                binding.run {
+                    tvSpaceDrop.setBackgroundResource(R.drawable.bg_selected_sound)
+                    tvAccentSound.setBackgroundResource(0)
+                    tvAlarmSound.setBackgroundResource(0)
+                }
+            }
+            R.raw.alarm -> {
+                binding.run {
+                    tvSpaceDrop.setBackgroundResource(0)
+                    tvAccentSound.setBackgroundResource(0)
+                    tvAlarmSound.setBackgroundResource(R.drawable.bg_selected_sound)
+                }
+            }
+            else -> {
+                binding.run {
+                    tvSpaceDrop.setBackgroundResource(R.drawable.bg_selected_sound)
+                    tvAccentSound.setBackgroundResource(0)
+                    tvAlarmSound.setBackgroundResource(0)
+                }
+            }
         }
     }
 
@@ -126,7 +156,7 @@ class MyPreferencesFragment : Fragment() {
         }
     }
 
-    private fun handleNotification() {
+    /*private fun handleNotification() {
         binding.swNotification.isChecked = Prefs.getPrefsBoolean(USER_NOTIF_ON)
 
         binding.swNotification.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -139,5 +169,5 @@ class MyPreferencesFragment : Fragment() {
                 // user update call
             }
         }
-    }
+    }*/
 }

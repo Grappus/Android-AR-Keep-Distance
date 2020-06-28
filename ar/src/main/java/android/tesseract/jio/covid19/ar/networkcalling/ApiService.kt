@@ -29,4 +29,7 @@ interface ApiService {
 
     @GET("users/me")
     fun getMyInfo(@Header("Authorization") authorization: String): Single<GetSelfInfo>
+
+    @PUT("users/{id}")
+    fun updateUerInfo(@Header("Authorization") authorization: String, @Path("id") userId: String, @Body user: User): Single<GetSelfInfo>
 }

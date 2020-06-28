@@ -31,8 +31,8 @@ class SplashViewModel: ViewModel() {
 
     fun getUserInfo() {
         NetworkUtil.useCase.myInfoUseCase.getMyInfo(object: Callback<GetSelfInfo>() {
-            override fun loading() {
-
+            override fun loading(isLoading: Boolean) {
+                navigator?.showLoading(isLoading)
             }
 
             override fun onSuccessCall(value: GetSelfInfo) {
@@ -45,7 +45,7 @@ class SplashViewModel: ViewModel() {
             }
 
             override fun onFailureCall(message: String?) {
-                navigator?.showNetworkError()
+                navigator?.showNetworkError(message!!)
             }
 
         })
@@ -54,14 +54,35 @@ class SplashViewModel: ViewModel() {
     fun authenticateUser(phoneNumber: String, userName: String) {
         val loginRequest = LoginRequest(credentials = LoginCreds(phoneNumber, userName))
         NetworkUtil.useCase.loginUseCase.userLogin(loginRequest, object: Callback<LoginResponse>() {
-            override fun loading() {
-
+            override fun loading(isLoading: Boolean) {
+                navigator?.showLoading(isLoading)
             }
 
             override fun onSuccessCall(value: LoginResponse) {
                 if (value.statusCode == 200) {
                     Prefs.setPrefs(IS_USER_LOGIN, true)
                     Prefs.setPrefs(USER_AUTH_TOKEN, value.authToken)
+                    val user = User()
+                    user.fullName = userName
+                    updateUserInfo(user)
+                }
+            }
+
+            override fun onFailureCall(message: String?) {
+                navigator?.showNetworkError(message!!)
+            }
+
+        })
+    }
+
+    fun updateUserInfo(user: User) {
+        NetworkUtil.useCase.updateUserInfoUseCase.updateUserInfo(user, object: Callback<GetSelfInfo>() {
+            override fun loading(isLoading: Boolean) {
+                navigator?.showLoading(isLoading)
+            }
+
+            override fun onSuccessCall(value: GetSelfInfo) {
+                if (value.statusCode == 200) {
                     updateUserInfo(value.data)
                 }
                 else {
@@ -70,7 +91,7 @@ class SplashViewModel: ViewModel() {
             }
 
             override fun onFailureCall(message: String?) {
-                navigator?.showNetworkError()
+                navigator?.showNetworkError(message!!)
             }
 
         })
@@ -89,6 +110,7 @@ class SplashViewModel: ViewModel() {
 
     interface Navigator {
         fun navigateToNextScreen()
-        fun showNetworkError()
+        fun showNetworkError(msg: String)
+        fun showLoading(isLoading: Boolean)
     }
 }

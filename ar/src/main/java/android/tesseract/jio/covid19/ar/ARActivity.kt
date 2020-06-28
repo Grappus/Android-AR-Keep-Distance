@@ -7,6 +7,7 @@ import android.tesseract.jio.covid19.ar.core.sessions.start.SessionStartFragment
 import android.tesseract.jio.covid19.ar.databinding.ActivityArBinding
 import android.tesseract.jio.covid19.ar.journal.MyJournalFragment
 import android.tesseract.jio.covid19.ar.preferences.MyPreferencesFragment
+import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,7 @@ class ARActivity : AppCompatActivity() {
         window.navigationBarColor = getColor(R.color.baseBgColor)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        Prefs.init(applicationContext)
 
         initComponents()
     }

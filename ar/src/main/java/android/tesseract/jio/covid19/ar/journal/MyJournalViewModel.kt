@@ -23,8 +23,8 @@ class MyJournalViewModel: ViewModel() {
 
     fun getMyJournal() {
         NetworkUtil.useCase.myJournalUseCase.getMyJournal(object: Callback<MyJournalResponse>() {
-            override fun loading() {
-
+            override fun loading(isLoading: Boolean) {
+                navigator?.showLoading(isLoading)
             }
 
             override fun onSuccessCall(value: MyJournalResponse) {
@@ -43,8 +43,8 @@ class MyJournalViewModel: ViewModel() {
 
     fun getGraphPlots() {
         NetworkUtil.useCase.graphPlotDataUseCase.getGraphPlotData(object : Callback<MyJournalGraphResponse>() {
-            override fun loading() {
-
+            override fun loading(isLoading: Boolean) {
+                navigator?.showLoading(isLoading)
             }
 
             override fun onSuccessCall(value: MyJournalGraphResponse) {
@@ -65,6 +65,7 @@ class MyJournalViewModel: ViewModel() {
     interface Navigator {
         fun showJournalData(data: JournalData)
         fun showGraphPlots(graphPlotData: MutableList<GraphPlotData>)
+        fun showLoading(isLoading: Boolean)
         fun showError(msg: String)
     }
 }

@@ -154,7 +154,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSafetyPercent"/>
 
-        <android.tesseract.jio.covid19.ar.journal.LineGraph
+        <android.tesseract.jio.covid19.ar.utils.LineGraph
             android:id="@+id/gvSafety"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_220DP"

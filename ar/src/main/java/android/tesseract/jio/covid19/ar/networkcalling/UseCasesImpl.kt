@@ -21,5 +21,7 @@ class UseCasesImpl: UseCases {
         get() = MyJournalUseCase()
     override val sessionActivityUseCase: SessionActivityUseCase
         get() = SessionActivityUseCase()
+    override val updateUserInfoUseCase: UpdateUserInfoUseCase
+        get() = UpdateUserInfoUseCase()
 
 }
