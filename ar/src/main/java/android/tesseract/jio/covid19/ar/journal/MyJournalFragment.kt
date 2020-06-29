@@ -6,7 +6,6 @@ import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentJournalBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.GraphPlotData
 import android.tesseract.jio.covid19.ar.networkcalling.model.JournalData
-import android.tesseract.jio.covid19.ar.utils.DataPoint
 import android.tesseract.jio.covid19.ar.utils.LineGraph
 import android.tesseract.jio.covid19.ar.utils.ProgressLoader
 import android.util.Log
@@ -20,7 +19,6 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.activity_ar.*
 import kotlinx.android.synthetic.main.fragment_journal.*
 import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
-import java.util.*
 
 /**
  * Created by Dipanshu Harbola on 11/6/20.
@@ -119,13 +117,6 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
             }
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
-        }
-    }
-
-    private fun generateRandomDataPoints(): List<DataPoint> {
-        val random = Random()
-        return (0..10).map {
-            DataPoint(it, random.nextInt(10))
         }
     }
 }
