@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.graphics.*
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
@@ -29,6 +30,7 @@ import com.google.ar.core.*
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.ArSceneView
 import com.google.ar.sceneform.SceneView
+import com.google.ar.sceneform.assets.RenderableSource
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_ar.*
@@ -53,6 +55,9 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     }
 
     lateinit var startSessionViewModel: SessionStartViewModel
+
+    private val modelColored = "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
+    private val modelRed = "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
 
     // coroutine scope for background/main thread operations
     private val bgScope = CoroutineScope(Dispatchers.IO)
@@ -262,7 +267,10 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
      */
     private fun placeObjectColored() {
         ModelRenderable.builder()
-            .setSource(arFragment.context, R.raw.colored)
+            .setSource(requireContext(), RenderableSource.builder().setSource(
+                requireContext(), Uri.parse(modelColored),
+                RenderableSource.SourceType.GLB).build())
+            .setRegistryId(modelColored)
             .build()
             .thenAccept {
                 renderableColored = it.apply {
@@ -281,7 +289,10 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
      */
     private fun placeObjectRed() {
         ModelRenderable.builder()
-            .setSource(arFragment.context, R.raw.red)
+            .setSource(requireContext(), RenderableSource.builder().setSource(
+                requireContext(), Uri.parse(modelColored),
+                RenderableSource.SourceType.GLB).build())
+            .setRegistryId(modelColored)
             .build()
             .thenAccept {
                 renderableRed = it.apply {

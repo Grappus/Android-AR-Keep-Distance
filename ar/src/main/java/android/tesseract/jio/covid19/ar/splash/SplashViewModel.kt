@@ -62,6 +62,7 @@ class SplashViewModel: ViewModel() {
                 if (value.statusCode == 200) {
                     Prefs.setPrefs(IS_USER_LOGIN, true)
                     Prefs.setPrefs(USER_AUTH_TOKEN, value.authToken)
+                    Prefs.setPrefs(USER_ID, value.data.id)
                     val user = User()
                     user.fullName = userName
                     updateUserInfo(user)
