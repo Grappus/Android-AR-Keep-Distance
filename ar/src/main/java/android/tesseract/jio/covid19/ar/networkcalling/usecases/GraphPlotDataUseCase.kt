@@ -14,17 +14,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class GraphPlotDataUseCase {
 
     fun getGraphPlotData(callback: Callback<MyJournalGraphResponse>) {
-        NetworkUtil.getApiInstance()!!
-            .getGraphPlotData(Prefs.getPrefsString(USER_AUTH_TOKEN), 30)
+        NetworkUtil.userService.getGraphPlotData(Prefs.getPrefsString(USER_AUTH_TOKEN), 30)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                callback.loading()
+                callback.loading(true)
             }
             .subscribe(
                 {
+                    callback.loading(false)
                     callback.onSuccessCall(it)
                 }, {
+                    callback.loading(false)
                     callback.onFailureCall(it.message)
                 })
     }

@@ -14,17 +14,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class MyInfoUseCase {
 
     fun getMyInfo(callback: Callback<GetSelfInfo>) {
-        NetworkUtil.getApiInstance()!!
-            .getMyInfo(Prefs.getPrefsString(USER_AUTH_TOKEN))
+        NetworkUtil.userService.getMyInfo(Prefs.getPrefsString(USER_AUTH_TOKEN))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                callback.loading()
+                callback.loading(true)
             }
             .subscribe(
                 {
+                    callback.loading(false)
                     callback.onSuccessCall(it)
                 }, {
+                    callback.loading(false)
                     callback.onFailureCall(it.message)
                 })
     }

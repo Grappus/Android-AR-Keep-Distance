@@ -3,7 +3,6 @@ package android.tesseract.jio.covid19.ar.core.sessions.start
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.graphics.*
-import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -13,13 +12,11 @@ import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
 import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
-import android.tesseract.jio.covid19.ar.preferences.MyPreferencesFragmentDirections
 import android.tesseract.jio.covid19.ar.tflite.Classifier
 import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
 import android.tesseract.jio.covid19.ar.utils.*
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.VIOLATION_SOUND_EFFECT
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,18 +52,23 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         )
     }
 
+    lateinit var startSessionViewModel: SessionStartViewModel
+
     // coroutine scope for background/main thread operations
     private val bgScope = CoroutineScope(Dispatchers.IO)
+    private val uiRenderingScope = CoroutineScope(Dispatchers.Main)
     private val uiScope = CoroutineScope(Dispatchers.Main)
 
     private var currentTransformableNode: TransformableNode? = null
 
     private lateinit var arFragment: JioARFragment
 
+    private lateinit var renderableColored: ModelRenderable
+    private lateinit var renderableRed: ModelRenderable
     private var renderable: ModelRenderable? = null
 
     // Camera world position points
-    private val mCameraRelativePose = Pose.makeTranslation(0.0f, -0.39f, -0.55f)
+    private val mCameraRelativePose = Pose.makeTranslation(0.0f, -0.36f, -0.55f)
 
     private var oldAnchor: Anchor? = null
 
@@ -81,7 +83,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     private var detector: Classifier? = null
 
     private var readyToProcessFrame = false
-    private var currentFrameBmp: Bitmap? = null
+    private lateinit var currentFrameBmp: Bitmap
     private var computingDetection = false
     private var timestamp: Long = 0
 
@@ -119,11 +121,16 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideKeyboard(requireActivity())
+        placeObjectColored()
+        placeObjectRed()
         initComponents()
     }
 
     override fun onResume() {
         super.onResume()
+        if (Prefs.getPrefsInt(VIOLATION_SOUND_EFFECT) == 0) {
+            Prefs.setPrefs(VIOLATION_SOUND_EFFECT, R.raw.space_drop)
+        }
         mdPlayer = MediaPlayer.create(requireContext(), Prefs.getPrefsInt(VIOLATION_SOUND_EFFECT))
     }
 
@@ -133,6 +140,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         detector?.close()
         arFragment.onDetach()
         bgScope.cancel()
+        uiRenderingScope.cancel()
         uiScope.cancel()
     }
 
@@ -141,13 +149,27 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         lbAdapter.setData(result)
     }
 
+    override fun navigateToEndSession(sessionInfo: SessionInfo) {
+        val action = SessionStartFragmentDirections.actionSessionStartFragmentToSessionEndFragment(
+            sessionInfo
+        )
+        findNavController().navigate(action)
+    }
+
+    override fun showLoading(isLoading: Boolean) {
+        if (isLoading)
+            ProgressLoader.showLoader(requireContext())
+        else
+            ProgressLoader.hideLoader()
+    }
+
     override fun showError(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun initComponents() {
 
-        val startSessionViewModel = ViewModelProvider(this).get(SessionStartViewModel::class.java)
+        startSessionViewModel = ViewModelProvider(this).get(SessionStartViewModel::class.java)
         startSessionViewModel.navigator = this
 
         startSessionViewModel.getMyGlobalRank()
@@ -167,11 +189,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         arFragment.arSceneView.scene.addOnUpdateListener {
             arFragment.onUpdate(it)
             onSceneUpdate()
-            addNodeToScene()
-        }
-
-        if (Prefs.getPrefsInt(VIOLATION_SOUND_EFFECT) == 0) {
-            Prefs.setPrefs(VIOLATION_SOUND_EFFECT, R.raw.space_drop)
+            renderable?.let { uiRenderingScope.launch { addNodeToScene() } }
         }
 
         mdPlayer?.setOnCompletionListener {
@@ -182,7 +200,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             sceneView = arFragment.arSceneView as ArSceneView
             session = arFragment.arSceneView.session
             setupCamConfig(session)
-            placeObject(R.raw.colored)
             showStartSessionView()
             readyToProcessFrame = true
 
@@ -199,12 +216,14 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
         try {
             (requireContext() as ARActivity).layoutActionButtons.fabJourneyStats.setOnClickListener {
-                val action = SessionStartFragmentDirections.actionSessionStartFragmentToMyJournalFragment()
+                val action =
+                    SessionStartFragmentDirections.actionSessionStartFragmentToMyJournalFragment()
                 findNavController().navigate(action)
             }
 
             (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
-                val action = SessionStartFragmentDirections.actionSessionStartFragmentToMyPreferencesFragment()
+                val action =
+                    SessionStartFragmentDirections.actionSessionStartFragmentToMyPreferencesFragment()
                 findNavController().navigate(action)
             }
 
@@ -241,12 +260,34 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     /**
      * @placeObject() is responsible to render the initial 3D object.
      */
-    private fun placeObject(srcId: Int) {
+    private fun placeObjectColored() {
         ModelRenderable.builder()
-            .setSource(arFragment.context, srcId)
+            .setSource(arFragment.context, R.raw.colored)
             .build()
             .thenAccept {
-                renderable = it
+                renderableColored = it.apply {
+                    isShadowReceiver = false
+                    isShadowCaster = false
+                }
+            }
+            .exceptionally {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                return@exceptionally null
+            }
+    }
+
+    /**
+     * @placeObject() is responsible to render the initial 3D object.
+     */
+    private fun placeObjectRed() {
+        ModelRenderable.builder()
+            .setSource(arFragment.context, R.raw.red)
+            .build()
+            .thenAccept {
+                renderableRed = it.apply {
+                    isShadowReceiver = false
+                    isShadowCaster = false
+                }
             }
             .exceptionally {
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
@@ -262,7 +303,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         val pose =
             frame.camera?.displayOrientedPose?.compose(mCameraRelativePose) // need to change it
         if (frame.camera?.trackingState == TrackingState.TRACKING) {
-            val anchor = arFragment.arSceneView.session?.createAnchor(pose?.extractTranslation())
+            val anchor = arFragment.arSceneView.session?.createAnchor(pose)
             anchor?.pose?.toMatrix(FloatArray(32), 0)
             // checking and removing the old anchor so that we always have the latest anchor
             // point and anchor node, to render the object.
@@ -275,10 +316,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             anchorNode.setParent(sceneView?.scene)
             // TransformableNode means the user to move, scale and rotate the model
             val transformableNode = TransformableNode(arFragment.transformationSystem)
-            transformableNode.renderable = renderable?.apply {
-                isShadowReceiver = false
-                isShadowCaster = false
-            }
+            transformableNode.renderable = renderable
             transformableNode.setParent(anchorNode)
             transformableNode.select()
             currentTransformableNode = transformableNode
@@ -292,7 +330,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             btnStartSession.visibility = View.GONE
             layoutLeaderBoard.clLeaderBoard.visibility = View.GONE
             layoutLeaderBoard.fabLeadBoardDownSlide.visibility = View.GONE
-            (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility = View.GONE
+            (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).visibility =
+                View.GONE
             layoutSessionInfo.llSessionInfo.visibility = View.VISIBLE
             layoutSessionInfo.btnEndSession.visibility = View.VISIBLE
         }
@@ -304,34 +343,46 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         binding.layoutLeaderBoard.fabLeadBoardDownSlide.setOnClickListener {
             if (!isExpended) {
                 isExpended = true
-                slideView(binding.layoutLeaderBoard.clLeaderBoard, binding.layoutLeaderBoard.clLeaderBoard.height, resources.getDimension(R.dimen._450DP).toInt())
+                slideView(
+                    binding.layoutLeaderBoard.clLeaderBoard,
+                    binding.layoutLeaderBoard.clLeaderBoard.height,
+                    resources.getDimension(R.dimen._450DP).toInt()
+                )
                 slideView(binding.bottomView, binding.bottomView.height, 1)
                 binding.btnStartSession.animate()
                     .translationYBy(0f)
                     .translationY(resources.getDimension(R.dimen._75DP))
                     .alpha(0.0f)
                     .setDuration(300)
-                    .setListener(object: AnimatorListenerAdapter() {
+                    .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
                             binding.btnStartSession.visibility = View.GONE
                         }
                     })
-                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).animate()
+                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons)
+                    .animate()
                     .translationYBy(0f)
                     .translationY(resources.getDimension(R.dimen._75DP))
                     .alpha(0.0f)
                     .setDuration(200)
-                    .setListener(object: AnimatorListenerAdapter() {
+                    .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
                             binding.btnStartSession.visibility = View.GONE
                         }
                     })
                 binding.layoutLeaderBoard.fabLeadBoardDownSlide.setImageResource(R.drawable.ic_up_arrow_small)
-            }
-            else {
+            } else {
                 isExpended = false
-                slideView(binding.layoutLeaderBoard.clLeaderBoard, binding.layoutLeaderBoard.clLeaderBoard.height, resources.getDimension(R.dimen._201DP).toInt())
-                slideView(binding.bottomView, binding.bottomView.height, resources.getDimension(R.dimen._95DP).toInt())
+                slideView(
+                    binding.layoutLeaderBoard.clLeaderBoard,
+                    binding.layoutLeaderBoard.clLeaderBoard.height,
+                    resources.getDimension(R.dimen._201DP).toInt()
+                )
+                slideView(
+                    binding.bottomView,
+                    binding.bottomView.height,
+                    resources.getDimension(R.dimen._95DP).toInt()
+                )
                 binding.btnStartSession.visibility = View.VISIBLE
                 binding.btnStartSession.animate()
                     .translationYBy(resources.getDimension(R.dimen._75DP))
@@ -339,7 +390,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     .alpha(1.0f)
                     .setDuration(400)
                     .setListener(null)
-                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons).animate()
+                (requireContext() as ARActivity).findViewById<ConstraintLayout>(R.id.layoutActionButtons)
+                    .animate()
                     .translationYBy(resources.getDimension(R.dimen._75DP))
                     .translationY(0f)
                     .alpha(1.0f)
@@ -380,7 +432,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     image.close()
                     return
                 }
-                if (image.planes  == null) {
+                if (image.planes == null) {
                     image.close()
                     return
                 }
@@ -447,7 +499,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 if (readyToProcessFrame && !computingDetection) {
                     // scale bitmap to 300x300, cause SSD model support 300 x300 image to detect object
                     processImage(
-                        currentFrameBmp!!.scaleBitmap(
+                        currentFrameBmp.scaleBitmap(
                             TF_OD_API_INPUT_SIZE,
                             TF_OD_API_INPUT_SIZE
                         )
@@ -530,10 +582,10 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     ) {
         uiScope.launch {
             if (mappedRecognitions.any { it.paint.color == Color.RED }) {
-                placeObject(R.raw.red)
+                renderable = renderableRed
                 checkViolationDetection(mappedRecognitions)
             } else {
-                placeObject(R.raw.colored)
+                renderable = renderableColored
                 showViolationAlert(false)
             }
         }
@@ -543,8 +595,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         if (!isDetectingViolation) {
             isDetectingViolation = true
             violationHandler.postDelayed({
-                if (mappedRecognitions.any { it.paint.color == Color.RED }){
-                    sessionViolationCount ++
+                if (mappedRecognitions.any { it.paint.color == Color.RED }) {
+                    sessionViolationCount++
                     currentViolation++
                     showViolationAlert(true)
                     if (Prefs.getPrefsBoolean(USER_SOUND_ON))
@@ -554,9 +606,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 isDetectingViolation = false
                 if (currentViolation > violationThreshold)
                     calculateSafety()
-            }, 5000L)
-        }
-        else return
+            }, 3000L)
+        } else return
     }
 
     private fun startSessionTimer() {
@@ -600,7 +651,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             if (isDetectingViolation) {
                 showViolationAlert(false)
             }
-        },1500)
+        }, 1500)
     }
 
     // Remove the existing scene and anchor
@@ -622,8 +673,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 violationCount = "$sessionViolationCount",
                 sessionStartTime = sessionStartTime, sessionEndTime = sessionEndTime
             )
-        val action = SessionStartFragmentDirections.actionSessionStartFragmentToSessionEndFragment(sessionInfo)
-        findNavController().navigate(action)
+        startSessionViewModel.sendSessionEndInfo(sessionInfo)
     }
 
     companion object {

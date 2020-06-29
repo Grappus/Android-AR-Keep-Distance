@@ -7,6 +7,7 @@ import android.os.Handler
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentLoginBinding
+import android.tesseract.jio.covid19.ar.utils.ProgressLoader
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,8 +52,15 @@ class LoginFragment : Fragment(), SplashViewModel.Navigator {
         findNavController().navigate(R.id.action_loginFragment_to_sessionStartFragment)
     }
 
-    override fun showNetworkError() {
-        Toast.makeText(requireContext(), "Something is wrong, please try again", Toast.LENGTH_SHORT)
+    override fun showLoading(isLoading: Boolean) {
+        if (isLoading)
+            ProgressLoader.showLoader(requireContext())
+        else
+            ProgressLoader.hideLoader()
+    }
+
+    override fun showNetworkError(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT)
             .show()
     }
 
@@ -71,17 +79,5 @@ class LoginFragment : Fragment(), SplashViewModel.Navigator {
             } else Toast.makeText(requireContext(), "All Details required", Toast.LENGTH_SHORT)
                 .show()
         }
-    }
-
-    // check if all the required permissions are granted by user.
-    private fun arePermissionsGranted(): Boolean {
-        val permissionCamera =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-        val permissionLocation =
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        return (permissionCamera == PackageManager.PERMISSION_GRANTED) && (permissionLocation == PackageManager.PERMISSION_GRANTED)
     }
 }

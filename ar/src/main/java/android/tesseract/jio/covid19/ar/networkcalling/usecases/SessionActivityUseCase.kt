@@ -15,17 +15,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class SessionActivityUseCase {
 
     fun postSessionActivity(sessionEndRequest: SessionEndRequest, callback: Callback<SessionEndResponse>) {
-        NetworkUtil.getApiInstance()!!
-            .postSessionActivity(Prefs.getPrefsString(USER_AUTH_TOKEN), sessionEndRequest)
+        NetworkUtil.userService.postSessionActivity(Prefs.getPrefsString(USER_AUTH_TOKEN), sessionEndRequest)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                callback.loading()
+                callback.loading(true)
             }
             .subscribe(
                 {
+                    callback.loading(false)
                     callback.onSuccessCall(it)
                 }, {
+                    callback.loading(false)
                     callback.onFailureCall(it.message)
                 })
     }

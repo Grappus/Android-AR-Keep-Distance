@@ -7,6 +7,8 @@ import android.tesseract.jio.covid19.ar.databinding.FragmentJournalBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.GraphPlotData
 import android.tesseract.jio.covid19.ar.networkcalling.model.JournalData
 import android.tesseract.jio.covid19.ar.utils.DataPoint
+import android.tesseract.jio.covid19.ar.utils.LineGraph
+import android.tesseract.jio.covid19.ar.utils.ProgressLoader
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -77,6 +79,13 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
         graphDataList.add(LineGraph.GraphData("18 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
         graphDataList.add(LineGraph.GraphData("24 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
         gvSafety.setGraphData(graphDataList.toList())
+    }
+
+    override fun showLoading(isLoading: Boolean) {
+        if (isLoading)
+            ProgressLoader.showLoader(requireContext())
+        else
+            ProgressLoader.hideLoader()
     }
 
     override fun showError(msg: String) {
