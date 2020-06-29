@@ -38,16 +38,7 @@ AR library to detect pedestrian proximity walking near by
         enabled = true
    }
    ```
-2. Initialize the libray `Prefs` class using it's `init` function from `app` application class.
-   ```
-   class SampleApplication : Application() {
-     override fun onCreate() {
-        super.onCreate()
-        Prefs.init(applicationContext)
-     }
-   }
-   ```
-3. Start the `ARActivity` from wherever you want to launch the `AR` flow
+2. Start the `ARActivity` from wherever you want to launch the `AR` flow
    ```
    class SampleActivity : FragmentActivity() {
 
@@ -63,4 +54,4 @@ AR library to detect pedestrian proximity walking near by
      }
    }
    ```
-4. `ARActivity` should handle the rest of the flow
+3. `ARActivity` should handle the rest of the flow
