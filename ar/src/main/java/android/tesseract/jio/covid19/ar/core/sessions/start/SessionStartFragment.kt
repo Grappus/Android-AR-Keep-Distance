@@ -194,7 +194,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         arFragment.arSceneView.scene.addOnUpdateListener {
             arFragment.onUpdate(it)
             onSceneUpdate()
-            renderable?.let { uiRenderingScope.launch { addNodeToScene() } }
+            renderable?.let {
+                uiRenderingScope.launch { addNodeToScene() } }
         }
 
         mdPlayer?.setOnCompletionListener {
@@ -277,6 +278,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     isShadowReceiver = false
                     isShadowCaster = false
                 }
+                renderable = renderableColored
             }
             .exceptionally {
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
@@ -667,15 +669,18 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     // Remove the existing scene and anchor
     private fun clearAnchor() {
+        readyToProcessFrame = false
+        computingDetection = true
+        mdPlayer?.stop()
+        mdPlayer?.release()
+        mdPlayer = null
         if (sceneView != null) {
             oldAnchorNode?.renderable = null
             oldAnchor?.detach()
             session = null
         }
-        readyToProcessFrame = false
         binding.layoutSessionInfo.sessionTimer.stop()
         arFragment.onDestroyView()
-        mdPlayer?.release()
         sessionEndTime = System.currentTimeMillis()
         val sessionInfo =
             SessionInfo(
