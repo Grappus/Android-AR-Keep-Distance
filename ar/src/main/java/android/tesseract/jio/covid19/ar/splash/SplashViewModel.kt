@@ -63,31 +63,7 @@ class SplashViewModel: ViewModel() {
                     Prefs.setPrefs(IS_USER_LOGIN, true)
                     Prefs.setPrefs(USER_AUTH_TOKEN, value.authToken)
                     Prefs.setPrefs(USER_ID, value.data.id)
-                    val user = User()
-                    user.fullName = userName
-                    updateUserInfo(user)
-                }
-            }
-
-            override fun onFailureCall(message: String?) {
-                navigator?.showNetworkError(message!!)
-            }
-
-        })
-    }
-
-    fun updateUserInfo(user: User) {
-        NetworkUtil.useCase.updateUserInfoUseCase.updateUserInfo(user, object: Callback<GetSelfInfo>() {
-            override fun loading(isLoading: Boolean) {
-                navigator?.showLoading(isLoading)
-            }
-
-            override fun onSuccessCall(value: GetSelfInfo) {
-                if (value.statusCode == 200) {
                     updateUserInfo(value.data)
-                }
-                else {
-                    navigator?.navigateToNextScreen()
                 }
             }
 
