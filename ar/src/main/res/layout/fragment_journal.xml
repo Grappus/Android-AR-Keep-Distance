@@ -26,7 +26,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_20SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_semi_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMyJournal"
             tools:text="66.6 hrs" />
@@ -54,7 +54,7 @@
             android:layout_marginStart="@dimen/_20DP"
             android:text="spent outside"
             android:textSize="@dimen/_8SP"
-            app:customFont="@{@string/font_medium}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalSpendTimeOutside" />
 
@@ -70,7 +70,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_semi_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toEndOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvMyJournal"
             tools:text="74 hrs" />
@@ -82,7 +82,7 @@
             android:layout_marginStart="@dimen/_30DP"
             android:text="tracked so far"
             android:textSize="@dimen/_8SP"
-            app:customFont="@{@string/font_medium}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalTrackedTime" />
 
@@ -98,7 +98,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_semi_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSpendOutsideTime" />
 
@@ -109,7 +109,7 @@
             android:layout_marginStart="@dimen/_20DP"
             android:text="safety maintained"
             android:textSize="@dimen/_8SP"
-            app:customFont="@{@string/font_medium}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalSafetyPercent" />
 
@@ -126,7 +126,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_semi_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@id/tvSpendOutsideTime" />
 
@@ -137,7 +137,7 @@
             android:layout_marginStart="@dimen/_30DP"
             android:text="violations so far"
             android:textSize="@dimen/_8SP"
-            app:customFont="@{@string/font_medium}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalViolation" />
 
@@ -150,7 +150,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSafetyPercent"/>
 

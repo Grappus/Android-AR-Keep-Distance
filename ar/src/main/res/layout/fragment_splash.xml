@@ -65,7 +65,7 @@
             android:textSize="@dimen/_15SP"
             android:text="@string/head_ar_safety_detection"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintBottom_toBottomOf="@+id/ivDotsGroup"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintHorizontal_bias="0.0"

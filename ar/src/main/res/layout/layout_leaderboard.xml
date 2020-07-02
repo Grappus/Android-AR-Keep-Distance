@@ -29,7 +29,7 @@
                 android:textColor="@color/textColorBlack"
                 android:textSize="@dimen/_17SP"
                 android:textStyle="bold"
-                app:customFont="@{@string/font_bold}"
+                app:customFont="@{@string/font_family_jio_type}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

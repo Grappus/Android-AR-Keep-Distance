@@ -45,9 +45,15 @@ class WalkThroughSubFragment: Fragment() {
         binding.root.tag = pageNumber
 
         when (arguments?.getInt("ARG_EXTRA")) {
-            0 -> binding.topIcon.setImageResource(R.drawable.group_3_group_17_mask)
+            0 -> {
+                binding.topIcon.setImageResource(R.drawable.group_3_group_17_mask)
+                binding.tvWalkThrough.text = getString(R.string.label_walk_through_one)
+            }
 
-            1 -> binding.topIcon.setImageResource(R.drawable.group_7)
+            1 -> {
+                binding.topIcon.setImageResource(R.drawable.group_7)
+                binding.tvWalkThrough.text = getString(R.string.label_walk_through_two)
+            }
         }
     }
 }

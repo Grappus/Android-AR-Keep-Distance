@@ -36,7 +36,7 @@
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_18SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivJioLogo" />
@@ -54,7 +54,7 @@
             android:gravity="center"
             android:background="@drawable/bg_btn_get_start"
             app:elevation="@dimen/_5DP"
-            app:customFont="@{@string/font_semi_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -92,7 +92,7 @@
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         android:text="Camera"
-                        app:customFont="@{@string/font_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="Camera" />
 
                     <TextView
@@ -102,7 +102,7 @@
                         android:textColor="@color/textColorGray"
                         android:textStyle="bold"
                         android:text="Enable to use the AR feature\nto detect your social distance"
-                        app:customFont="@{@string/font_medium}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="Enable to use the AR feature\nto detect your social distance" />
 
                 </LinearLayout>
@@ -132,7 +132,7 @@
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         android:text="Location"
-                        app:customFont="@{@string/font_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="Location" />
 
                     <TextView
@@ -142,7 +142,7 @@
                         android:textColor="@color/textColorGray"
                         android:textStyle="bold"
                         android:text="We use your location for\nscoring on the leaderboard"
-                        app:customFont="@{@string/font_medium}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="We use your location for\nscoring on the leaderboard" />
 
                 </LinearLayout>

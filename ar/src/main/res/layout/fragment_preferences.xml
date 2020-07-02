@@ -18,7 +18,7 @@
             android:text="Preferences"
             android:textColor="#BFFFFFFF"
             android:textSize="@dimen/_10SP"
-            app:customFont="@{@string/font_medium}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +30,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_18SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPreferences" />
 
@@ -44,7 +44,7 @@
             android:textColor="@color/baseBgColor"
             android:textSize="@dimen/_13SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvPreferences"
             tools:text="D" />
@@ -75,7 +75,7 @@
                     android:textSize="@dimen/_13SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:customFont="@{@string/font_bold}"
+                    app:customFont="@{@string/font_family_jio_type}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,8 +86,8 @@
                     android:layout_marginTop="@dimen/_4DP"
                     android:text="@string/label_vin_info"
                     android:textSize="@dimen/_9SP"
-                    android:textColor="@color/white"
-                    app:customFont="@{@string/font_bold}"
+                    android:textColor="@color/white80"
+                    app:customFont="@{@string/font_family_jio_type}"
                     android:lineSpacingExtra="@dimen/_4SP"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvVibration" />
@@ -131,7 +131,7 @@
                     android:textSize="@dimen/_13SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:customFont="@{@string/font_bold}"
+                    app:customFont="@{@string/font_family_jio_type}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -143,7 +143,7 @@
                     android:text="@string/label_notif_info"
                     android:textSize="@dimen/_9SP"
                     android:textColor="@color/white"
-                    app:customFont="@{@string/font_bold}"
+                    app:customFont="@{@string/font_family_jio_type}"
                     android:lineSpacingExtra="@dimen/_4SP"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvNotifications" />
@@ -187,7 +187,7 @@
                     android:textSize="@dimen/_13SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:customFont="@{@string/font_bold}"
+                    app:customFont="@{@string/font_family_jio_type}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -198,8 +198,8 @@
                     android:layout_marginTop="@dimen/_4DP"
                     android:text="@string/label_sound_indo"
                     android:textSize="@dimen/_9SP"
-                    android:textColor="@color/white"
-                    app:customFont="@{@string/font_bold}"
+                    android:textColor="@color/white80"
+                    app:customFont="@{@string/font_family_jio_type}"
                     android:lineSpacingExtra="@dimen/_4SP"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvSounds" />
@@ -235,7 +235,7 @@
                         android:text="Space Drop"
                         android:textSize="@dimen/_8SP"
                         android:textColor="@color/white"
-                        app:customFont="@{@string/font_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         android:gravity="center" />
                     <TextView
                         android:id="@+id/tvAccentSound"
@@ -249,7 +249,7 @@
                         android:text="Accent"
                         android:textSize="@dimen/_8SP"
                         android:textColor="@color/white"
-                        app:customFont="@{@string/font_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         android:gravity="center"
                         android:background="@drawable/bg_selected_sound"/>
                     <TextView
@@ -264,7 +264,7 @@
                         android:text="Alarm"
                         android:textSize="@dimen/_8SP"
                         android:textColor="@color/white"
-                        app:customFont="@{@string/font_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         android:gravity="center" />
                 </LinearLayout>
 
