@@ -22,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvWalkThrough"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16DP"
@@ -29,11 +30,10 @@
             android:layout_marginTop="@dimen/_44DP"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="@dimen/_5SP"
-            android:text="Use the app to practice\nsafe social distancing"
             android:textColor="@color/white"
             android:textSize="@dimen/_18SP"
             android:textStyle="bold"
-            app:customFont="@{@string/font_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topIcon" />

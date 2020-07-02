@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_8SP"
                     android:textStyle="bold"
-                    app:customFont="@{@string/font_bold}"
+                    app:customFont="@{@string/font_family_jio_type}"
                     tools:text="123" />
 
                 <TextView
@@ -50,7 +50,7 @@
                     android:textSize="@dimen/_9SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:customFont="@{@string/font_bold}"
+                    app:customFont="@{@string/font_family_jio_type}"
                     android:gravity="center"
                     android:background="@drawable/bg_name_img"
                     tools:text="D" />
@@ -69,7 +69,7 @@
                         android:textSize="@dimen/_10SP"
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
-                        app:customFont="@{@string/font_semi_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="Dipanshu Harbola" />
 
                     <TextView
@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_8SP"
-                        app:customFont="@{@string/font_medium}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="32 Days" />
 
                 </LinearLayout>
@@ -96,7 +96,7 @@
                         android:textSize="@dimen/_9SP"
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
-                        app:customFont="@{@string/font_semi_bold}"
+                        app:customFont="@{@string/font_family_jio_type}"
                         tools:text="32%" />
                 </LinearLayout>
 

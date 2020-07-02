@@ -1,8 +1,6 @@
 <resources>
     <!-- Custom Fonts-->
-    <string name="font_bold">"Inter_bold.ttf"</string>
-    <string name="font_medium">"Inter_medium.ttf"</string>
-    <string name="font_semi_bold">"Inter_semi_bold.ttf"</string>
+    <string name="font_family_jio_type">"JioType-Bold.ttf"</string>
     <string name="btn_start_session">Start Session</string>
     <string name="label_safety">Safety</string>
     <string name="label_time">Time</string>
@@ -28,5 +26,7 @@
     <string name="label_global_rank_info">You’re now at the %s position\non the leaderboard!</string>
     <string name="violation">%s violation</string>
     <string name="violation_percent">%s%</string>
+    <string name="label_walk_through_one">Use the app to practice\nsafe social distancing</string>
+    <string name="label_walk_through_two">Compete with people\naround you</string>
 
 </resources>

@@ -46,7 +46,7 @@
             android:textSize="@dimen/_12SP"
             android:gravity="center"
             android:background="@drawable/bg_btn_get_start"
-            app:customFont="@{@string/font_semi_bold}"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_anchorGravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="@id/bottomView"
             app:layout_constraintEnd_toEndOf="parent"

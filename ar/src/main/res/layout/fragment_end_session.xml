@@ -46,7 +46,7 @@
                 android:textColor="@color/textColorBlack"
                 android:textSize="@dimen/_17SP"
                 android:textStyle="bold"
-                app:customFont="@{@string/font_bold}" />
+                app:customFont="@{@string/font_family_jio_type}" />
 
             <TextView
                 android:id="@+id/tvRankInfo"
@@ -59,7 +59,7 @@
                 android:textColor="@color/textColorGray"
                 android:textSize="@dimen/_10SP"
                 android:textStyle="bold"
-                app:customFont="@{@string/font_bold}" />
+                app:customFont="@{@string/font_family_jio_type}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/endSessionWatchLayout"
@@ -87,7 +87,7 @@
                         android:text="@string/label_safety"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_9SP"
-                        app:customFont="@{@string/font_semi_bold}" />
+                        app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:id="@+id/tvSafetyPercent"
@@ -97,7 +97,7 @@
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
                         android:textStyle="bold"
-                        app:customFont="@{@string/font_bold}" />
+                        app:customFont="@{@string/font_family_jio_type}" />
 
 
                 </LinearLayout>
@@ -131,7 +131,7 @@
                         android:text="@string/label_time"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_9SP"
-                        app:customFont="@{@string/font_semi_bold}" />
+                        app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
                         android:textStyle="bold"
-                        app:customFont="@{@string/font_bold}" />
+                        app:customFont="@{@string/font_family_jio_type}" />
 
 
                 </LinearLayout>
@@ -174,7 +174,7 @@
                         android:text="@string/label_violations"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_9SP"
-                        app:customFont="@{@string/font_semi_bold}" />
+                        app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:id="@+id/tvViolationCount"
@@ -183,7 +183,7 @@
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
                         android:textStyle="bold"
-                        app:customFont="@{@string/font_bold}" />
+                        app:customFont="@{@string/font_family_jio_type}" />
 
 
                 </LinearLayout>
