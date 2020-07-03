@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.ar.sceneform.plugin'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
@@ -72,7 +73,7 @@ dependencies {
     implementation 'com.karumi:dexter:6.1.2'
 
     //Location service
-    //implementation "com.google.android.gms:play-services-location:$location_service_version"
+    implementation "com.google.android.gms:play-services-location:$location_service_version"
 
     //Tensor flow lite
     implementation "org.tensorflow:tensorflow-lite:$tf_lite_version"
@@ -80,7 +81,6 @@ dependencies {
     //Ar core
     implementation "com.google.ar:core:$ar_sceneform_version"
     implementation "com.google.ar.sceneform.ux:sceneform-ux:$ar_sceneform_version"
-    implementation "com.google.ar.sceneform:assets:$ar_sceneform_version"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -91,3 +91,6 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 }
+
+sceneform.asset('sampledata/colored.obj', 'default', 'sampledata/colored.sfa', 'src/main/res/raw/colored')
+sceneform.asset('sampledata/red.obj', 'default', 'sampledata/red.sfa', 'src/main/res/raw/red')

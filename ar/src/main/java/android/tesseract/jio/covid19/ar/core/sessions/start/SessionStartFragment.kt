@@ -30,7 +30,6 @@ import com.google.ar.core.*
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.ArSceneView
 import com.google.ar.sceneform.SceneView
-import com.google.ar.sceneform.assets.RenderableSource
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_ar.*
@@ -268,10 +267,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
      */
     private fun placeObjectColored() {
         ModelRenderable.builder()
-            .setSource(requireContext(), RenderableSource.builder().setSource(
-                requireContext(), Uri.parse(modelColored),
-                RenderableSource.SourceType.GLB).build())
-            .setRegistryId(modelColored)
+            .setSource(requireContext(), R.raw.colored)
             .build()
             .thenAccept {
                 renderableColored = it.apply {
@@ -291,10 +287,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
      */
     private fun placeObjectRed() {
         ModelRenderable.builder()
-            .setSource(requireContext(), RenderableSource.builder().setSource(
-                requireContext(), Uri.parse(modelColored),
-                RenderableSource.SourceType.GLB).build())
-            .setRegistryId(modelColored)
+            .setSource(requireContext(), R.raw.red)
             .build()
             .thenAccept {
                 renderableRed = it.apply {
@@ -316,7 +309,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         val pose =
             frame.camera?.displayOrientedPose?.compose(mCameraRelativePose) // need to change it
         if (frame.camera?.trackingState == TrackingState.TRACKING) {
-            val anchor = arFragment.arSceneView.session?.createAnchor(pose)
+            val anchor = arFragment.arSceneView.session?.createAnchor(pose?.extractTranslation())
             anchor?.pose?.toMatrix(FloatArray(32), 0)
             // checking and removing the old anchor so that we always have the latest anchor
             // point and anchor node, to render the object.
