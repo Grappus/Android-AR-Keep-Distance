@@ -9,12 +9,12 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 /**
- * Created by Dipanshu Harbola on 18/6/20.
+ * Created by Dipanshu Harbola on 6/7/20.
  */
-class GlobalRankUseCase {
+class LocalRankUseCase {
 
-    fun getMyGlobalRank(callback: Callback<MyLeaderBoardRank>) {
-        NetworkUtil.userService.getMyGlobalRank(Prefs.getPrefsString(USER_AUTH_TOKEN))
+    fun getMyLocalRank(callback: Callback<MyLeaderBoardRank>) {
+        NetworkUtil.userService.getMyLocalRank(Prefs.getPrefsString(USER_AUTH_TOKEN))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {

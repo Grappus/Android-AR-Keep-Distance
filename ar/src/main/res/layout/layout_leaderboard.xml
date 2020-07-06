@@ -33,26 +33,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--<androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnNearYou"
+            <LinearLayout
+                android:id="@+id/llLeaderBoardPosition"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_21DP"
-                android:layout_marginTop="@dimen/_14DP"
-                android:layout_marginEnd="@dimen/_12DP"
-                android:background="@drawable/bg_btn_get_start"
-                android:drawableEnd="@drawable/ic_down_arrow_small"
-                android:drawablePadding="@dimen/_2DP"
-                android:paddingStart="@dimen/_6DP"
-                android:paddingEnd="@dimen/_5DP"
-                android:text="Near You"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_8SP"
-                app:customFont="@{@string/font_semi_bold}"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12DP"
+                android:layout_marginEnd="@dimen/_10DP"
                 app:layout_anchorGravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />-->
+                tools:visibility="visible" >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLocal"
+                    android:layout_width="@dimen/_55DP"
+                    android:layout_height="@dimen/_25DP"
+                    android:gravity="center"
+                    android:background="@drawable/bg_local_leaderboard_selected"
+                    android:text="@string/btn_local"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9SP"
+                    app:customFont="@{@string/font_family_jio_type}" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnGlobal"
+                    android:layout_width="@dimen/_55DP"
+                    android:layout_height="@dimen/_25DP"
+                    android:gravity="center"
+                    android:background="@drawable/bg_global_leaderboard_unselected"
+                    android:text="@string/btn_global"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/_9SP"
+                    app:customFont="@{@string/font_family_jio_type}" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvLeadboard"

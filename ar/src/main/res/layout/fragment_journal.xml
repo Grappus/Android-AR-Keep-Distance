@@ -31,34 +31,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTotalSpendTimeOutside"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_19DP"
-            android:drawableStart="@drawable/ic_start_walking"
-            android:drawablePadding="@dimen/_7DP"
-            android:drawableTint="@color/appBlueColor"
-            android:text="0 hrs"
-            android:textColor="@color/textColorBlack"
-            android:textSize="@dimen/_16SP"
-            android:textStyle="bold"
-            app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMyJournal"
-            tools:text="66.6 hrs" />
-
-        <TextView
-            android:id="@+id/tvSpendOutsideTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20DP"
-            android:text="spent outside"
-            android:textSize="@dimen/_8SP"
-            app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTotalSpendTimeOutside" />
-
-        <TextView
             android:id="@+id/tvTotalTrackedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +43,7 @@
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toEndOf="@id/guidelineCenter"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMyJournal"
             tools:text="74 hrs" />
 
@@ -80,10 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_30DP"
-            android:text="tracked so far"
+            android:text="@string/label_tracked_so_far"
             android:textSize="@dimen/_8SP"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="@id/guidelineCenter"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalTrackedTime" />
 
         <TextView
@@ -94,23 +66,23 @@
             android:drawableStart="@drawable/ic_happy"
             android:drawablePadding="@dimen/_7DP"
             android:drawableTint="@color/appBlueColor"
-            android:text="94%"
+            tools:text="94%"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSpendOutsideTime" />
+            app:layout_constraintStart_toEndOf="@id/guidelineCenter"
+            app:layout_constraintTop_toBottomOf="@+id/tvMyJournal" />
 
         <TextView
             android:id="@+id/tvSafetyPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20DP"
-            android:text="safety maintained"
+            android:text="@string/label_safety_maintained"
             android:textSize="@dimen/_8SP"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalSafetyPercent" />
 
         <TextView
@@ -122,23 +94,23 @@
             android:drawableStart="@drawable/ic_warning"
             android:drawablePadding="@dimen/_5DP"
             android:drawableTint="@color/appBlueColor"
-            android:text="184"
+            tools:text="184"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="@id/guidelineCenter"
-            app:layout_constraintTop_toBottomOf="@id/tvSpendOutsideTime" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrackedTime" />
 
         <TextView
             android:id="@+id/tvViolation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_30DP"
-            android:text="violations so far"
+            android:text="@string/label_violations_so_far"
             android:textSize="@dimen/_8SP"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintStart_toStartOf="@id/guidelineCenter"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalViolation" />
 
         <TextView
@@ -146,13 +118,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20DP"
-            android:text="Safety and violations"
+            android:text="@string/label_safety_and_violations"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
             app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSafetyPercent"/>
+            app:layout_constraintTop_toBottomOf="@id/tvViolation"/>
 
         <android.tesseract.jio.covid19.ar.utils.LineGraph
             android:id="@+id/gvSafety"

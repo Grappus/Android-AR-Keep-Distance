@@ -12,5 +12,7 @@ data class SessionInfo(
     val sessionTime: String,
     val violationCount: String,
     val sessionStartTime: Long,
-    val sessionEndTime: Long
+    val sessionEndTime: Long,
+    val latitude: Float = 0.0f,
+    val longitude: Float = 0.0f
 ): Parcelable

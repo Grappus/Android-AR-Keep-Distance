@@ -14,4 +14,6 @@ interface UseCases {
     val myJournalUseCase: MyJournalUseCase
     val sessionActivityUseCase: SessionActivityUseCase
     val updateUserInfoUseCase: UpdateUserInfoUseCase
+    val localRankUseCase: LocalRankUseCase
+    val localLeaderBoardUseCase: LocalLeaderBoardUseCase
 }

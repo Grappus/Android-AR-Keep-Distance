@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentPermissionBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
@@ -61,6 +62,7 @@ class PermissionFragment : Fragment() {
                     override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                         report?.let {
                             if (report.areAllPermissionsGranted()) {
+                                (requireContext() as ARActivity).locationPermissionGranted()
                                 if (!Prefs.getPrefsBoolean(PrefsConstants.IS_USER_LOGIN))
                                     findNavController().navigate(R.id.action_permissionFragment_to_loginFragment)
                                 else

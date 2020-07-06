@@ -37,17 +37,17 @@
                     android:id="@+id/tvRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_8SP"
+                    android:textSize="@dimen/_9SP"
                     android:textStyle="bold"
                     app:customFont="@{@string/font_family_jio_type}"
                     tools:text="123" />
 
                 <TextView
                     android:id="@+id/tvNameImg"
-                    android:layout_width="@dimen/_22DP"
-                    android:layout_height="@dimen/_22DP"
+                    android:layout_width="@dimen/_23DP"
+                    android:layout_height="@dimen/_23DP"
                     android:layout_marginStart="@dimen/_9DP"
-                    android:textSize="@dimen/_9SP"
+                    android:textSize="@dimen/_10SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:customFont="@{@string/font_family_jio_type}"
@@ -66,7 +66,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_10SP"
+                        android:textSize="@dimen/_11SP"
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_family_jio_type}"
@@ -76,7 +76,7 @@
                         android:id="@+id/tvJourneyDays"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_8SP"
+                        android:textSize="@dimen/_9SP"
                         app:customFont="@{@string/font_family_jio_type}"
                         tools:text="32 Days" />
 
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_family_jio_type}"

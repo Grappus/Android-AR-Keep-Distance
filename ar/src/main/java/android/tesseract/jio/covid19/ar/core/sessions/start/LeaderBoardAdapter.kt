@@ -7,6 +7,7 @@ import android.tesseract.jio.covid19.ar.databinding.ItemLeaderboardBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_GLOBAL_RANK
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LOCAL_RANK
 import android.tesseract.jio.covid19.ar.utils.TimeUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ class LeaderBoardAdapter :
     RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder>() {
 
     val leaderBoardList = mutableListOf<RankResult>()
+    var isLocalRank = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -56,7 +58,8 @@ class LeaderBoardAdapter :
                 binding.cvLeadBoard.setCardBackgroundColor(context.getColor(R.color.white))
                 binding.cvLeadBoard.radius = 18f
                 binding.cvLeadBoard.cardElevation = 10f
-                binding.tvRank.text = Prefs.getPrefsInt(USER_GLOBAL_RANK).toString()
+                binding.tvRank.text = if (isLocalRank) Prefs.getPrefsInt(USER_LOCAL_RANK).toString()
+                else Prefs.getPrefsInt(USER_GLOBAL_RANK).toString()
             }
             else {
                 binding.cvLeadBoard.setCardBackgroundColor(Color.parseColor("#00FFFFFF"))

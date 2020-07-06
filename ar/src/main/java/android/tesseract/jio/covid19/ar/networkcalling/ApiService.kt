@@ -22,14 +22,20 @@ interface ApiService {
     fun getMyJournal(@Header("Authorization") authorization: String): Single<MyJournalResponse>
 
     @GET("leaderboards/rank/global")
-    fun getMyGlobalRank(@Header("Authorization") authorization: String): Single<MyGlobalRank>
+    fun getMyGlobalRank(@Header("Authorization") authorization: String): Single<MyLeaderBoardRank>
+
+    @GET("leaderboards/rank/nearme")
+    fun getMyLocalRank(@Header("Authorization") authorization: String): Single<MyLeaderBoardRank>
 
     @GET("leaderboards/global")
-    fun getGlobalLeaderBoard(@Header("Authorization") authorization: String): Single<GlobalLeaderBoard>
+    fun getGlobalLeaderBoard(@Header("Authorization") authorization: String): Single<LeaderBoard>
+
+    @GET("leaderboards/nearme")
+    fun getMyLocalLeaderBoard(@Header("Authorization") authorization: String): Single<LeaderBoard>
 
     @GET("users/me")
     fun getMyInfo(@Header("Authorization") authorization: String): Single<GetSelfInfo>
 
     @PUT("users/{id}")
-    fun updateUerInfo(@Header("Authorization") authorization: String, @Path("id") userId: String, @Body user: User): Single<GetSelfInfo>
+    fun updateUserInfo(@Header("Authorization") authorization: String, @Path("id") userId: String, @Body user: User): Single<GetSelfInfo>
 }

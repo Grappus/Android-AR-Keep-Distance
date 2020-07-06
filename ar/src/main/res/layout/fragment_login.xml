@@ -7,56 +7,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/ivJioLogo"
+            android:layout_width="@dimen/_54DP"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="@dimen/_34DP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_jio_logo" />
+
         <TextView
             android:id="@+id/tvLoginHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20DP"
-            android:text="Login"
-            android:textSize="@dimen/_22SP"
+            android:layout_marginTop="@dimen/_24DP"
+            android:text="@string/label_enter_your_name_to_track"
+            android:textSize="@dimen/_16SP"
+            android:textColor="@color/textColorBlack"
+            android:gravity="center"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/etUserName"
+            app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivJioLogo" />
 
         <EditText
             android:id="@+id/etUserName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_45DP"
             android:layout_marginStart="@dimen/_20DP"
+            android:layout_marginTop="@dimen/_34DP"
             android:layout_marginEnd="@dimen/_20DP"
-            android:hint="User Name"
+            android:paddingStart="@dimen/_9DP"
+            android:paddingEnd="@dimen/_6DP"
+            android:hint="@string/hint_full_name"
             android:inputType="textCapWords"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/bg_name_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLoginHeader"
             app:layout_constraintVertical_bias="0.36" />
-
-        <EditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12DP"
-            android:layout_marginStart="@dimen/_20DP"
-            android:layout_marginEnd="@dimen/_20DP"
-            android:inputType="phone"
-            android:hint="Phone Number"
-            android:maxLength="10"
-            android:digits="0123456789"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etUserName" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_26DP"
-            android:layout_marginTop="@dimen/_16DP"
-            android:layout_marginEnd="@dimen/_26DP"
+            android:layout_marginStart="@dimen/_20DP"
+            android:layout_marginTop="@dimen/_20DP"
+            android:layout_marginEnd="@dimen/_20DP"
             android:padding="@dimen/_14DP"
-            android:text="Submit"
+            android:text="@string/btn_continue"
             android:textColor="@color/white"
             android:textSize="@dimen/_12SP"
             android:textAllCaps="false"
@@ -64,22 +66,9 @@
             android:background="@drawable/bg_btn_get_start"
             app:elevation="@dimen/_5DP"
             app:customFont="@{@string/font_family_jio_type}"
-            app:layout_constraintTop_toBottomOf="@id/etPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/etUserName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tvNotice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_12DP"
-            android:layout_marginStart="@dimen/_20DP"
-            android:layout_marginEnd="@dimen/_20DP"
-            android:text="It's a temporary Login Screen\n Please fill the required details honestly"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

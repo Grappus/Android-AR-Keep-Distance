@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/ivJioLogo"
-            android:layout_width="@dimen/_44DP"
+            android:layout_width="@dimen/_54DP"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40DP"
             android:adjustViewBounds="true"

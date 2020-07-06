@@ -12,6 +12,6 @@ data class SessionEndRequest(
 )
 
 data class UserLocation(
-    val latitude: String,
-    val longitude: String
+    val latitude: Float,
+    val longitude: Float
 )

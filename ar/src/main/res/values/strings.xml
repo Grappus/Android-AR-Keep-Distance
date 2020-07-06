@@ -28,5 +28,14 @@
     <string name="violation_percent">%s%</string>
     <string name="label_walk_through_one">Use the app to practice\nsafe social distancing</string>
     <string name="label_walk_through_two">Compete with people\naround you</string>
+    <string name="btn_local">Local</string>
+    <string name="btn_global">Global</string>
+    <string name="label_tracked_so_far">tracked so far</string>
+    <string name="label_safety_maintained">safety maintained</string>
+    <string name="label_violations_so_far">violations so far</string>
+    <string name="label_safety_and_violations">Safety and violations</string>
+    <string name="label_enter_your_name_to_track">Enter your name\nto track your social distancing</string>
+    <string name="btn_continue">Continue</string>
+    <string name="hint_full_name">Full Name</string>
 
 </resources>
