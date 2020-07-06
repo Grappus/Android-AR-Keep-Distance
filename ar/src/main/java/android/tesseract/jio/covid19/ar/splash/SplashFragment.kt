@@ -26,7 +26,7 @@ import androidx.navigation.fragment.findNavController
 class SplashFragment : Fragment(), SplashViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
-    var handler: Handler? = null
+    private var handler: Handler? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +39,7 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
     override fun onResume() {
         super.onResume()
         handler = Handler()
+        startFetchLocation()
         initComponents()
     }
 
@@ -69,6 +70,13 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
 
     override fun showNetworkError(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun startFetchLocation() {
+        val permissionLocation =
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if ((permissionLocation == PackageManager.PERMISSION_GRANTED))
+            (requireContext() as ARActivity).locationPermissionGranted()
     }
 
     private fun initComponents() {

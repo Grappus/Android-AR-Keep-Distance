@@ -7,6 +7,8 @@ import android.os.Handler
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentLoginBinding
+import android.tesseract.jio.covid19.ar.utils.Prefs
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_UID
 import android.tesseract.jio.covid19.ar.utils.ProgressLoader
 import android.view.LayoutInflater
 import android.view.View
@@ -70,10 +72,10 @@ class LoginFragment : Fragment(), SplashViewModel.Navigator {
         (requireContext() as ARActivity).setupActionButtons()
         binding.btnSubmit.setOnClickListener {
             if (binding.etUserName.text.toString()
-                    .isNotBlank() && binding.etPhoneNumber.text.toString().isNotBlank()
+                    .isNotBlank() && Prefs.getPrefsString(USER_UID).isNotBlank()
             ) {
                 splashViewModel.authenticateUser(
-                    binding.etPhoneNumber.text.toString(),
+                    Prefs.getPrefsString(USER_UID),
                     binding.etUserName.text.toString()
                 )
             } else Toast.makeText(requireContext(), "All Details required", Toast.LENGTH_SHORT)

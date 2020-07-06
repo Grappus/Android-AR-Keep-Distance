@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
  */
 class GlobalLeaderBoardUseCase {
 
-    fun getGlobalLeaderBoard(callback: Callback<GlobalLeaderBoard>) {
+    fun getGlobalLeaderBoard(callback: Callback<LeaderBoard>) {
         NetworkUtil.userService.getGlobalLeaderBoard(Prefs.getPrefsString(USER_AUTH_TOKEN))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

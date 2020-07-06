@@ -3,7 +3,7 @@ package android.tesseract.jio.covid19.ar.networkcalling.model
 /**
  * Created by Dipanshu Harbola on 18/6/20.
  */
-data class GlobalLeaderBoard(
+data class LeaderBoard(
     val statusCode: Int,
     val data: LeaderBoardData
 )

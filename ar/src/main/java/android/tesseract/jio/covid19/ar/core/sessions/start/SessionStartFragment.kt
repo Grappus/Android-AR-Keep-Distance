@@ -2,12 +2,12 @@ package android.tesseract.jio.covid19.ar.core.sessions.start
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.*
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Bundle
-import android.os.Handler
-import android.os.SystemClock
+import android.os.*
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
@@ -16,7 +16,10 @@ import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
 import android.tesseract.jio.covid19.ar.tflite.Classifier
 import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
 import android.tesseract.jio.covid19.ar.utils.*
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LAT
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LNG
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_VIB_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.VIOLATION_SOUND_EFFECT
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +58,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     lateinit var startSessionViewModel: SessionStartViewModel
 
-    private val modelColored = "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
+    private val modelColored =
+        "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
     private val modelRed = "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
 
     // coroutine scope for background/main thread operations
@@ -112,6 +116,11 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     // Media player
     var mdPlayer: MediaPlayer? = null
 
+    // vibration
+    var vib: Vibrator? = null
+
+    var isLocalRankShowing = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -127,6 +136,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         hideKeyboard(requireActivity())
         placeObjectColored()
         placeObjectRed()
+        vib = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator?
         initComponents()
     }
 
@@ -148,8 +158,15 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         uiScope.cancel()
     }
 
+    override fun localLeaderBoardList(result: MutableList<RankResult>) {
+        lbAdapter.isLocalRank = true
+        lbAdapter.leaderBoardList.clear()
+        lbAdapter.setData(result)
+    }
+
     override fun globalLeaderBoardList(result: MutableList<RankResult>) {
-        binding.layoutLeaderBoard.rvLeadboard.adapter = lbAdapter
+        lbAdapter.isLocalRank = false
+        lbAdapter.leaderBoardList.clear()
         lbAdapter.setData(result)
     }
 
@@ -175,8 +192,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
         startSessionViewModel = ViewModelProvider(this).get(SessionStartViewModel::class.java)
         startSessionViewModel.navigator = this
-
-        startSessionViewModel.getMyGlobalRank()
+        startSessionViewModel.updateUserLocation()
+        startSessionViewModel.getMyLocalRank()
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as JioARFragment
 
@@ -194,8 +211,11 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             arFragment.onUpdate(it)
             onSceneUpdate()
             renderable?.let {
-                uiRenderingScope.launch { addNodeToScene() } }
+                uiRenderingScope.launch { addNodeToScene() }
+            }
         }
+
+        binding.layoutLeaderBoard.rvLeadboard.adapter = lbAdapter
 
         mdPlayer?.setOnCompletionListener {
             mdPlayer?.release()
@@ -213,6 +233,32 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
         binding.layoutSessionInfo.btnEndSession.setOnClickListener {
             clearAnchor()
+        }
+
+        binding.layoutLeaderBoard.run {
+            btnLocal.setOnClickListener {
+                if (!isLocalRankShowing) {
+                    isLocalRankShowing = true
+                    startSessionViewModel.getMyLocalRank()
+                    btnLocal.setBackgroundResource(R.drawable.bg_local_leaderboard_selected)
+                    btnLocal.setTextColor(Color.WHITE)
+                    btnGlobal.setBackgroundResource(R.drawable.bg_global_leaderboard_unselected)
+                    btnGlobal.setTextColor(Color.BLACK)
+                } else return@setOnClickListener
+            }
+        }
+
+        binding.layoutLeaderBoard.run {
+            btnGlobal.setOnClickListener {
+                if (isLocalRankShowing) {
+                    isLocalRankShowing = false
+                    startSessionViewModel.getMyGlobalRank()
+                    btnGlobal.setBackgroundResource(R.drawable.bg_global_leaderboard_selected)
+                    btnGlobal.setTextColor(Color.WHITE)
+                    btnLocal.setBackgroundResource(R.drawable.bg_local_leaderboard_unselected)
+                    btnLocal.setTextColor(Color.BLACK)
+                } else return@setOnClickListener
+            }
         }
     }
 
@@ -450,7 +496,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     ImageUtils.YUV420_888ToNV21(image),
                     image.width, image.height
                 )
-                val bitmap = bytes?.size?.let { BitmapFactory.decodeByteArray(bytes, 0, it).rotate(90f) }
+                val bitmap =
+                    bytes?.size?.let { BitmapFactory.decodeByteArray(bytes, 0, it).rotate(90f) }
                 if (bitmap != null) {
                     currentFrameBmp = bitmap
                     executeKernelTask()
@@ -607,6 +654,12 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                     showViolationAlert(true)
                     if (Prefs.getPrefsBoolean(USER_SOUND_ON))
                         mdPlayer?.start()
+                    if (Prefs.getPrefsBoolean(USER_VIB_ON))
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            vib?.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+                        } else {
+                            vib?.vibrate(100)
+                        }
                     binding.layoutSessionInfo.violationCount = "$sessionViolationCount violation"
                 }
                 isDetectingViolation = false
@@ -680,7 +733,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 safetyPercent = "$currentSafety%",
                 sessionTime = binding.layoutSessionInfo.sessionTime!!,
                 violationCount = "$sessionViolationCount",
-                sessionStartTime = sessionStartTime, sessionEndTime = sessionEndTime
+                sessionStartTime = sessionStartTime, sessionEndTime = sessionEndTime,
+                latitude = Prefs.getPrefsFloat(USER_LAT), longitude = Prefs.getPrefsFloat(USER_LNG)
             )
         startSessionViewModel.sendSessionEndInfo(sessionInfo)
     }

@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class UpdateUserInfoUseCase {
 
     fun updateUserInfo(user: User, callback: Callback<GetSelfInfo>) {
-        NetworkUtil.userService.updateUerInfo(Prefs.getPrefsString(USER_AUTH_TOKEN), Prefs.getPrefsString(USER_ID), user)
+        NetworkUtil.userService.updateUserInfo(Prefs.getPrefsString(USER_AUTH_TOKEN), Prefs.getPrefsString(USER_ID), user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {

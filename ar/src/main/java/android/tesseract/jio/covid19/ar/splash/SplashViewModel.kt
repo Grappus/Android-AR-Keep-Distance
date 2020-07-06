@@ -75,6 +75,7 @@ class SplashViewModel: ViewModel() {
     }
 
     private fun updateUserInfo(responseData: ResponseData) {
+        Log.d("TAG", "LeaderBoard updateUserInfo: $responseData")
         Prefs.setPrefs(USER_NAME, responseData.fullName ?:"Unknown User")
         Prefs.setPrefs(USER_ID, responseData.id)
         Prefs.setPrefs(USER_SAFETY, responseData.lastNetScore.toInt())

@@ -23,5 +23,9 @@ class UseCasesImpl: UseCases {
         get() = SessionActivityUseCase()
     override val updateUserInfoUseCase: UpdateUserInfoUseCase
         get() = UpdateUserInfoUseCase()
+    override val localRankUseCase: LocalRankUseCase
+        get() = LocalRankUseCase()
+    override val localLeaderBoardUseCase: LocalLeaderBoardUseCase
+        get() = LocalLeaderBoardUseCase()
 
 }
