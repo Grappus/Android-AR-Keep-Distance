@@ -3,10 +3,8 @@ package android.tesseract.jio.covid19.ar.core.sessions.start
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.*
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.*
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
@@ -21,6 +19,7 @@ import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LNG
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_VIB_ON
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.VIOLATION_SOUND_EFFECT
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,11 +55,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         )
     }
 
-    lateinit var startSessionViewModel: SessionStartViewModel
-
-    private val modelColored =
-        "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
-    private val modelRed = "https://jio-ar-dev.s3.ap-south-1.amazonaws.com/app-assets/colored.glb"
+    private lateinit var startSessionViewModel: SessionStartViewModel
 
     // coroutine scope for background/main thread operations
     private val bgScope = CoroutineScope(Dispatchers.IO)
@@ -110,16 +105,16 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     private var sessionEndTime = 0L
 
     // Leaderboard adapter
-    val lbAdapter = LeaderBoardAdapter()
-    var isExpended = false
+    private val lbAdapter = LeaderBoardAdapter()
+    private var isExpended = false
 
     // Media player
-    var mdPlayer: MediaPlayer? = null
+    private var mdPlayer: MediaPlayer? = null
 
     // vibration
-    var vib: Vibrator? = null
+    private var vib: Vibrator? = null
 
-    var isLocalRankShowing = true
+    private var isLocalRankShowing = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -466,7 +461,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     /**
      * @onSceneUpdate() Function invoke every time when scene update
      */
-    var imgTimestamp = 0L
+    private var imgTimestamp = 0L
     private fun onSceneUpdate() {
         if (session == null) {
             return
@@ -579,7 +574,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             val results: List<Classifier.Recognition> =
                 detector!!.recognizeImage(newBitmap)
             val mappedRecognitions: MutableList<Classifier.Recognition> =
-                LinkedList<Classifier.Recognition>()
+                LinkedList()
             for (result in results) {
                 val location: RectF = result.location
                 val location2 = RectF()
@@ -636,7 +631,8 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         uiScope.launch {
             if (mappedRecognitions.any { it.paint.color == Color.RED }) {
                 renderable = renderableRed
-                checkViolationDetection(mappedRecognitions)
+                readyToProcessFrame = false
+                checkViolationDetection()
             } else {
                 renderable = renderableColored
                 showViolationAlert(false)
@@ -644,29 +640,26 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         }
     }
 
-    private fun checkViolationDetection(mappedRecognitions: MutableList<Classifier.Recognition>) {
-        if (!isDetectingViolation) {
-            isDetectingViolation = true
-            violationHandler.postDelayed({
-                if (mappedRecognitions.any { it.paint.color == Color.RED }) {
-                    sessionViolationCount++
-                    currentViolation++
-                    showViolationAlert(true)
-                    if (Prefs.getPrefsBoolean(USER_SOUND_ON))
-                        mdPlayer?.start()
-                    if (Prefs.getPrefsBoolean(USER_VIB_ON))
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            vib?.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
-                        } else {
-                            vib?.vibrate(100)
-                        }
-                    binding.layoutSessionInfo.violationCount = "$sessionViolationCount violation"
-                }
-                isDetectingViolation = false
-                if (currentViolation > violationThreshold)
-                    calculateSafety()
-            }, 3000L)
-        } else return
+    private fun checkViolationDetection() {
+        showViolationAlert(true)
+        if (Prefs.getPrefsBoolean(USER_SOUND_ON))
+            mdPlayer?.start()
+        if (Prefs.getPrefsBoolean(USER_VIB_ON))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vib?.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                vib?.vibrate(100)
+            }
+        sessionViolationCount++
+        currentViolation++
+        binding.layoutSessionInfo.violationCount = "$sessionViolationCount violation"
+        if (currentViolation > violationThreshold)
+            calculateSafety()
+        violationHandler.postDelayed({
+            readyToProcessFrame = true
+            showViolationAlert(false)
+            Log.d("TAG", "computingDetection2: $computingDetection")
+        }, 2000L)
     }
 
     private fun startSessionTimer() {
