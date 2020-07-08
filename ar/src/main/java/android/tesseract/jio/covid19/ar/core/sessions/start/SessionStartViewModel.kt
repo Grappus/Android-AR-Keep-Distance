@@ -25,6 +25,7 @@ class SessionStartViewModel : ViewModel() {
     var navigator: Navigator? = null
 
     fun getMyLocalRank() {
+        navigator?.showLeaderBoardLoading(true)
         NetworkUtil.useCase.localRankUseCase.getMyLocalRank(object : Callback<MyLeaderBoardRank>() {
             override fun loading(isLoading: Boolean) {}
 
@@ -37,6 +38,7 @@ class SessionStartViewModel : ViewModel() {
             }
 
             override fun onFailureCall(message: String?) {
+                navigator?.showLeaderBoardLoading(false)
                 navigator?.showError(message!!)
             }
 
@@ -44,6 +46,7 @@ class SessionStartViewModel : ViewModel() {
     }
 
     fun getMyGlobalRank() {
+        navigator?.showLeaderBoardLoading(true)
         NetworkUtil.useCase.globalRankUseCase.getMyGlobalRank(object : Callback<MyLeaderBoardRank>() {
             override fun loading(isLoading: Boolean) {}
 
@@ -55,6 +58,7 @@ class SessionStartViewModel : ViewModel() {
             }
 
             override fun onFailureCall(message: String?) {
+                navigator?.showLeaderBoardLoading(false)
                 navigator?.showError(message!!)
             }
 
@@ -64,11 +68,10 @@ class SessionStartViewModel : ViewModel() {
     fun getLocalLeaderBoard() {
         NetworkUtil.useCase.localLeaderBoardUseCase.getLocalLeaderBoard(object :
             Callback<LeaderBoard>() {
-            override fun loading(isLoading: Boolean) {
-                navigator?.showLoading(isLoading)
-            }
+            override fun loading(isLoading: Boolean) {}
 
             override fun onSuccessCall(value: LeaderBoard) {
+                navigator?.showLeaderBoardLoading(false)
                 val safetyPercent = Prefs.getPrefsInt(USER_SAFETY)
                 val name = Prefs.getPrefsString(USER_NAME)
                 val id = Prefs.getPrefsString(USER_ID)
@@ -89,6 +92,7 @@ class SessionStartViewModel : ViewModel() {
             }
 
             override fun onFailureCall(message: String?) {
+                navigator?.showLeaderBoardLoading(false)
                 navigator?.showError(message!!)
             }
 
@@ -98,11 +102,10 @@ class SessionStartViewModel : ViewModel() {
     fun getGlobalLeaderBoard() {
         NetworkUtil.useCase.globalLeaderBoardUseCase.getGlobalLeaderBoard(object :
             Callback<LeaderBoard>() {
-            override fun loading(isLoading: Boolean) {
-                navigator?.showLoading(isLoading)
-            }
+            override fun loading(isLoading: Boolean) {}
 
             override fun onSuccessCall(value: LeaderBoard) {
+                navigator?.showLeaderBoardLoading(false)
                 val safetyPercent = Prefs.getPrefsInt(USER_SAFETY)
                 val name = Prefs.getPrefsString(USER_NAME)
                 val id = Prefs.getPrefsString(USER_ID)
@@ -122,6 +125,7 @@ class SessionStartViewModel : ViewModel() {
             }
 
             override fun onFailureCall(message: String?) {
+                navigator?.showLeaderBoardLoading(false)
                 navigator?.showError(message!!)
             }
 
@@ -190,6 +194,7 @@ class SessionStartViewModel : ViewModel() {
         fun globalLeaderBoardList(result: MutableList<RankResult>)
         fun localLeaderBoardList(result: MutableList<RankResult>)
         fun navigateToEndSession(sessionInfo: SessionInfo)
+        fun showLeaderBoardLoading(isLoading: Boolean)
         fun showLoading(isLoading: Boolean)
         fun showError(msg: String)
     }

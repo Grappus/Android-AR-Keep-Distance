@@ -86,13 +86,14 @@
                         android:drawablePadding="@dimen/_3DP"
                         android:text="@string/label_safety"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:id="@+id/tvSafetyPercent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3DP"
                         android:text="@{sessionInfo.safetyPercent}"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
@@ -130,12 +131,13 @@
                         android:drawablePadding="@dimen/_3DP"
                         android:text="@string/label_time"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3DP"
                         android:text="@{sessionInfo.sessionTime}"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
@@ -173,13 +175,14 @@
                         android:drawablePadding="@dimen/_3DP"
                         android:text="@string/label_violations"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:id="@+id/tvViolationCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3DP"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_14SP"
                         android:textStyle="bold"

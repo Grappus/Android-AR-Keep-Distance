@@ -61,12 +61,13 @@
                         android:drawablePadding="@dimen/_3DP"
                         android:text="@string/label_safety"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4DP"
                         android:text="@{safetyPercent}"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_13SP"
@@ -104,13 +105,14 @@
                         android:drawablePadding="@dimen/_3DP"
                         android:text="@string/label_time"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         app:customFont="@{@string/font_family_jio_type}" />
 
                     <Chronometer
                         android:id="@+id/sessionTimer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4DP"
                         android:text="@{sessionTime}"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_13SP"
@@ -148,12 +150,13 @@
                         android:drawablePadding="@dimen/_3DP"
                         android:text="@string/label_violations"
                         android:textColor="@color/textColorBlack"
-                        android:textSize="@dimen/_9SP"
+                        android:textSize="@dimen/_10SP"
                         app:customFont="@{@string/font_family_jio_type}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4DP"
                         android:text="@{violationCount}"
                         android:textColor="@color/textColorBlack"
                         android:textSize="@dimen/_13SP"

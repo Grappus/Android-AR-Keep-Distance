@@ -172,6 +172,21 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         findNavController().navigate(action)
     }
 
+    override fun showLeaderBoardLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.layoutLeaderBoard.run {
+                rvLeadboard.visibility = View.GONE
+                pbLeaderBoardLoading.visibility = View.VISIBLE
+            }
+        }
+        else {
+            binding.layoutLeaderBoard.run {
+                rvLeadboard.visibility = View.VISIBLE
+                pbLeaderBoardLoading.visibility = View.GONE
+            }
+        }
+    }
+
     override fun showLoading(isLoading: Boolean) {
         if (isLoading)
             ProgressLoader.showLoader(requireContext())
