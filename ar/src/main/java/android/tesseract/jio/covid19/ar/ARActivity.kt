@@ -25,6 +25,7 @@ import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_ar.*
+import java.util.*
 import kotlin.random.Random
 
 
@@ -54,8 +55,7 @@ class ARActivity : AppCompatActivity() {
             Prefs.setPrefs(USER_UID, intentArg)
         }
         else {
-            val randomValue = Random.nextLong((999999999 - 100) + 1) + 10
-            Prefs.setPrefs(USER_UID, randomValue.toString())
+            Prefs.setPrefs(USER_UID, UUID.randomUUID().toString())
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationCallback = object : LocationCallback() {
