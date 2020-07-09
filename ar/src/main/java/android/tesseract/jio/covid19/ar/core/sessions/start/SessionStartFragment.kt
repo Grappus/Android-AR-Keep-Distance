@@ -220,9 +220,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         arFragment.arSceneView.scene.addOnUpdateListener {
             arFragment.onUpdate(it)
             onSceneUpdate()
-            renderable?.let {
-                uiRenderingScope.launch { addNodeToScene() }
-            }
         }
 
         binding.layoutLeaderBoard.rvLeadboard.adapter = lbAdapter
@@ -360,17 +357,17 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
     /**
      * @addNodeToScene() as name suggest added the rendered 3D object node to the plane
      */
-    private fun addNodeToScene() {
+    private fun addNodeToScene(modelRenderable: ModelRenderable) {
         val frame = arFragment.arSceneView.arFrame ?: return
         val pose =
-            frame.camera?.displayOrientedPose?.compose(mCameraRelativePose) // need to change it
+            frame.camera?.displayOrientedPose?.compose(mCameraRelativePose)
         if (frame.camera?.trackingState == TrackingState.TRACKING) {
             val anchor = arFragment.arSceneView.session?.createAnchor(pose?.extractTranslation())
-            anchor?.pose?.toMatrix(FloatArray(32), 0)
             // checking and removing the old anchor so that we always have the latest anchor
             // point and anchor node, to render the object.
             if (oldAnchor != null) {
                 oldAnchor?.detach()
+                sceneView?.scene?.removeChild(oldAnchorNode)
             }
             oldAnchor = anchor
             val anchorNode = AnchorNode(anchor)
@@ -378,7 +375,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
             anchorNode.setParent(sceneView?.scene)
             // TransformableNode means the user to move, scale and rotate the model
             val transformableNode = TransformableNode(arFragment.transformationSystem)
-            transformableNode.renderable = renderable
+            transformableNode.renderable = modelRenderable
             transformableNode.setParent(anchorNode)
             transformableNode.select()
             currentTransformableNode = transformableNode
@@ -483,6 +480,9 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         }
         try {
             val frame: Frame = arFragment.arSceneView.arFrame ?: return
+            renderable?.let { modelRenderable ->
+                addNodeToScene(modelRenderable)
+            }
             val image = frame.acquireCameraImage()
 
             // Copy the camera stream to a bitmap
@@ -648,9 +648,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 renderable = renderableRed
                 readyToProcessFrame = false
                 checkViolationDetection()
-            } else {
-                renderable = renderableColored
-                showViolationAlert(false)
             }
         }
     }
@@ -671,6 +668,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         if (currentViolation > violationThreshold)
             calculateSafety()
         violationHandler.postDelayed({
+            renderable = renderableColored
             readyToProcessFrame = true
             showViolationAlert(false)
             Log.d("TAG", "computingDetection2: $computingDetection")
@@ -695,7 +693,6 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         currentViolation = 0
         binding.layoutSessionInfo.safetyPercent = "$currentSafety%"
     }
-
 
     private fun showViolationAlert(isViolated: Boolean) {
         if (isViolated) {
@@ -728,9 +725,11 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         mdPlayer?.stop()
         mdPlayer?.release()
         mdPlayer = null
+        binding.graphicOverlay.invalidateOverlay()
         if (sceneView != null) {
             oldAnchorNode?.renderable = null
             oldAnchor?.detach()
+            sceneView?.scene?.removeChild(oldAnchorNode)
             session = null
         }
         binding.layoutSessionInfo.sessionTimer.stop()

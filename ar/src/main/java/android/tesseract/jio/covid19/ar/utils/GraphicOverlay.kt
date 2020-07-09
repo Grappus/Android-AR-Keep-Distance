@@ -2,12 +2,11 @@ package android.tesseract.jio.covid19.ar.utils
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.tesseract.jio.covid19.ar.tflite.Classifier
 import android.util.AttributeSet
 import android.view.View
-import android.tesseract.jio.covid19.ar.tflite.Classifier
 
 /**
  * Created by Dipanshu Harbola on 29/5/20.
@@ -18,34 +17,7 @@ class GraphicOverlay(context: Context, attrs: AttributeSet?) : View(context, att
 
     private val graphics = mutableListOf<Classifier.Recognition>()
 
-    private var rectPaintStyle: Paint? = null
-
-    private var rectFillPaintStyle: Paint? = null
-
-    private val rectPaint = Paint().apply {
-        color = Color.WHITE
-        style = Paint.Style.STROKE
-        strokeWidth = 2 * resources.displayMetrics.density
-    }
-
-    private val rectTransparent = Paint().apply {
-        color = Color.TRANSPARENT
-        style = Paint.Style.STROKE
-        strokeWidth = 2 * resources.displayMetrics.density
-    }
-
-    private val textBackgroundPaint = Paint().apply {
-        color = Color.parseColor("#66000000")
-        style = Paint.Style.FILL
-    }
-
-    private val textPaint = Paint().apply {
-        color = Color.RED
-        textSize = 22 * resources.displayMetrics.density
-    }
-
     private val rect = RectF()
-    private val offset = resources.displayMetrics.density * 8
     private val round = resources.displayMetrics.density * 4
 
     private var scale: Float = 2f
@@ -69,19 +41,6 @@ class GraphicOverlay(context: Context, attrs: AttributeSet?) : View(context, att
 
             xOffset = 0f
             yOffset = (imageHeight * scale - height) * 0.5f
-        }
-    }
-
-    fun setRectPaint(rectColor: Int){
-        rectPaintStyle = Paint().apply{
-            color = rectColor
-            style = Paint.Style.STROKE
-            strokeWidth = 2 * resources.displayMetrics.density
-        }
-        rectFillPaintStyle = Paint().apply{
-            color = rectColor
-            setAlpha(0.3f)
-            style = Paint.Style.FILL
         }
     }
 
@@ -120,6 +79,11 @@ class GraphicOverlay(context: Context, attrs: AttributeSet?) : View(context, att
                 graphics.add(boxData)
             }
         }
+        postInvalidate()
+    }
+
+    fun invalidateOverlay() {
+        graphics.clear()
         postInvalidate()
     }
 }
