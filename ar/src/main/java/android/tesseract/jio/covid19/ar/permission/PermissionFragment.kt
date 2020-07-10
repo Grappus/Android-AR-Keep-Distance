@@ -5,12 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
 import android.tesseract.jio.covid19.ar.databinding.FragmentPermissionBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +25,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
  * Created by Dipanshu Harbola on 26/5/20.
  */
 class PermissionFragment : Fragment() {
-
-    private val TAG = PermissionFragment::class.java.simpleName
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentPermissionBinding.inflate(
@@ -62,7 +58,6 @@ class PermissionFragment : Fragment() {
                     override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                         report?.let {
                             if (report.areAllPermissionsGranted()) {
-                                (requireContext() as ARActivity).locationPermissionGranted()
                                 if (!Prefs.getPrefsBoolean(PrefsConstants.IS_USER_LOGIN))
                                     findNavController().navigate(R.id.action_permissionFragment_to_loginFragment)
                                 else
@@ -83,9 +78,7 @@ class PermissionFragment : Fragment() {
                         token?.continuePermissionRequest()
                     }
                 })
-                .withErrorListener {
-                    Log.e(TAG, it?.name.orEmpty())
-                }
+                .withErrorListener {}
                 .check()
         }
     }
@@ -98,11 +91,11 @@ class PermissionFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle(requireContext().getString(R.string.title_required_permission))
         builder.setMessage(requireContext().getString(R.string.msg_required_permission))
-        builder.setPositiveButton(requireContext().getString(R.string.btn_goto_settings)) { dialog, which ->
+        builder.setPositiveButton(requireContext().getString(R.string.btn_goto_settings)) { dialog, _ ->
             dialog.cancel()
             openSettings()
         }
-        builder.setNegativeButton(requireContext().getString(R.string.btn_cancel)) { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(requireContext().getString(R.string.btn_cancel)) { dialog, _ -> dialog.cancel() }
         builder.show()
     }
 

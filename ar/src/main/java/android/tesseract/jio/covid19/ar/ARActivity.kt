@@ -1,6 +1,9 @@
 package android.tesseract.jio.covid19.ar
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Looper
@@ -13,12 +16,12 @@ import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LAT
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LNG
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_UID
-import android.util.Log
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.transition.ChangeBounds
@@ -26,7 +29,6 @@ import androidx.transition.TransitionManager
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_ar.*
 import java.util.*
-import kotlin.random.Random
 
 
 class ARActivity : AppCompatActivity() {
@@ -38,11 +40,12 @@ class ARActivity : AppCompatActivity() {
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
+    private val permissions = listOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+
     private lateinit var constraintLayout: ConstraintLayout
     private val constraintSet = ConstraintSet()
     private val animateConstraintSet = ConstraintSet()
     private val transition = ChangeBounds()
-    private var requestingLocationUpdates = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.statusBarColor = getColor(R.color.baseBgColor)
@@ -61,9 +64,6 @@ class ARActivity : AppCompatActivity() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
-                Log.d("TAG", "LeaderBoard inside Location service")
-                Prefs.setPrefs(USER_LAT, locationResult.lastLocation.latitude.toFloat())
-                Prefs.setPrefs(USER_LNG, locationResult.lastLocation.longitude.toFloat())
                 for (location in locationResult.locations) {
                     Prefs.setPrefs(USER_LAT, location.latitude.toFloat())
                     Prefs.setPrefs(USER_LNG, location.longitude.toFloat())
@@ -75,7 +75,8 @@ class ARActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (requestingLocationUpdates) startLocationUpdates()
+        if (hasPermissions(this))
+            startLocationUpdates()
     }
 
     override fun onPause() {
@@ -97,10 +98,9 @@ class ARActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun locationPermissionGranted() {
-        Log.d("TAG", "LeaderBoard locationPermissionGranted")
-        requestingLocationUpdates = true
-        startLocationUpdates()
+    /** Convenience method used to check if all permissions required by this app are granted */
+    private fun hasPermissions(context: Context) = permissions.all {
+        ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun initComponents() {
