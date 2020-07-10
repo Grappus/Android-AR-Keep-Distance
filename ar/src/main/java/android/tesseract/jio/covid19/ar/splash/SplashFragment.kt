@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.core.ARViewModel
 import android.tesseract.jio.covid19.ar.databinding.FragmentSplashBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.FINISHED_WALKTHROUGH
@@ -23,7 +24,7 @@ import androidx.navigation.fragment.findNavController
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
-class SplashFragment : Fragment(), SplashViewModel.Navigator {
+class SplashFragment : Fragment(), ARViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) { FragmentSplashBinding.inflate(layoutInflater) }
     private var handler: Handler? = null
@@ -72,15 +73,17 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
     }
 
     private fun initComponents() {
-        val splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
+        val splashViewModel = ViewModelProvider(this).get(ARViewModel::class.java)
         splashViewModel.navigator = this
         (requireContext() as ARActivity).setupActionButtons()
         handler?.postDelayed({
             if (Prefs.getPrefsBoolean(IS_USER_LOGIN)) {
                 splashViewModel.getUserInfo()
+                splashViewModel.getMyJournal()
+                splashViewModel.getGraphPlots()
             }
             else navigateToNextScreen()
-        }, 2000L)
+        }, 2500L)
     }
 
     // check if all the required permissions are granted by user.

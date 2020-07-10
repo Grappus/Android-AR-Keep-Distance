@@ -16,8 +16,7 @@ data class ResponseData(
     val isPhoneVerified: Boolean,
     val isBlocked: Boolean,
     val fullName: String? = null,
-    val phone: String,
-    val countryCode: Int,
+    val clientId: String,
     val imageUrl: String? = null,
     val createdAt: String,
     val id: String

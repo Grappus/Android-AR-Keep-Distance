@@ -1,11 +1,10 @@
-package android.tesseract.jio.covid19.ar.splash
+package android.tesseract.jio.covid19.ar.login
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.core.ARViewModel
 import android.tesseract.jio.covid19.ar.databinding.FragmentLoginBinding
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_UID
@@ -14,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,7 +20,7 @@ import androidx.navigation.fragment.findNavController
 /**
  * Created by Dipanshu Harbola on 26/5/20.
  */
-class LoginFragment : Fragment(), SplashViewModel.Navigator {
+class LoginFragment : Fragment(), ARViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentLoginBinding.inflate(
@@ -67,7 +65,7 @@ class LoginFragment : Fragment(), SplashViewModel.Navigator {
     }
 
     private fun initComponents() {
-        val splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
+        val splashViewModel = ViewModelProvider(this).get(ARViewModel::class.java)
         splashViewModel.navigator = this
         (requireContext() as ARActivity).setupActionButtons()
         binding.btnSubmit.setOnClickListener {
