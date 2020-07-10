@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="rankResult"
-            type="android.tesseract.jio.covid19.ar.networkcalling.model.RankResult" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,10 +10,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvLeadBoard"
             android:layout_width="match_parent"
-            app:cardUseCompatPadding="true"
             android:layout_height="@dimen/_50DP"
-            app:cardCornerRadius="@dimen/_6DP"
+            app:cardUseCompatPadding="true"
             app:cardElevation="0dp"
+            app:cardBackgroundColor="#00FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -27,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10DP"
+                android:layout_marginStart="@dimen/_11DP"
                 android:layout_marginEnd="@dimen/_10DP"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center"
@@ -35,10 +29,11 @@
 
                 <TextView
                     android:id="@+id/tvRank"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_20DP"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_9SP"
                     android:textStyle="bold"
+                    android:gravity="center"
                     app:customFont="@{@string/font_family_jio_type}"
                     tools:text="123" />
 
@@ -46,7 +41,7 @@
                     android:id="@+id/tvNameImg"
                     android:layout_width="@dimen/_23DP"
                     android:layout_height="@dimen/_23DP"
-                    android:layout_marginStart="@dimen/_9DP"
+                    android:layout_marginStart="@dimen/_3DP"
                     android:textSize="@dimen/_10SP"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -55,9 +50,9 @@
                     android:background="@drawable/bg_name_img"
                     tools:text="D" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight=".7"
                     android:layout_marginStart="@dimen/_8DP"
                     android:orientation="vertical">
@@ -70,6 +65,10 @@
                         android:textColor="@color/textColorBlack"
                         android:textStyle="bold"
                         app:customFont="@{@string/font_family_jio_type}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tvJourneyDays"
+                        app:layout_goneMarginBottom="@dimen/_3DP"
                         tools:text="Dipanshu Harbola" />
 
                     <TextView
@@ -78,9 +77,11 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_9SP"
                         app:customFont="@{@string/font_family_jio_type}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         tools:text="32 Days" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"

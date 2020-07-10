@@ -7,10 +7,9 @@ import android.tesseract.jio.covid19.ar.databinding.ItemLeaderboardBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
 import android.tesseract.jio.covid19.ar.utils.Prefs
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_GLOBAL_RANK
-import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LOCAL_RANK
 import android.tesseract.jio.covid19.ar.utils.TimeUtils
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -35,7 +34,7 @@ class LeaderBoardAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(leaderBoardList[position], position)
+        holder.bind(leaderBoardList[position], position+1)
     }
 
     fun setData(data: MutableList<RankResult>) {
@@ -51,33 +50,33 @@ class LeaderBoardAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(rankResult: RankResult, rank: Int) {
-            binding.rankResult = rankResult
-            binding.executePendingBindings()
-
-            if (rankResult.isMe) {
-                binding.cvLeadBoard.setCardBackgroundColor(context.getColor(R.color.white))
-                binding.cvLeadBoard.radius = 18f
-                binding.cvLeadBoard.cardElevation = 10f
-                binding.tvRank.text = if (isLocalRank) Prefs.getPrefsInt(USER_LOCAL_RANK).toString()
-                else Prefs.getPrefsInt(USER_GLOBAL_RANK).toString()
-            }
-            else {
-                binding.cvLeadBoard.setCardBackgroundColor(Color.parseColor("#00FFFFFF"))
-                binding.cvLeadBoard.radius = 0f
-                binding.cvLeadBoard.cardElevation = 0f
-                binding.tvRank.text = "$rank"
-            }
-
             val strtDay = TimeUtils.getTime(rankResult.createdAt, TimeUtils.TIME_SERVER)
             val today = Calendar.getInstance().timeInMillis
             val timeGap = today - strtDay
             val days = (timeGap / (1000*60*60*24)).toInt()
-            binding.tvJourneyDays.text = if(days == 0) "" else if (days > 1) "$days day" else "$days days"
-            binding.tvSafetyPercentage.text = if (rankResult.lastNetScore > 100f) "100%"
-            else "${(rankResult.lastNetScore).toInt()}%"
             val name = rankResult.fullName ?: "Unknown User"
-            binding.tvUserName.text = name
-            binding.tvNameImg.text = name[0].toString()
+            binding.run {
+                executePendingBindings()
+                //cvLeadBoard.setCardBackgroundColor(Color.parseColor("#00FFFFFF"))
+                //cvLeadBoard.radius = 0f
+                //cvLeadBoard.cardElevation = 0f
+                tvRank.text = "$rank"
+                tvUserName.text = name
+                tvNameImg.text = name[0].toString()
+                when {
+                    days == 0 -> binding.tvJourneyDays.visibility = View.GONE
+                    days > 1 -> {
+                        binding.tvJourneyDays.visibility = View.VISIBLE
+                        "$days day"
+                    }
+                    else -> {
+                        binding.tvJourneyDays.visibility = View.VISIBLE
+                        "$days days"
+                    }
+                }
+                tvSafetyPercentage.text = if (rankResult.lastNetScore > 100f) "100%"
+                else "${(rankResult.lastNetScore).toInt()}%"
+            }
         }
     }
 

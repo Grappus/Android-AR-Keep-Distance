@@ -33,7 +33,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/llLeaderBoardPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,23 +65,34 @@
                     android:textColor="@color/textColorBlack"
                     android:textSize="@dimen/_9SP"
                     app:customFont="@{@string/font_family_jio_type}" />
-            </LinearLayout>
+            </LinearLayout>-->
+            <include
+                android:id="@+id/includeMyRank"
+                layout="@layout/item_leaderboard"
+                android:layout_marginStart="@dimen/_4DP"
+                android:layout_marginTop="@dimen/_8DP"
+                android:layout_marginEnd="@dimen/_4DP"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLeadboard"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvLeadboard"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/_4DP"
-                android:layout_marginTop="@dimen/_8DP"
                 android:layout_marginEnd="@dimen/_4DP"
                 android:layout_marginBottom="@dimen/_8DP"
                 android:orientation="vertical"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLeadboard"
+                app:layout_constraintTop_toBottomOf="@+id/includeMyRank"
                 app:layout_constraintVertical_bias="0.0"
                 tools:itemCount="4"
                 tools:listitem="@layout/item_leaderboard" />
