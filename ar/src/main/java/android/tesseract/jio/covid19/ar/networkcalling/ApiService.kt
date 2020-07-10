@@ -1,7 +1,7 @@
 package android.tesseract.jio.covid19.ar.networkcalling
 
 import android.tesseract.jio.covid19.ar.networkcalling.model.*
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import retrofit2.http.*
 
 /**
