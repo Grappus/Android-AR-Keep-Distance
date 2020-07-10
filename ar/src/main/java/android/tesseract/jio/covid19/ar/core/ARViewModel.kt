@@ -178,15 +178,13 @@ class ARViewModel : ViewModel() {
                 val safetyPercent = Prefs.getPrefsInt(USER_SAFETY)
                 val name = Prefs.getPrefsString(USER_NAME)
                 val id = Prefs.getPrefsString(USER_ID)
-                val strtDay = Prefs.getPrefsString(USER_CREATED_AT)
+                val startDay = Prefs.getPrefsString(USER_CREATED_AT)
                 if (value.statusCode == 200) {
                     val myRankResult = RankResult(
-                        safetyPercent.toFloat(), name, "", strtDay, id, true
+                        safetyPercent.toFloat(), name, "", startDay, id, true
                     )
                     val result = value.data.result
-                    val filteredList = result.filter { it.id != id }.toMutableList()
-                    filteredList.add(0, myRankResult)
-                    navigator?.globalLeaderBoardList(filteredList)
+                    navigator?.globalLeaderBoardList(result, myRankResult)
                 } else navigator?.showError("Something is wrong.. ${value.statusCode}")
             }
 
@@ -302,7 +300,7 @@ class ARViewModel : ViewModel() {
     }
 
     interface Navigator {
-        fun globalLeaderBoardList(result: MutableList<RankResult>) {}
+        fun globalLeaderBoardList(result: MutableList<RankResult>, myRankResult: RankResult) {}
         fun localLeaderBoardList(result: MutableList<RankResult>) {}
         fun navigateToEndSession(sessionInfo: SessionInfo) {}
         fun showLeaderBoardLoading(isLoading: Boolean) {}

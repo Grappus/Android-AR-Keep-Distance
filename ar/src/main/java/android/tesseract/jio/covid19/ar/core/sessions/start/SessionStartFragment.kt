@@ -15,6 +15,7 @@ import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
 import android.tesseract.jio.covid19.ar.tflite.Classifier
 import android.tesseract.jio.covid19.ar.tflite.TFLiteObjectDetectionAPIModel
 import android.tesseract.jio.covid19.ar.utils.*
+import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_GLOBAL_RANK
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LAT
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_LNG
 import android.tesseract.jio.covid19.ar.utils.PrefsConstants.USER_SOUND_ON
@@ -160,7 +161,33 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
         lbAdapter.setData(result)
     }
 
-    override fun globalLeaderBoardList(result: MutableList<RankResult>) {
+    override fun globalLeaderBoardList(result: MutableList<RankResult>, myRankResult: RankResult) {
+        val startDay = TimeUtils.getTime(myRankResult.createdAt, TimeUtils.TIME_SERVER)
+        val today = Calendar.getInstance().timeInMillis
+        val timeGap = today - startDay
+        val days = (timeGap / (1000*60*60*24)).toInt()
+        val name = myRankResult.fullName ?: "Unknown User"
+        binding.layoutLeaderBoard.includeMyRank.run {
+            cvLeadBoard.setCardBackgroundColor(requireContext().getColor(R.color.white))
+            cvLeadBoard.radius = 18f
+            cvLeadBoard.cardElevation = 10f
+            tvRank.text = Prefs.getPrefsInt(USER_GLOBAL_RANK).toString()
+            tvUserName.text = name
+            tvNameImg.text = name[0].toString()
+            when {
+                days == 0 -> tvJourneyDays.visibility = View.GONE
+                days > 1 -> {
+                    tvJourneyDays.visibility = View.VISIBLE
+                    "$days day"
+                }
+                else -> {
+                    tvJourneyDays.visibility = View.VISIBLE
+                    "$days days"
+                }
+            }
+            tvSafetyPercentage.text = if (myRankResult.lastNetScore > 100f) "100%"
+            else "${(myRankResult.lastNetScore).toInt()}%"
+        }
         lbAdapter.isLocalRank = false
         lbAdapter.leaderBoardList.clear()
         lbAdapter.setData(result)
@@ -203,7 +230,7 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
         startSessionViewModel = ViewModelProvider(this).get(ARViewModel::class.java)
         startSessionViewModel.navigator = this
         startSessionViewModel.updateUserLocation()
-        startSessionViewModel.getMyLocalRank()
+        startSessionViewModel.getMyGlobalRank()
         startSessionViewModel.getMyJournal()
         startSessionViewModel.getGraphPlots()
 
@@ -244,7 +271,7 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
             clearAnchor()
         }
 
-        binding.layoutLeaderBoard.run {
+        /*binding.layoutLeaderBoard.run {
             btnLocal.setOnClickListener {
                 if (!isLocalRankShowing) {
                     isLocalRankShowing = true
@@ -268,7 +295,7 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
                     btnLocal.setTextColor(Color.BLACK)
                 } else return@setOnClickListener
             }
-        }
+        }*/
     }
 
     private fun handleActionButtons() {
