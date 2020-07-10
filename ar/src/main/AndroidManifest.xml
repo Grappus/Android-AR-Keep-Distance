@@ -9,13 +9,13 @@
 
     <uses-feature
         android:name="android.hardware.camera.ar"
-        android:required="true" />
+        android:required="false" />
 
     <application>
 
         <meta-data
             android:name="com.google.ar.core"
-            android:value="required" />
+            android:value="optional" />
 
         <activity
             android:name="android.tesseract.jio.covid19.ar.ARActivity"

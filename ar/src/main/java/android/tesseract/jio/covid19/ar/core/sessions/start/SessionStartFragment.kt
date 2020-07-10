@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import android.os.*
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.core.ARViewModel
 import android.tesseract.jio.covid19.ar.databinding.FragmentStartSessionBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.RankResult
 import android.tesseract.jio.covid19.ar.networkcalling.model.SessionInfo
@@ -47,7 +48,7 @@ import java.util.*
 /**
  * Created by Dipanshu Harbola on 6/6/20.
  */
-class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
+class SessionStartFragment : Fragment(), ARViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentStartSessionBinding.inflate(
@@ -55,7 +56,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
         )
     }
 
-    private lateinit var startSessionViewModel: SessionStartViewModel
+    private lateinit var startSessionViewModel: ARViewModel
 
     // coroutine scope for background/main thread operations
     private val bgScope = CoroutineScope(Dispatchers.IO)
@@ -178,8 +179,7 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
                 rvLeadboard.visibility = View.GONE
                 pbLeaderBoardLoading.visibility = View.VISIBLE
             }
-        }
-        else {
+        } else {
             binding.layoutLeaderBoard.run {
                 rvLeadboard.visibility = View.VISIBLE
                 pbLeaderBoardLoading.visibility = View.GONE
@@ -200,10 +200,12 @@ class SessionStartFragment : Fragment(), SessionStartViewModel.Navigator {
 
     private fun initComponents() {
 
-        startSessionViewModel = ViewModelProvider(this).get(SessionStartViewModel::class.java)
+        startSessionViewModel = ViewModelProvider(this).get(ARViewModel::class.java)
         startSessionViewModel.navigator = this
         startSessionViewModel.updateUserLocation()
         startSessionViewModel.getMyLocalRank()
+        startSessionViewModel.getMyJournal()
+        startSessionViewModel.getGraphPlots()
 
         arFragment = childFragmentManager.findFragmentById(R.id.sceneformFragment) as JioARFragment
 

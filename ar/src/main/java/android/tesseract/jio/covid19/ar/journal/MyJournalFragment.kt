@@ -3,6 +3,7 @@ package android.tesseract.jio.covid19.ar.journal
 import android.os.Bundle
 import android.tesseract.jio.covid19.ar.ARActivity
 import android.tesseract.jio.covid19.ar.R
+import android.tesseract.jio.covid19.ar.core.ARViewModel
 import android.tesseract.jio.covid19.ar.databinding.FragmentJournalBinding
 import android.tesseract.jio.covid19.ar.networkcalling.model.GraphPlotData
 import android.tesseract.jio.covid19.ar.networkcalling.model.JournalData
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
 /**
  * Created by Dipanshu Harbola on 11/6/20.
  */
-class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
+class MyJournalFragment : Fragment(), ARViewModel.Navigator {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentJournalBinding.inflate(
@@ -65,17 +66,10 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
 
     override fun showGraphPlots(graphPlotData: MutableList<GraphPlotData>) {
         val graphDataList = mutableListOf<LineGraph.GraphData>()
-        Log.e("GraphPlotData", "$graphPlotData")
-        /*for (value in 0 until graphPlotData.size) {
-            graphDataList.add(
-                LineGraph.GraphData("${graphPlotData[value].withinDuration} hrs",
-                    graphPlotData[value].plotdata.sumBy { it.violationCount }.toFloat())
-            )
-        }*/
         graphDataList.add(LineGraph.GraphData("6 hrs", graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat()))
         graphDataList.add(LineGraph.GraphData("12 hrs", graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat()))
         graphDataList.add(LineGraph.GraphData("18 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
-        graphDataList.add(LineGraph.GraphData("24 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
+        graphDataList.add(LineGraph.GraphData("24 hrs", graphPlotData[3].plotdata.sumBy { it.violationCount }.toFloat()))
         gvSafety.setGraphData(graphDataList.toList())
     }
 
@@ -91,7 +85,7 @@ class MyJournalFragment : Fragment(), MyJournalViewModel.Navigator {
     }
 
     private fun initComponents() {
-        val myJournalViewModel = ViewModelProvider(this).get(MyJournalViewModel::class.java)
+        val myJournalViewModel = ViewModelProvider(this).get(ARViewModel::class.java)
         myJournalViewModel.navigator = this
         myJournalViewModel.getMyJournal()
         myJournalViewModel.getGraphPlots()
