@@ -39,7 +39,6 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
     override fun onResume() {
         super.onResume()
         handler = Handler()
-        startFetchLocation()
         initComponents()
     }
 
@@ -70,13 +69,6 @@ class SplashFragment : Fragment(), SplashViewModel.Navigator {
 
     override fun showNetworkError(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun startFetchLocation() {
-        val permissionLocation =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-        if ((permissionLocation == PackageManager.PERMISSION_GRANTED))
-            (requireContext() as ARActivity).locationPermissionGranted()
     }
 
     private fun initComponents() {
