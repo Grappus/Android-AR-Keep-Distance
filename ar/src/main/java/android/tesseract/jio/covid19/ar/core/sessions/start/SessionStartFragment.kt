@@ -756,9 +756,11 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
         mdPlayer = null
         binding.graphicOverlay.invalidateOverlay()
         if (sceneView != null) {
-            oldAnchorNode?.renderable = null
-            oldAnchor?.detach()
-            sceneView?.scene?.removeChild(oldAnchorNode)
+            try {
+                oldAnchorNode?.renderable = null
+                oldAnchor?.detach()
+                sceneView?.scene?.removeChild(oldAnchorNode)
+            } catch (e: Exception) {}
             session = null
         }
         binding.layoutSessionInfo.sessionTimer.stop()
