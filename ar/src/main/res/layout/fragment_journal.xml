@@ -128,7 +128,7 @@
 
         <android.tesseract.jio.covid19.ar.utils.LineGraph
             android:id="@+id/gvSafety"
-            android:layout_width="@dimen/_245DP"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/_220DP"
             android:layout_marginTop="-20dp"
             app:layout_constraintEnd_toEndOf="parent"
