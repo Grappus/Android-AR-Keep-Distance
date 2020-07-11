@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,8 +24,9 @@ public class LineGraph extends View {
     private int mWidth = 700;
     private int mHeight = 600;
 
-    private float maxValue, minValue;
+    private float maxValue = 40f, minValue;
     private List<GraphData> mData = new ArrayList<>(5);
+    private String[] title = new String[]{"6 hrs", "12 hrs", "18 hrs", "24 hrs"};
 
     private Paint mLinePaint;
     private Paint xTextPaint;
@@ -106,19 +108,19 @@ public class LineGraph extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        calculateValue();
+        drawCoordinateSystem(canvas);
+        drawYAxisText(canvas);
         try {
-            calculateVaule();
-
-            drawCoordinateSystem(canvas);
-            drawText(canvas);
+            drawXAxisText(canvas);
             drawDataPoint(canvas);
             drawDataLine(canvas);
         } catch (Exception ignored) { }
     }
 
-    private void calculateVaule() {
+    private void calculateValue() {
         yValue = 10;
-        yDistance = mHeight / (mData.size() + 2);
+        yDistance = mHeight / 6;
 
         if (minValue < 0) {
             mOriginY = (int) (mHeight - 50 + (minValue / yValue * yDistance));
@@ -156,22 +158,28 @@ public class LineGraph extends View {
 
     }
 
-    private void drawText(Canvas canvas) {
-        Paint.FontMetrics xFontMetrics = xTextPaint.getFontMetrics();
-        float xFontHeight = xFontMetrics.descent - xFontMetrics.ascent;
-        for (int i = 0; i < mData.size(); i++) {
-
-            float x = points[i].x - xTextPaint.measureText(mData.get(i).getTitle()) / 2;
-            float y = mOriginY + xFontHeight;
-            canvas.drawText(mData.get(i).getTitle(), x, y, xTextPaint);
-        }
-
+    private void drawYAxisText(Canvas canvas) {
         int degree = mOriginY / yDistance;
         for (int i = 0; i < degree; i++) {
 
             float m = (mOriginX + 55) - yTextPaint.measureText(maxValue + "");
             float n = mOriginY - yDistance * (i);
             canvas.drawText(yValue * (i) + "", m, n, yTextPaint);
+        }
+    }
+
+    private void drawXAxisText(Canvas canvas) {
+        for (int i = 1; i <= mData.size(); i++) {
+            points[i - 1].x = mOriginX + xDistance * i;
+        }
+
+        Paint.FontMetrics xFontMetrics = xTextPaint.getFontMetrics();
+        float xFontHeight = xFontMetrics.descent - xFontMetrics.ascent;
+        for (int i = 0; i < 4; i++) {
+
+            float x = points[i].x - xTextPaint.measureText(title[i]) / 2;
+            float y = mOriginY + xFontHeight;
+            canvas.drawText(title[i], x, y, xTextPaint);
         }
     }
 
@@ -217,17 +225,10 @@ public class LineGraph extends View {
 
     public static class GraphData {
 
-        private String title;
         private float value;
 
-        public GraphData(String title, float value) {
-
-            this.title = title;
+        public GraphData(float value) {
             this.value = value;
-        }
-
-        public String getTitle() {
-            return title;
         }
 
         public float getValue() {

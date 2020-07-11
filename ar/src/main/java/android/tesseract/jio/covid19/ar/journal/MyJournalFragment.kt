@@ -71,7 +71,6 @@ class MyJournalFragment : Fragment(), ARViewModel.Navigator {
             val graphDataList = mutableListOf<LineGraph.GraphData>()
             graphDataList.add(
                 LineGraph.GraphData(
-                    "6 hrs",
                     if (graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
                         40f
                     } else graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat()
@@ -79,7 +78,6 @@ class MyJournalFragment : Fragment(), ARViewModel.Navigator {
             )
             graphDataList.add(
                 LineGraph.GraphData(
-                    "12 hrs",
                     if (graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
                         40f
                     } else graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat()
@@ -87,7 +85,6 @@ class MyJournalFragment : Fragment(), ARViewModel.Navigator {
             )
             graphDataList.add(
                 LineGraph.GraphData(
-                    "18 hrs",
                     if (graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
                         40f
                     } else graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()
@@ -95,7 +92,6 @@ class MyJournalFragment : Fragment(), ARViewModel.Navigator {
             )
             graphDataList.add(
                 LineGraph.GraphData(
-                    "24 hrs",
                     if (graphPlotData[3].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
                         40f
                     } else graphPlotData[3].plotdata.sumBy { it.violationCount }.toFloat()
