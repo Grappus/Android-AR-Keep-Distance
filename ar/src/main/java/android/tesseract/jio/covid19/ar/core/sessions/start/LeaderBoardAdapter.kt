@@ -63,6 +63,7 @@ class LeaderBoardAdapter :
                 tvRank.text = "$rank"
                 tvUserName.text = name
                 tvNameImg.text = name[0].toString()
+                tvNameImg.setBackgroundResource(R.drawable.bg_name_img)
                 when {
                     days == 0 -> binding.tvJourneyDays.visibility = View.GONE
                     days > 1 -> {

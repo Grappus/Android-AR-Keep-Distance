@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.activity_ar.*
 import kotlinx.android.synthetic.main.fragment_journal.*
 import kotlinx.android.synthetic.main.layout_bottom_action_buttons.view.*
+import java.lang.Exception
 
 /**
  * Created by Dipanshu Harbola on 11/6/20.
@@ -53,24 +54,52 @@ class MyJournalFragment : Fragment(), ARViewModel.Navigator {
                 "${data.totalDuration} sec"
             }
             data.totalDuration <= 3600L -> {
-                "${(data.totalDuration/ 60)%60} min"
+                "${(data.totalDuration / 60) % 60} min"
             }
-            else -> "${(data.totalDuration/60)/60} hrs"
+            else -> "${(data.totalDuration / 60) / 60} hrs"
         }
         binding.run {
             tvTotalTrackedTime.text = duration
-            tvTotalSafetyPercent.text = if(data.safetyRate > 100f) "100%" else "${data.safetyRate.toInt()}%"
+            tvTotalSafetyPercent.text =
+                if (data.safetyRate > 100f) "100%" else "${data.safetyRate.toInt()}%"
             tvTotalViolation.text = data.totalViolations.toString()
         }
     }
 
     override fun showGraphPlots(graphPlotData: MutableList<GraphPlotData>) {
-        val graphDataList = mutableListOf<LineGraph.GraphData>()
-        graphDataList.add(LineGraph.GraphData("6 hrs", graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat()))
-        graphDataList.add(LineGraph.GraphData("12 hrs", graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat()))
-        graphDataList.add(LineGraph.GraphData("18 hrs", graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()))
-        graphDataList.add(LineGraph.GraphData("24 hrs", graphPlotData[3].plotdata.sumBy { it.violationCount }.toFloat()))
-        gvSafety.setGraphData(graphDataList.toList())
+        try {
+            val graphDataList = mutableListOf<LineGraph.GraphData>()
+            graphDataList.add(
+                LineGraph.GraphData(
+                    if (graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
+                        40f
+                    } else graphPlotData[0].plotdata.sumBy { it.violationCount }.toFloat()
+                )
+            )
+            graphDataList.add(
+                LineGraph.GraphData(
+                    if (graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
+                        40f
+                    } else graphPlotData[1].plotdata.sumBy { it.violationCount }.toFloat()
+                )
+            )
+            graphDataList.add(
+                LineGraph.GraphData(
+                    if (graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
+                        40f
+                    } else graphPlotData[2].plotdata.sumBy { it.violationCount }.toFloat()
+                )
+            )
+            graphDataList.add(
+                LineGraph.GraphData(
+                    if (graphPlotData[3].plotdata.sumBy { it.violationCount }.toFloat() > 40f) {
+                        40f
+                    } else graphPlotData[3].plotdata.sumBy { it.violationCount }.toFloat()
+                )
+            )
+            gvSafety.setGraphData(graphDataList.toList())
+        } catch (e: Exception) {
+        }
     }
 
     override fun showLoading(isLoading: Boolean) {
@@ -97,12 +126,14 @@ class MyJournalFragment : Fragment(), ARViewModel.Navigator {
 
         try {
             (requireContext() as ARActivity).layoutActionButtons.fabStartSession.setOnClickListener {
-                val action = MyJournalFragmentDirections.actionMyJournalFragmentToSessionStartFragment()
+                val action =
+                    MyJournalFragmentDirections.actionMyJournalFragmentToSessionStartFragment()
                 findNavController().navigate(action)
             }
 
             (requireContext() as ARActivity).layoutActionButtons.fabSettings.setOnClickListener {
-                val action = MyJournalFragmentDirections.actionMyJournalFragmentToMyPreferencesFragment()
+                val action =
+                    MyJournalFragmentDirections.actionMyJournalFragmentToMyPreferencesFragment()
                 findNavController().navigate(action)
             }
 

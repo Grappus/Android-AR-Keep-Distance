@@ -45,7 +45,7 @@
             app:customFont="@{@string/font_family_jio_type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMyJournal"
-            tools:text="74 hrs" />
+            android:text="0 hrs" />
 
         <TextView
             android:id="@+id/tvTrackedTime"
@@ -66,7 +66,7 @@
             android:drawableStart="@drawable/ic_happy"
             android:drawablePadding="@dimen/_7DP"
             android:drawableTint="@color/appBlueColor"
-            tools:text="94%"
+            android:text="0%"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
@@ -94,7 +94,7 @@
             android:drawableStart="@drawable/ic_warning"
             android:drawablePadding="@dimen/_5DP"
             android:drawableTint="@color/appBlueColor"
-            tools:text="184"
+            android:text="0"
             android:textColor="@color/textColorBlack"
             android:textSize="@dimen/_16SP"
             android:textStyle="bold"
@@ -130,7 +130,7 @@
             android:id="@+id/gvSafety"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_220DP"
-            android:layout_marginStart="@dimen/_8DP"
+            android:layout_marginTop="-20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSafetyAndViolation" />

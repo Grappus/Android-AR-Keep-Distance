@@ -47,7 +47,7 @@
                     android:textStyle="bold"
                     app:customFont="@{@string/font_family_jio_type}"
                     android:gravity="center"
-                    android:background="@drawable/bg_name_img"
+                    tools:background="@drawable/bg_name_img"
                     tools:text="D" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
