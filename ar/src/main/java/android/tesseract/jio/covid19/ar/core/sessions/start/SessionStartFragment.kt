@@ -162,6 +162,10 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
     }
 
     override fun globalLeaderBoardList(result: MutableList<RankResult>, myRankResult: RankResult) {
+        lbAdapter.isLocalRank = false
+        lbAdapter.leaderBoardList.clear()
+        lbAdapter.setData(result)
+
         val startDay = TimeUtils.getTime(myRankResult.createdAt, TimeUtils.TIME_SERVER)
         val today = Calendar.getInstance().timeInMillis
         val timeGap = today - startDay
@@ -174,6 +178,7 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
             tvRank.text = Prefs.getPrefsInt(USER_GLOBAL_RANK).toString()
             tvUserName.text = name
             tvNameImg.text = name[0].toString()
+            tvNameImg.setBackgroundResource(R.drawable.bg_name_img)
             when {
                 days == 0 -> tvJourneyDays.visibility = View.GONE
                 days > 1 -> {
@@ -188,9 +193,6 @@ class SessionStartFragment : Fragment(), ARViewModel.Navigator {
             tvSafetyPercentage.text = if (myRankResult.lastNetScore > 100f) "100%"
             else "${(myRankResult.lastNetScore).toInt()}%"
         }
-        lbAdapter.isLocalRank = false
-        lbAdapter.leaderBoardList.clear()
-        lbAdapter.setData(result)
     }
 
     override fun navigateToEndSession(sessionInfo: SessionInfo) {
